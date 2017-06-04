@@ -10,7 +10,6 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>toeic-web-logic</module>
-        <module>toeic-web</module>
         <module>toeic-core-dto</module>
         <module>toeic-core-data</module>
         <module>toeic-core-dao</module>
@@ -20,6 +19,7 @@
         <module>toeic-core-utils</module>
         <module>toeic-core-persistence-data</module>
         <module>toeic-core-common</module>
+        <module>toeic-web</module>
     </modules>
 
     <properties></properties>
