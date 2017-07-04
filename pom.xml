@@ -28,6 +28,8 @@
         <mysql.connector.version>5.1.31</mysql.connector.version>
         <hibernate.version>4.3.6.Final</hibernate.version>
         <testng.version>6.8.7</testng.version>
+        <sitemesh.version>2.4.2</sitemesh.version>
+        <jstl.version>1.2</jstl.version>
     </properties>
 
     <dependencies>
@@ -59,5 +61,20 @@
             <version>${testng.version}</version>
             <scope>test</scope>
         </dependency>
+
+        <!-- template sitemesh decorator easier than tiles library -->
+        <dependency>
+            <groupId>opensymphony</groupId>
+            <artifactId>sitemesh</artifactId>
+            <version>${sitemesh.version}</version>
+        </dependency>
+
+        <!--JSTL-->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>${jstl.version}</version>
+        </dependency>
+
     </dependencies>
 </project>
