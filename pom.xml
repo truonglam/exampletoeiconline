@@ -18,7 +18,7 @@
         <module>toeic-core-dao-impl</module>
         <module>toeic-core-service</module>
         <module>toeic-core-utils</module>
-        <module>toeic-core-test</module>
+        <module>toeic-api-test</module>
         <module>toeic-core-dto</module>
         <module>toeic-core-serviceimpl</module>
     </modules>
