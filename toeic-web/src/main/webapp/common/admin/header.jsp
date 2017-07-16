@@ -14,29 +14,21 @@
                 </small>
             </a>
         </div>
-        <div class="navbar-buttons navbar-header pull-right" role="navigation">
+        <div class="navbar-buttons navbar-header pull-right collapse navbar-collapse" role="navigation">
             <ul class="nav ace-nav">
                 <li class="light-blue dropdown-modal">
                     <a data-toggle="dropdown" href="#" class="dropdown-toggle">
+                        Welcome, [Tên]
 
-									<span class="user-info">
-										<small>Xin chào,</small>
-										<%--${username}--%>
-									</span>
-                        <i class="ace-icon fa fa-caret-down"></i>
                     </a>
-
-                    <ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
-                        <li>
-                            <a href="#">
-                                <i class="ace-icon fa fa-power-off"></i>
-                                Thoát
-                            </a>
-                        </li>
-                    </ul>
+                <li class="light-blue dropdown-modal">
+                    <a href="#">
+                        <i class="ace-icon fa fa-power-off"></i>
+                        <fmt:message key="label.logout" bundle="${lang}"/>
+                    </a>
+                </li>
                 </li>
             </ul>
         </div>
-
     </div>
 </div>
