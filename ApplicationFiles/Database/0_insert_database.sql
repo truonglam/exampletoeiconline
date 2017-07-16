@@ -3,3 +3,5 @@ INSERT INTO user(name, password, fullname, createddate, roleid) VALUES('admin', 
 INSERT INTO user(name, password, fullname, createddate, roleid) VALUES('truongtunglam', '123456', 'truong tung lam',CURRENT_TIMESTAMP, 2);
 
 
+
+
