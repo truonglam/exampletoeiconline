@@ -2,7 +2,10 @@ package vn.myclass.controller.admin;
 
 import vn.myclass.command.ListenGuidelineCommand;
 import vn.myclass.core.dto.ListenGuidelineDTO;
+import vn.myclass.core.service.ListenGuidelineService;
+import vn.myclass.core.service.impl.ListenGuidelineServiceImpl;
 import vn.myclass.core.web.common.WebConstant;
+import vn.myclass.core.web.utils.RequestUtil;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -19,10 +22,11 @@ import java.util.List;
  */
 @WebServlet("/admin-guideline-listen-list.html")
 public class ListenGuidelineController extends HttpServlet {
+    private ListenGuidelineService guidelineService = new ListenGuidelineServiceImpl();
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         ListenGuidelineCommand command = new ListenGuidelineCommand();
-        List<ListenGuidelineDTO> listenGuidelineDTOS = new ArrayList<ListenGuidelineDTO>();
+        /*List<ListenGuidelineDTO> listenGuidelineDTOS = new ArrayList<ListenGuidelineDTO>();
         ListenGuidelineDTO dto1 = new ListenGuidelineDTO();
         dto1.setTitle("Bai hd nghe 1");
         dto1.setContent("Noi dung bai hd nghe 1");
@@ -34,7 +38,10 @@ public class ListenGuidelineController extends HttpServlet {
         command.setListResult(listenGuidelineDTOS);
         command.setMaxPageItems(1);
         command.setTotalItems(listenGuidelineDTOS.size());
-        request.setAttribute(WebConstant.LIST_ITEMS, command);
+        request.setAttribute(WebConstant.LIST_ITEMS, command);*/
+        command.setMaxPageItems(2);
+        RequestUtil.initSearchBean(request, command);
+        Object[] objects = guidelineService.findListenGuidelineByProperties(null, null, command.getSortExpression(), command.getSortDirection(),command.getFirstItem(),command.getMaxPageItems());
         RequestDispatcher rd = request.getRequestDispatcher("/views/admin/listenguideline/list.jsp");
         rd.forward(request, response);
     }
