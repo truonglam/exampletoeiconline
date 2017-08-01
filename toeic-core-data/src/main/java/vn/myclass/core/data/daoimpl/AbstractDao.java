@@ -140,9 +140,9 @@ public class AbstractDao<ID extends Serializable, T> implements GenericDao<ID, T
             if (property.size() > 0) {
                 for (int k = 0; k < params.length ; k++) {
                     if (k == 0) {
-                        sql1.append(" where ").append(params[k]).append("= :"+params[k]+"");
+                        sql2.append(" where ").append(params[k]).append("= :"+params[k]+"");
                     } else {
-                        sql1.append(" and ").append(params[k]).append("= :"+params[k]+"");
+                        sql2.append(" and ").append(params[k]).append("= :"+params[k]+"");
                     }
                 }
             }

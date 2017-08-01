@@ -2,7 +2,9 @@
 <suite name="TestAll">
     <test name="case1">
         <classes>
-            <class name="vn.myclass.api.test.ApiTest"/>
+            <class name="vn.myclass.api.test.LoginTest"/>
+            <class name="vn.myclass.api.test.ListenGuidelineTest"/>
+            <class name="vn.myclass.api.test.reviewHashMap"/>
         </classes>
     </test>
 </suite>
