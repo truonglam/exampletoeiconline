@@ -19,6 +19,7 @@ public class AbstractCommand<T> {
     private String[] checkList;
     private String messageResponse;
     private int page = 1;
+    private String urlType;
 
     public String getCrudaction() {
         return crudaction;
@@ -113,5 +114,13 @@ public class AbstractCommand<T> {
 
     public void setPage(int page) {
         this.page = page;
+    }
+
+    public String getUrlType() {
+        return urlType;
+    }
+
+    public void setUrlType(String urlType) {
+        this.urlType = urlType;
     }
 }
