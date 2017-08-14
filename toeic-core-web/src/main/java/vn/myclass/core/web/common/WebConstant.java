@@ -14,4 +14,5 @@ public class WebConstant {
     public static final String ROLE_USER = "USER";
     public static final String URL_LIST = "url_list";
     public static final String URL_EDIT = "url_edit";
+    public static final String LISTENGUIDELINE = "listenguideline";
 }

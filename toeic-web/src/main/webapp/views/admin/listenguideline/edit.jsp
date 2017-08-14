@@ -34,17 +34,27 @@
                     </c:if>
                     <form action="${formUrl}" method="post" enctype="multipart/form-data">
                         <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right"><fmt:message key="label.guideline.title" bundle="${lang}"/></label>
+                            <div class="col-sm-9">
+                                <input type="text" name="pojo.title"/>
+                            </div>
+                        </div>
+                        <br/>
+                        <br/>
+                        <div class="form-group">
                             <label class="col-sm-3 control-label no-padding-right"><fmt:message key="label.grammarguideline.upload.image" bundle="${lang}"/></label>
                             <div class="col-sm-9">
                                 <input type="file" name="file"/>
                             </div>
                         </div>
-                        <%--<div class="form-group">
-                            <label class="col-sm-3 control-label no-padding-right"><fmt:message key="label.grammarguideline.upload.image" bundle="${lang}"/></label>
+                        <br/>
+                        <br/>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right"><fmt:message key="label.guideline.content" bundle="${lang}"/></label>
                             <div class="col-sm-9">
-                                <input type="text"/>
+                                <input type="text" name="pojo.content"/>
                             </div>
-                        </div>--%>
+                        </div>
                         <div class="form-group">
                             <div class="col-sm-12">
                                 <input type="submit" class="btn btn-white btn-warning btn-bold" value="<fmt:message key="label.done" bundle="${lang}"/>"/>
