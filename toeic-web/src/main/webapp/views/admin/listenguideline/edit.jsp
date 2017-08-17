@@ -32,36 +32,7 @@
                                 ${messageResponse}
                         </div>
                     </c:if>
-                    <%--<form action="${formUrl}" method="post" enctype="multipart/form-data">
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label no-padding-right"><fmt:message key="label.guideline.title" bundle="${lang}"/></label>
-                            <div class="col-sm-9">
-                                <input type="text" name="pojo.title"/>
-                            </div>
-                        </div>
-                        <br/>
-                        <br/>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label no-padding-right"><fmt:message key="label.grammarguideline.upload.image" bundle="${lang}"/></label>
-                            <div class="col-sm-9">
-                                <input type="file" name="file"/>
-                            </div>
-                        </div>
-                        <br/>
-                        <br/>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label no-padding-right"><fmt:message key="label.guideline.content" bundle="${lang}"/></label>
-                            <div class="col-sm-9">
-                                <input type="text" name="pojo.content"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-12">
-                                <input type="submit" class="btn btn-white btn-warning btn-bold" value="<fmt:message key="label.done" bundle="${lang}"/>"/>
-                            </div>
-                        </div>
-                    </form>--%>
-                    <div class="form-group">
+                    <%--<div class="form-group">
                         <label class="col-sm-3 control-label no-padding-right"></label>
                         <div class="col-sm-9">
                             <h2>This is a heading</h2>
@@ -75,6 +46,27 @@
                         <label class="col-sm-3 control-label no-padding-right"></label>
                         <div class="col-sm-9">
                             <button id="btnHide">Click me to hide paragraphs</button>
+                        </div>
+                    </div>--%>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right"></label>
+                        <div class="col-sm-9">
+                            <input type="text" value="JSP-SERVLET myclass.vn" id="value"/>
+                        </div>
+                    </div>
+                    <br/>
+                    <br/>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right"></label>
+                        <div class="col-sm-9">
+                            <p id="showValue">Nothing in this</p>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right"></label>
+                        <div class="col-sm-9">
+                            <button onclick="usingValAction()">Show Infor</button>
                         </div>
                     </div>
                 </div>
@@ -90,6 +82,10 @@
         $("#btnHide").click(function () {
                 $(".textHide").hide();
         });
+    }
+    function usingValAction() {
+        var value = $('#value').val();
+        $('#showValue').html(value);
     }
 </script>
 </body>
