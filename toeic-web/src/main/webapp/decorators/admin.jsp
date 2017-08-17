@@ -13,6 +13,7 @@
     <script src="<c:url value='/template/admin/assets/js/ace-extra.min.js' />"></script>
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
     <%--sweetalert--%>
     <%--<script type='text/javascript' src='<c:url value="/template/js/jquery-2.2.3.min.js" />'></script>

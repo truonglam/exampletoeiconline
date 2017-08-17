@@ -61,10 +61,36 @@
                             </div>
                         </div>
                     </form>--%>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right"></label>
+                        <div class="col-sm-9">
+                            <h2>This is a heading</h2>
+                            <p>This is a paragraph.</p>
+                            <p class="textHide">This is another paragraph.</p>
+                        </div>
+                    </div>
+                    <br/>
+                    <br/>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right"></label>
+                        <div class="col-sm-9">
+                            <button id="btnHide">Click me to hide paragraphs</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function () {
+        hideAllWhenClickButton();
+    });
+    function hideAllWhenClickButton() {
+        $("#btnHide").click(function () {
+                $(".textHide").hide();
+        });
+    }
+</script>
 </body>
 </html>
