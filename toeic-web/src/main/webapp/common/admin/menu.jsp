@@ -10,6 +10,9 @@
 <c:url var="findtMethodUrl" value="/admin-find-method.html">
     <c:param name="urlType" value="url_find_method"/>
 </c:url>
+<c:url var="eachFunctionUrl" value="/admin-each-function.html">
+    <c:param name="urlType" value="url_each_function"/>
+</c:url>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <div id="sidebar" class="sidebar                  responsive                    ace-save-state">
     <script type="text/javascript">
@@ -86,6 +89,15 @@
                     <a href="${findtMethodUrl}">
                         <i class="menu-icon fa fa-caret-right"></i>
                         <fmt:message key="label.jquery.find.method" bundle="${lang}"/>
+                    </a>
+                    <b class="arrow"></b>
+                </li>
+            </ul>
+            <ul class="submenu">
+                <li class="">
+                    <a href="${eachFunctionUrl}">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        <fmt:message key="label.jquery.each.function" bundle="${lang}"/>
                     </a>
                     <b class="arrow"></b>
                 </li>
