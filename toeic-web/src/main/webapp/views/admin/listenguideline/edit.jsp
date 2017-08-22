@@ -90,7 +90,7 @@
                         </div>
                     </div>--%>
                     <%--jQuery closest() Method--%>
-                    <div style="width:500px;">div (great-grandparent)
+                    <%--<div style="width:500px;">div (great-grandparent)
                         <ul>ul (second ancestor - second grandparent)
                             <ul>ul (first ancestor - first grandparent)
                                 <li>li (direct parent)
@@ -98,7 +98,11 @@
                                 </li>
                             </ul>
                         </ul>
-                    </div>
+                    </div>--%>
+                    <%--Jquery change() method--%>
+                    <%--<input type="checkbox" id="sex" onchange="changeValueCheckbox()"/>--%>
+                    <input type="checkbox" id="sex"/>
+                    <p id="textSex"></p>
                 </div>
             </div>
         </div>
@@ -107,6 +111,7 @@
 <script>
     $(document).ready(function () {
         hideAllWhenClickButton();
+        changeValueCheckbox();
     });
     function hideAllWhenClickButton() {
         $("#btnHide").click(function () {
@@ -119,6 +124,20 @@
     }
     function demoCssMethod() {
         $('#demoCssMethod1').css("color", "blue");
+    }
+    function changeValueCheckbox() {
+        /*if ($('#sex').prop('checked') == true) {
+            $('#textSex').html('<h1>Male</h1>');
+        } else {
+            $('#textSex').html('<h1>Female</h1>');
+        }*/
+        $('#sex').on('change', function () {
+             if ($('#sex').prop('checked') == true) {
+                $('#textSex').html('<h1>Male</h1>');
+             } else {
+                $('#textSex').html('<h1>Female</h1>');
+             }
+        });
     }
 </script>
 </body>
