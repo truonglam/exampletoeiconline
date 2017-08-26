@@ -1,5 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="/common/taglib.jsp"%>
+<c:url var="editUserUrl" value="/ajax-user-edit.html">
+    <c:param name="urlType" value="url_edit"/>
+</c:url>
 <html>
 <head>
     <title><fmt:message key="label.user.management" bundle="${lang}"/></title>
@@ -36,7 +39,7 @@
                             <div class="table-btn-controls">
                                 <div class="pull-right tableTools-container">
                                     <div class="dt-buttons btn-overlap btn-group">
-                                        <a flag="info" class="dt-button buttons-colvis btn btn-white btn-primary btn-bold">
+                                        <a flag="info" class="dt-button buttons-colvis btn btn-white btn-primary btn-bold" id="btnAddUser">
                                                 <span>
                                                     <i class="fa fa-plus-circle bigger-110 purple"></i>
                                                 </span>
@@ -75,5 +78,17 @@
         </div>
     </div>
 </div>
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog"></div>
+<script>
+    $(document).ready(function () {
+        $('#btnAddUser').click(function () {
+            var editUrl = '${editUserUrl}';
+            $('#myModal').load(editUrl,'', function () {
+                $('#myModal').modal('toggle');
+            });
+        });
+    });
+</script>
 </body>
 </html>

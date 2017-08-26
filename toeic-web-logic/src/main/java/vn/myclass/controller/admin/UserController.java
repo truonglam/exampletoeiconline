@@ -21,7 +21,7 @@ import java.util.Map;
 /**
  * Created by Admin on 23/8/2017.
  */
-@WebServlet(urlPatterns = {"/admin-user-list.html"})
+@WebServlet(urlPatterns = {"/admin-user-list.html", "/ajax-user-edit.html"})
 public class UserController extends HttpServlet {
     UserService userService = new UserServiceImpl();
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -35,6 +35,9 @@ public class UserController extends HttpServlet {
             command.setTotalItems(Integer.parseInt(objects[0].toString()));
             request.setAttribute(WebConstant.LIST_ITEMS, command);
             RequestDispatcher rd = request.getRequestDispatcher("/views/admin/user/list.jsp");
+            rd.forward(request, response);
+        } else if (command.getUrlType().equals(WebConstant.URL_EDIT)) {
+            RequestDispatcher rd = request.getRequestDispatcher("/views/admin/user/edit.jsp");
             rd.forward(request, response);
         }
     }
