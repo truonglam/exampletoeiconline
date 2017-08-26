@@ -18,10 +18,43 @@
             </c:if>
         </div>
         <div class="modal-body">
-
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="md-form">
+                        <input type="text" placeholder="<fmt:message key='label.user.name' bundle='${lang}'/>" class="form-control" value="${item.pojo.name}" id="username"/>
+                    </div>
+                </div>
+                <br/>
+                <br/>
+                <div class="col-md-12">
+                    <div class="md-form">
+                        <input type="text" placeholder="<fmt:message key='label.user.fullname' bundle='${lang}'/>" class="form-control" value="${item.pojo.fullName}"/>
+                    </div>
+                </div>
+                <br/>
+                <br/>
+                <div class="col-md-12">
+                    <div class="md-form">
+                        <input type="password" placeholder="<fmt:message key='label.user.password' bundle='${lang}'/>" class="form-control" value="${item.pojo.password}" id="password"/>
+                    </div>
+                </div>
+                <br/>
+                <br/>
+                <div class="col-md-12">
+                    <div class="md-form">
+                        <select id="role">
+                            <option><fmt:message key="label.option.role" bundle="${lang}"/></option>
+                            <c:forEach items="${item.roles}" var="itemRole">
+                                <option value="${itemRole.roleId}">${itemRole.name}</option>
+                            </c:forEach>
+                        </select>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal"><fmt:message key="label.close" bundle="${lang}"/></button>
+            <button type="button" class="btn btn-primary"><fmt:message key="label.save" bundle="${lang}"/></button>
         </div>
     </div>
 </div>
