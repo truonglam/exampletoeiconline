@@ -42,12 +42,26 @@
                 <br/>
                 <div class="col-md-12">
                     <div class="md-form">
-                        <select id="role">
-                            <option><fmt:message key="label.option.role" bundle="${lang}"/></option>
-                            <c:forEach items="${item.roles}" var="itemRole">
-                                <option value="${itemRole.roleId}">${itemRole.name}</option>
-                            </c:forEach>
-                        </select>
+                        <c:choose>
+                            <c:when test="${not empty item.pojo.userId}">
+                                <select>
+                                    <option value="${item.pojo.roleDTO.roleId}">${item.pojo.roleDTO.name}</option>
+                                    <c:forEach items="${item.roles}" var="itemRole">
+                                        <c:if test="${itemRole.roleId ne item.pojo.roleDTO.roleId}">
+                                            <option value="${itemRole.roleId}">${itemRole.name}</option>
+                                        </c:if>
+                                    </c:forEach>
+                                </select>
+                            </c:when>
+                            <c:otherwise>
+                                <select id="role">
+                                    <option><fmt:message key="label.option.role" bundle="${lang}"/></option>
+                                    <c:forEach items="${item.roles}" var="itemRole">
+                                        <option value="${itemRole.roleId}">${itemRole.name}</option>
+                                    </c:forEach>
+                                </select>
+                            </c:otherwise>
+                        </c:choose>
                     </div>
                 </div>
             </div>
