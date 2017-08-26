@@ -10,10 +10,15 @@
     <div class="modal-content">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Modal Methods</h4>
+            <c:if test="${not empty item.pojo.userId}">
+                <h4 class="modal-title"><fmt:message key="label.user.edit" bundle="${lang}"/></h4>
+            </c:if>
+            <c:if test="${empty item.pojo.userId}">
+                <h4 class="modal-title"><fmt:message key="label.user.add" bundle="${lang}"/></h4>
+            </c:if>
         </div>
         <div class="modal-body">
-            <p>The toggle method toggles the modal manually.</p>
+
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
