@@ -2,6 +2,7 @@ package vn.myclass.controller.admin;
 
 import org.apache.log4j.Logger;
 import vn.myclass.command.UserCommand;
+import vn.myclass.core.dto.RoleDTO;
 import vn.myclass.core.dto.UserDTO;
 import vn.myclass.core.service.RoleService;
 import vn.myclass.core.service.UserService;
@@ -75,6 +76,9 @@ public class UserController extends HttpServlet {
             UserDTO pojo = command.getPojo();
             if (command.getUrlType().equals(WebConstant.URL_EDIT)) {
                 if (command.getCrudaction() != null && command.getCrudaction().equals(WebConstant.INSERT_UPDATE)) {
+                    RoleDTO roleDTO = new RoleDTO();
+                    roleDTO.setRoleId(command.getRoleId());
+                    pojo.setRoleDTO(roleDTO);
                     if (pojo != null && pojo.getUserId() != null) {
                         userService.updateUser(pojo);
                         request.setAttribute(WebConstant.MESSAGE_RESPONSE, WebConstant.REDIRECT_UPDATE);

@@ -48,7 +48,7 @@
                                 <div class="md-form">
                                     <c:choose>
                                         <c:when test="${not empty item.pojo.userId}">
-                                            <select id="role" name="pojo.roleDTO.roleId">
+                                            <select id="role" name="roleId">
                                                 <option value="${item.pojo.roleDTO.roleId}">${item.pojo.roleDTO.name}</option>
                                                 <c:forEach items="${item.roles}" var="itemRole">
                                                     <c:if test="${itemRole.roleId ne item.pojo.roleDTO.roleId}">
@@ -58,7 +58,7 @@
                                             </select>
                                         </c:when>
                                         <c:otherwise>
-                                            <select id="role" name="pojo.roleDTO.roleId">
+                                            <select id="role" name="roleId">
                                                 <option value="-1"><fmt:message key="label.option.role" bundle="${lang}"/></option>
                                                 <c:forEach items="${item.roles}" var="itemRole">
                                                     <option value="${itemRole.roleId}">${itemRole.name}</option>
