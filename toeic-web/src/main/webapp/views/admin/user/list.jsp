@@ -122,8 +122,16 @@
                 data: $(this).serialize(),
                 dataType: 'html',
                 success: function(res){
-                    if (res.trim() == "insert_success") {
-                        $('#crudaction').val('insert_success');
+                    if (res.trim() == "redirect_insert") {
+                        $('#crudaction').val('redirect_insert');
+                        $('#urlType').val('url_list');
+                        $('#formUrl').submit();
+                    } else if (res.trim() == "redirect_update") {
+                        $('#crudaction').val('redirect_update');
+                        $('#urlType').val('url_list');
+                        $('#formUrl').submit();
+                    } else if (res.trim() == "redirect_error") {
+                        $('#crudaction').val('redirect_error');
                         $('#urlType').val('url_list');
                         $('#formUrl').submit();
                     }
