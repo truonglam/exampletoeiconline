@@ -3,6 +3,9 @@
 <c:url var="editUserUrl" value="/ajax-admin-user-edit.html">
     <c:param name="urlType" value="url_edit"/>
 </c:url>
+<c:url var="listUserUrl" value="/admin-user-list.html">
+    <c:param name="urlType" value="url_list"/>
+</c:url>
 <html>
 <head>
     <title><fmt:message key="label.user.management" bundle="${lang}"/></title>
@@ -34,6 +37,7 @@
                                 ${messageResponse}
                         </div>
                     </c:if>
+                    <form action="${listUserUrl}" method="get" id="formUrl">
                     <div class="row">
                         <div class="col-xs-12">
                             <div class="table-btn-controls">
@@ -81,6 +85,9 @@
                             </display:table>
                         </fmt:bundle>
                     </div>
+                    <input type="hidden" name="crudaction" id="crudaction"/>
+                    <input type="hidden" name="urlType" id="urlType"/>
+                    </form>
                 </div>
             </div>
         </div>
@@ -99,8 +106,35 @@
         }
         $('#myModal').load(editUrl,'', function () {
             $('#myModal').modal('toggle');
+            addOrEditUser();
         });
     }
+    function addOrEditUser() {
+        $('#btnSave').click(function () {
+            $('#editUserForm').submit();
+        });
+        $('#editUserForm').submit(function (e) {
+            e.preventDefault();
+            $('#crudactionEdit').val('insert_update');
+            $.ajax({
+                type: $(this).attr('method'),
+                url: $(this).attr('action'),
+                data: $(this).serialize(),
+                dataType: 'html',
+                success: function(res){
+                    if (res.trim() == "insert_success") {
+                        $('#crudaction').val('insert_success');
+                        $('#urlType').val('url_list');
+                        $('#formUrl').submit();
+                    }
+                },
+                error: function (res) {
+                    console.log(res);
+                }
+            });
+        });
+    }
+
 </script>
 </body>
 </html>
