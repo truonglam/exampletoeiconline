@@ -5,6 +5,7 @@ import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -18,12 +19,13 @@ import java.util.Set;
  * Created by Admin on 13/8/2017.
  */
 public class UploadUtil {
+    private final Logger log = Logger.getLogger(this.getClass());
     private final int maxMemorySize = 1024 * 1024 * 3; //3MBl
     private final int maxRequestSize = 1024 * 1024 * 50; //50 MB
 
-    public Object[] writeOrUpdateFile(HttpServletRequest request, Set<String> titleValue, String path) throws FileUploadException, Exception {
+    public Object[] writeOrUpdateFile(HttpServletRequest request, Set<String> titleValue, String path) {
         ServletContext context = request.getServletContext();
-        String address = context.getRealPath("image");
+        String address = context.getRealPath("fileupload");
         boolean check = true;
         String fileLocation = null;
         String name = null;
@@ -46,35 +48,41 @@ public class UploadUtil {
 
         // Set overall request size constraint
         upload.setSizeMax(maxRequestSize);
-
-        List<FileItem> items = upload.parseRequest(request);
-        for(FileItem item: items) {
-            if (!item.isFormField()) {
-                String fileName = item.getName();
-                if (StringUtils.isNotBlank(fileName)) {
-                    File uploadedFile = new File(address + File.separator + path + File.separator+ fileName);
-                    fileLocation = address + File.separator + path + File.separator+ fileName;
-                    name = fileName;
-                    boolean isExist = uploadedFile.exists();
-                    if (isExist) {
-                        if (uploadedFile.delete()) {
-                            item.write(uploadedFile);
-                        } else {
+        try {
+            List<FileItem> items = upload.parseRequest(request);
+            for(FileItem item: items) {
+                if (!item.isFormField()) {
+                    String fileName = item.getName();
+                    if (StringUtils.isNotBlank(fileName)) {
+                        File uploadedFile = new File(address + File.separator + path + File.separator+ fileName);
+                        fileLocation = address + File.separator + path + File.separator+ fileName;
+                        name = fileName;
+                        boolean isExist = uploadedFile.exists();
+                        try {
+                            if (isExist) {
+                                uploadedFile.delete();
+                                item.write(uploadedFile);
+                            } else {
+                                item.write(uploadedFile);
+                            }
+                        } catch (Exception e) {
                             check = false;
+                            log.error(e.getMessage(), e);
                         }
-                    } else {
-                        item.write(uploadedFile);
                     }
-                }
-            } else {
-                if (titleValue != null) {
-                    String nameField = item.getFieldName();
-                    String valueField = item.getString();
-                    if (titleValue.contains(nameField)) {
-                        mapReturnValue.put(nameField, valueField);
+                } else {
+                    if (titleValue != null) {
+                        String nameField = item.getFieldName();
+                        String valueField = item.getString();
+                        if (titleValue.contains(nameField)) {
+                            mapReturnValue.put(nameField, valueField);
+                        }
                     }
                 }
             }
+        } catch (FileUploadException e) {
+            check = false;
+            log.error(e.getMessage(), e);
         }
         return new Object[]{check, fileLocation, name, mapReturnValue};
     }

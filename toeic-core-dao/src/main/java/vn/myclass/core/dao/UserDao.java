@@ -8,5 +8,5 @@ import vn.myclass.core.persistence.entity.UserEntity;
  * Created by Admin on 9/7/2017.
  */
 public interface UserDao extends GenericDao<Integer, UserEntity> {
-    UserEntity findUserByUsernameAndPassword(String name, String password);
+    Object[] checkLogin(String name, String password);
 }
