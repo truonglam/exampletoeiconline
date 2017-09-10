@@ -10,6 +10,7 @@ import vn.myclass.core.common.util.ExcelPoiUtil;
 import vn.myclass.core.common.util.UploadUtil;
 import vn.myclass.core.dto.RoleDTO;
 import vn.myclass.core.dto.UserDTO;
+import vn.myclass.core.dto.UserImportDTO;
 import vn.myclass.core.service.RoleService;
 import vn.myclass.core.service.UserService;
 import vn.myclass.core.service.impl.RoleServiceImpl;
@@ -34,7 +35,7 @@ import java.util.*;
  * Created by Admin on 23/8/2017.
  */
 @WebServlet(urlPatterns = {"/admin-user-list.html", "/ajax-admin-user-edit.html", "/admin-user-import-list.html",
-                            "/admin-user-import.html"})
+                            "/admin-user-import-validate.html"})
 public class UserController extends HttpServlet {
     private final Logger log = Logger.getLogger(this.getClass());
     private final String SHOW_IMPORT_USER = "show_import_user";
@@ -113,12 +114,8 @@ public class UserController extends HttpServlet {
                 if (urlType != null && urlType.equals(READ_EXCEL)) {
                     String fileLocation = objects[1].toString();
                     String fileName = objects[2].toString();
-                    Workbook workbook = ExcelPoiUtil.getWorkBook(fileName, fileLocation);
-                    Sheet sheet = workbook.getSheetAt(0);
-                    for (int i=1; i <= sheet.getLastRowNum(); i++) {
-                        Row row = sheet.getRow(i);
-                        System.out.println(row.getCell(0) +"_"+ row.getCell(1));
-                    }
+                    List<UserImportDTO> excelValues = returnValueFromExcel(fileName, fileLocation);
+
                 }
             }
         } catch (Exception e) {
@@ -127,5 +124,26 @@ public class UserController extends HttpServlet {
         }
         RequestDispatcher rd = request.getRequestDispatcher("/views/admin/user/edit.jsp");
         rd.forward(request, response);
+    }
+
+    private List<UserImportDTO> returnValueFromExcel(String fileName, String fileLocation) throws IOException{
+        Workbook workbook = ExcelPoiUtil.getWorkBook(fileName, fileLocation);
+        Sheet sheet = workbook.getSheetAt(0);
+        List<UserImportDTO> excelValues = new ArrayList<UserImportDTO>();
+                    for (int i=1; i <= sheet.getLastRowNum(); i++) {
+                        Row row = sheet.getRow(i);
+                        UserImportDTO userImportDTO = readDataFromExcel(row);
+                        excelValues.add(userImportDTO);
+                    }
+        return excelValues;
+    }
+
+    private UserImportDTO readDataFromExcel(Row row) {
+        UserImportDTO userImportDTO = new UserImportDTO();
+        userImportDTO.setUserName(ExcelPoiUtil.getCellValue(row.getCell(0)));
+        userImportDTO.setPassword(ExcelPoiUtil.getCellValue(row.getCell(1)));
+        userImportDTO.setFullName(ExcelPoiUtil.getCellValue(row.getCell(2)));
+        userImportDTO.setRoleName(ExcelPoiUtil.getCellValue(row.getCell(3)));
+        return userImportDTO;
     }
 }
