@@ -180,4 +180,22 @@ public class AbstractDao<ID extends Serializable, T> implements GenericDao<ID, T
         }
         return count;
     }
+
+    public T findEqualUnique(String property, Object value) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        T result = null;
+        try {
+            String sql = " FROM "+getPersistenceClassName()+" model WHERE model."+property+"= :value";
+            Query query = session.createQuery(sql.toString());
+            query.setParameter("value", value);
+            result = (T) query.uniqueResult();
+        } catch (HibernateException e) {
+            transaction.rollback();
+            throw e;
+        } finally {
+            session.close();
+        }
+        return result;
+    }
 }

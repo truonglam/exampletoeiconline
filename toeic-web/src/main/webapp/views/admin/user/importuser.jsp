@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="/common/taglib.jsp"%>
 <c:url var="validateExcel" value="/admin-user-import-validate.html"/>
+<c:url var="importExcel" value="/admin-user-import.html"/>
 <html>
 <head>
     <title><fmt:message key="label.user.import.excel" bundle="${lang}"/></title>
@@ -44,7 +45,31 @@
                                 </div>
                             </div>
                         </div>
-                        <input type="hidden" name="urlType" value="read_excel"/>
+                        <c:if test="${not empty items.userImportDTOS}">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="table-responsive">
+                                        <fmt:bundle basename="ApplicationResources">
+                                            <display:table name="items.userImportDTOS" cellspacing="0" cellpadding="0" requestURI="${requestUrl}"
+                                                           partialList="true" sort="external" size="${items.totalItems}" id="tableList" excludedParams="checkList"
+                                                           pagesize="${items.maxPageItems}" export="false"
+                                                           class="table table-fcv-ace table-striped table-bordered table-hover dataTable no-footer"
+                                                           style="margin: 3em 0 1.5em;">
+                                                <display:column headerClass="text-left" property="userName" titleKey="label.username"/>
+                                                <display:column headerClass="text-left" property="password" titleKey="label.password"/>
+                                                <display:column headerClass="text-left" property="fullName" titleKey="label.fullname"/>
+                                                <display:column headerClass="text-left" property="roleName" titleKey="label.role.name"/>
+                                                <display:column headerClass="text-left" property="error" titleKey="label.import.error"/>
+                                            </display:table>
+                                        </fmt:bundle>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="button" class="dt-button buttons-html5 btn btn-white btn-primary btn-bold" id="importData">
+                                <fmt:message key="label.user.import" bundle="${lang}"/>
+                            </button>
+                        </c:if>
+                        <input type="hidden" name="urlType" id="urlType"/>
                     </form>
                 </div>
             </div>
@@ -54,6 +79,13 @@
 <script>
     $(document).ready(function () {
         $('#validateData').click(function () {
+            $('#urlType').val('read_excel');
+            $('#formImport').submit();
+        });
+        $('#importData').click(function () {
+            $('#urlType').val('import_data');
+            $('#formImport').prop('enctype', false);
+            $('#formImport').attr('action', '${importExcel}');
             $('#formImport').submit();
         });
     });

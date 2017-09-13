@@ -12,21 +12,21 @@ public class SingletonServiceUtil {
     private static RoleServiceImpl roleServiceImpl = null;
     private static ListenGuidelineServiceImpl listenGuidelineServiceImpl = null;
 
-    public static UserServiceImpl getUserDaoInstance() {
+    public static UserServiceImpl getUserServiceInstance() {
         if (userServiceImpl == null) {
             userServiceImpl = new UserServiceImpl();
         }
         return userServiceImpl;
     }
 
-    public static RoleServiceImpl getRoleDaoInstance() {
+    public static RoleServiceImpl getRoleServiceInstance() {
         if (roleServiceImpl == null) {
             roleServiceImpl = new RoleServiceImpl();
         }
         return roleServiceImpl;
     }
 
-    public static ListenGuidelineServiceImpl getListenGuidelineDaoInstance() {
+    public static ListenGuidelineServiceImpl getListenGuidelineServiceInstance() {
         if (listenGuidelineServiceImpl == null) {
             listenGuidelineServiceImpl = new ListenGuidelineServiceImpl();
         }

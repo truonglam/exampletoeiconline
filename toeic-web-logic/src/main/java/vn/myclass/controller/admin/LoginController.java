@@ -36,7 +36,7 @@ public class LoginController extends HttpServlet {
         UserCommand command = FormUtil.populate(UserCommand.class, request);
         UserDTO pojo = command.getPojo();
         if (pojo != null) {
-            CheckLogin login = SingletonServiceUtil.getUserDaoInstance().checkLogin(pojo.getName(), pojo.getPassword());
+            CheckLogin login = SingletonServiceUtil.getUserServiceInstance().checkLogin(pojo.getName(), pojo.getPassword());
             if (login.isUserExist()) {
                 if (login.getRoleName().equals(WebConstant.ROLE_ADMIN)) {
                     response.sendRedirect("/admin-home.html");
