@@ -26,3 +26,5 @@
 /toeic-web-logic/target
 /toeic-api-test/target
 /toeic-api-test/toeic-api-test.iml
+/.idea
+/.idea/encodings.xml
