@@ -4,6 +4,7 @@
 <c:url value="/admin-guideline-listen-edit.html" var="listenGuidelineEditUrl">
     <c:param name="urlType" value="url_edit"/>
 </c:url>
+<c:url var="formUrl" value="/admin-guideline-listen-list.html"/>
 <html>
 <head>
     <title><fmt:message key="label.guideline.listen.list" bundle="${lang}"/></title>
@@ -36,90 +37,101 @@
                                 ${messageResponse}
                         </div>
                     </c:if>
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <div class="widget-box table-filter">
-                                <div class="widget-header">
-                                    <h4 class="widget-title"><fmt:message key="label.search" bundle="${lang}"/></h4>
-                                    <div class="widget-toolbar">
-                                        <a href="#" data-action="collapse">
-                                            <i class="ace-icon fa fa-chevron-up"></i>
-                                        </a>
+                    <form action="${formUrl}" method="get" id="formUrl">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="widget-box table-filter">
+                                    <div class="widget-header">
+                                        <h4 class="widget-title"><fmt:message key="label.search" bundle="${lang}"/></h4>
+                                        <div class="widget-toolbar">
+                                            <a href="#" data-action="collapse">
+                                                <i class="ace-icon fa fa-chevron-up"></i>
+                                            </a>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="widget-body">
-                                    <div class="widget-main">
-                                        <div class="form-horizontal">
-                                            <div class="form-group">
-                                                <label class="col-sm-2 control-label"><fmt:message key="label.guideline.listen.title" bundle="${lang}"/></label>
-                                                <div class="col-sm-8">
-                                                    <div class="fg-line">
-                                                        <input type="text" value="${items.pojo.title}" class="form-control input-sm" name="pojo.title"/>
+                                    <div class="widget-body">
+                                        <div class="widget-main">
+                                            <div class="form-horizontal">
+                                                <div class="form-group">
+                                                    <label class="col-sm-2 control-label"><fmt:message key="label.guideline.listen.title" bundle="${lang}"/></label>
+                                                    <div class="col-sm-8">
+                                                        <div class="fg-line">
+                                                            <input type="text" value="${items.pojo.title}" class="form-control input-sm" name="pojo.title"/>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="col-sm-2 control-label"></label>
-                                                <div class="col-sm-8">
-                                                    <button id="btnSearch" type="button" class="btn btn-sm btn-success">
-                                                        <fmt:message key="label.search" bundle="${lang}"/>
-                                                        <i class="ace-icon fa fa-arrow-right icon-on-right bigger-110"></i>
-                                                    </button>
+                                                <div class="form-group">
+                                                    <label class="col-sm-2 control-label"></label>
+                                                    <div class="col-sm-8">
+                                                        <button id="btnSearch" type="button" class="btn btn-sm btn-success">
+                                                            <fmt:message key="label.search" bundle="${lang}"/>
+                                                            <i class="ace-icon fa fa-arrow-right icon-on-right bigger-110"></i>
+                                                        </button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="table-btn-controls">
-                                <div class="pull-right tableTools-container">
-                                    <div class="dt-buttons btn-overlap btn-group">
-                                        <a flag="info" class="dt-button buttons-colvis btn btn-white btn-primary btn-bold" onclick="update(this)">
-                                                <span>
-                                                    <i class="fa fa-plus-circle bigger-110 purple"></i>
-                                                </span>
-                                        </a>
-                                        <button type="button" class="dt-button buttons-html5 btn btn-white btn-primary btn-bold" id="deleteAll" disabled
-                                                data-toggle="tooltip" title="<fmt:message key='label.delete.all' bundle='${lang}'/>">
-                                                 <span>
-                                                    <i class="fa fa-trash-o bigger-110 pink"></i>
-                                                </span>
-                                        </button>
+                                <div class="table-btn-controls">
+                                    <div class="pull-right tableTools-container">
+                                        <div class="dt-buttons btn-overlap btn-group">
+                                            <a flag="info" class="dt-button buttons-colvis btn btn-white btn-primary btn-bold" onclick="update(this)">
+                                                    <span>
+                                                        <i class="fa fa-plus-circle bigger-110 purple"></i>
+                                                    </span>
+                                            </a>
+                                            <button type="button" class="dt-button buttons-html5 btn btn-white btn-primary btn-bold" id="deleteAll" disabled
+                                                    data-toggle="tooltip" title="<fmt:message key='label.delete.all' bundle='${lang}'/>">
+                                                     <span>
+                                                        <i class="fa fa-trash-o bigger-110 pink"></i>
+                                                    </span>
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="table-responsive">
-                        <fmt:bundle basename="ApplicationResources">
-                            <display:table id="tableList" name="items.listResult" partialList="true" size="${items.totalItems}"
-                                           pagesize="${items.maxPageItems}" sort="external" requestURI="${requestUrl}"
-                                           class="table table-fcv-ace table-striped table-bordered table-hover dataTable no-footer"
-                                           style="margin: 3em 0 1.5em;">
-                                <display:column title="<fieldset class='form-group'>
-												        <input type='checkbox' id='checkAll' class='check-box-element'>
-												        </fieldset>" class="center select-cell" headerClass="center select-cell">
-                                    <fieldset>
-                                        <input type="checkbox" name="checkList" id="checkbox_${tableList.listenGuidelineId}" value="${tableList.listenGuidelineId}" class="check-box-element"/>
-                                    </fieldset>
-                                </display:column>
-                                <display:column property="title" titleKey="label.guideline.listen.title" sortable="true" sortName="title"/>
-                                <display:column property="content" titleKey="label.guideline.listen.content" sortable="true" sortName="content"/>
-                                <display:column headerClass="col-actions" titleKey="label.action">
-                                    <%--<c:url var="editUrl" value="/ajax-admin-user-edit.html">
-                                        <c:param name="urlType" value="url_edit"/>
-                                        <c:param name="pojo.userId" value="${tableList.userId}"/>
-                                    </c:url>--%>
-                                    <a class="btn btn-sm btn-primary btn-edit" sc-url="${editUrl}" onclick="update(this)" data-toggle="tooltip" title="<fmt:message key='label.listenguideline.update' bundle='${lang}'/>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                                    <a class="btn btn-sm btn-danger btn-cancel" data-toggle="tooltip" title="<fmt:message key='label.listenguideline.delete' bundle='${lang}'/>"><i class="fa fa-trash" aria-hidden="true"></i></a>
-                                </display:column>
-                            </display:table>
-                        </fmt:bundle>
-                    </div>
+                        <div class="table-responsive">
+                            <fmt:bundle basename="ApplicationResources">
+                                <display:table id="tableList" name="items.listResult" partialList="true" size="${items.totalItems}"
+                                               pagesize="${items.maxPageItems}" sort="external" requestURI="${requestUrl}"
+                                               class="table table-fcv-ace table-striped table-bordered table-hover dataTable no-footer"
+                                               style="margin: 3em 0 1.5em;">
+                                    <display:column title="<fieldset class='form-group'>
+                                                            <input type='checkbox' id='checkAll' class='check-box-element'>
+                                                            </fieldset>" class="center select-cell" headerClass="center select-cell">
+                                        <fieldset>
+                                            <input type="checkbox" name="checkList" id="checkbox_${tableList.listenGuidelineId}" value="${tableList.listenGuidelineId}" class="check-box-element"/>
+                                        </fieldset>
+                                    </display:column>
+                                    <display:column property="title" titleKey="label.guideline.listen.title" sortable="true" sortName="title"/>
+                                    <display:column property="content" titleKey="label.guideline.listen.content" sortable="true" sortName="content"/>
+                                    <display:column headerClass="col-actions" titleKey="label.action">
+                                        <%--<c:url var="editUrl" value="/ajax-admin-user-edit.html">
+                                            <c:param name="urlType" value="url_edit"/>
+                                            <c:param name="pojo.userId" value="${tableList.userId}"/>
+                                        </c:url>--%>
+                                        <a class="btn btn-sm btn-primary btn-edit" sc-url="${editUrl}" onclick="update(this)" data-toggle="tooltip" title="<fmt:message key='label.listenguideline.update' bundle='${lang}'/>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                        <a class="btn btn-sm btn-danger btn-cancel" data-toggle="tooltip" title="<fmt:message key='label.listenguideline.delete' bundle='${lang}'/>"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                    </display:column>
+                                </display:table>
+                            </fmt:bundle>
+                        </div>
+                        <input type="hidden" name="urlType" id="urlType"/>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function () {
+         $('#btnSearch').click(function () {
+             $('#urlType').val('url_list');
+             $('#formUrl').submit();
+         });
+    });
+</script>
 </body>
 </html>
