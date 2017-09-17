@@ -1,5 +1,6 @@
 package vn.myclass.core.data.daoimpl;
 
+import org.apache.log4j.Logger;
 import org.hibernate.*;
 import vn.myclass.core.common.constant.CoreConstant;
 import vn.myclass.core.common.util.HibernateUtil;
@@ -15,6 +16,7 @@ import java.util.Map;
  * Created by Admin on 10/6/2017.
  */
 public class AbstractDao<ID extends Serializable, T> implements GenericDao<ID, T> {
+    private final Logger log = Logger.getLogger(this.getClass());
     private Class<T> persistenceClass;
 
     public AbstractDao() {
@@ -37,6 +39,7 @@ public class AbstractDao<ID extends Serializable, T> implements GenericDao<ID, T
             transaction.commit();
         } catch (HibernateException e) {
             transaction.rollback();
+            log.error(e.getMessage(), e);
             throw e;
         } finally {
             session.close();
@@ -54,6 +57,7 @@ public class AbstractDao<ID extends Serializable, T> implements GenericDao<ID, T
             transaction.commit();
         } catch (HibernateException e) {
             transaction.rollback();
+            log.error(e.getMessage(), e);
             throw e;
         } finally {
             session.close();
@@ -69,6 +73,7 @@ public class AbstractDao<ID extends Serializable, T> implements GenericDao<ID, T
             transaction.commit();
         } catch (HibernateException e) {
             transaction.rollback();
+            log.error(e.getMessage(), e);
             throw e;
         } finally {
             session.close();
@@ -86,6 +91,7 @@ public class AbstractDao<ID extends Serializable, T> implements GenericDao<ID, T
             }
         } catch (HibernateException e) {
             transaction.rollback();
+            log.error(e.getMessage(), e);
             throw e;
         } finally {
             session.close();
@@ -156,6 +162,7 @@ public class AbstractDao<ID extends Serializable, T> implements GenericDao<ID, T
             transaction.commit();
         } catch (HibernateException e) {
             transaction.rollback();
+            log.error(e.getMessage(), e);
             throw e;
         } finally {
             session.close();
@@ -176,6 +183,7 @@ public class AbstractDao<ID extends Serializable, T> implements GenericDao<ID, T
             transaction.commit();
         } catch (HibernateException e) {
             transaction.rollback();
+            log.error(e.getMessage(), e);
             throw e;
         }
         return count;
@@ -192,6 +200,7 @@ public class AbstractDao<ID extends Serializable, T> implements GenericDao<ID, T
             result = (T) query.uniqueResult();
         } catch (HibernateException e) {
             transaction.rollback();
+            log.error(e.getMessage(), e);
             throw e;
         } finally {
             session.close();

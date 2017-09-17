@@ -1,5 +1,6 @@
 package vn.myclass.core.service.impl;
 
+import org.hibernate.exception.ConstraintViolationException;
 import vn.myclass.core.dao.ListenGuidelineDao;
 import vn.myclass.core.daoimpl.ListenGuidelineDaoImpl;
 import vn.myclass.core.dto.ListenGuidelineDTO;
@@ -34,7 +35,7 @@ public class ListenGuidelineServiceImpl implements ListenGuidelineService {
         return dto;
     }
 
-    public void saveListenGuideline(ListenGuidelineDTO dto) {
+    public void saveListenGuideline(ListenGuidelineDTO dto) throws ConstraintViolationException {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         dto.setCreatedDate(timestamp);
         ListenGuidelineEntity entity = ListenGuidelineBeanUtil.dto2Entity(dto);
