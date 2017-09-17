@@ -8,6 +8,7 @@ import vn.myclass.core.service.ListenGuidelineService;
 import vn.myclass.core.service.utils.SingletonDaoUtil;
 import vn.myclass.core.utils.ListenGuidelineBeanUtil;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -25,5 +26,18 @@ public class ListenGuidelineServiceImpl implements ListenGuidelineService {
         }
         objects[1] = result;
         return objects;
+    }
+
+    public ListenGuidelineDTO findByListenGuidelineId(String property, Integer listenGuideLineId) {
+        ListenGuidelineEntity entity = SingletonDaoUtil.getListenGuidelineDaoInstance().findEqualUnique(property, listenGuideLineId);
+        ListenGuidelineDTO dto = ListenGuidelineBeanUtil.entity2Dto(entity);
+        return dto;
+    }
+
+    public void saveListenGuideline(ListenGuidelineDTO dto) {
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        dto.setCreatedDate(timestamp);
+        ListenGuidelineEntity entity = ListenGuidelineBeanUtil.dto2Entity(dto);
+        SingletonDaoUtil.getListenGuidelineDaoInstance().save(entity);
     }
 }

@@ -111,11 +111,11 @@
                                     <display:column property="title" titleKey="label.guideline.listen.title" sortable="true" sortName="title"/>
                                     <display:column property="content" titleKey="label.guideline.listen.content" sortable="true" sortName="content"/>
                                     <display:column headerClass="col-actions" titleKey="label.action">
-                                        <%--<c:url var="editUrl" value="/ajax-admin-user-edit.html">
+                                        <c:url var="editUrl" value="/admin-guideline-listen-edit.html">
                                             <c:param name="urlType" value="url_edit"/>
-                                            <c:param name="pojo.userId" value="${tableList.userId}"/>
-                                        </c:url>--%>
-                                        <a class="btn btn-sm btn-primary btn-edit" sc-url="${editUrl}" onclick="update(this)" data-toggle="tooltip" title="<fmt:message key='label.listenguideline.update' bundle='${lang}'/>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                            <c:param name="pojo.listenGuidelineId" value="${tableList.listenGuidelineId}"/>
+                                        </c:url>
+                                        <a class="btn btn-sm btn-primary btn-edit" href="${editUrl}" data-toggle="tooltip" title="<fmt:message key='label.listenguideline.update' bundle='${lang}'/>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                                         <a class="btn btn-sm btn-danger btn-cancel" data-toggle="tooltip" title="<fmt:message key='label.listenguideline.delete' bundle='${lang}'/>"><i class="fa fa-trash" aria-hidden="true"></i></a>
                                     </display:column>
                                 </display:table>
