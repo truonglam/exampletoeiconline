@@ -76,7 +76,10 @@
                                 <div class="table-btn-controls">
                                     <div class="pull-right tableTools-container">
                                         <div class="dt-buttons btn-overlap btn-group">
-                                            <a flag="info" class="dt-button buttons-colvis btn btn-white btn-primary btn-bold" onclick="update(this)">
+                                            <c:url var="addUrl" value="/admin-guideline-listen-edit.html">
+                                                <c:param name="urlType" value="url_edit"/>
+                                            </c:url>
+                                            <a flag="info" class="dt-button buttons-colvis btn btn-white btn-primary btn-bold" href="${addUrl}">
                                                     <span>
                                                         <i class="fa fa-plus-circle bigger-110 purple"></i>
                                                     </span>
