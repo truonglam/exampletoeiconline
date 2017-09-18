@@ -90,9 +90,13 @@
     </div>
 </div>
 <script>
+    var listenGuidelineId = '';
+    <c:if test="${not empty item.pojo.listenGuidelineId}">
+        listenGuidelineId = ${item.pojo.listenGuidelineId};
+    </c:if>
     $(document).ready(function () {
         CKEDITOR.replace('listenGuidelineContent');
-        //validateData();
+        validateData();
         $('#uploadImage').change(function () {
             readURL(this, "viewImage");
         });
@@ -109,12 +113,14 @@
                 required: '<fmt:message key="label.empty" bundle="${lang}"/>'
             }
         });
-        $("#uploadImage").rules( "add", {
-            required: true,
-            messages: {
-                required: '<fmt:message key="label.empty" bundle="${lang}"/>'
-            }
-        });
+        if (listenGuidelineId == '') {
+            $("#uploadImage").rules( "add", {
+                required: true,
+                messages: {
+                    required: '<fmt:message key="label.empty" bundle="${lang}"/>'
+                }
+            });
+        }
         $("#listenGuidelineContent").rules( "add", {
             required: function () {
                 CKEDITOR.instances.listenGuidelineContent.updateElement();

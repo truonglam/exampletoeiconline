@@ -98,7 +98,17 @@ public class ListenGuidelineController extends HttpServlet {
             dto = returnValueOfDTO(dto, mapValue);
             if (dto != null) {
                 if (dto.getListenGuidelineId() != null) {
-                    //update
+                    ListenGuidelineDTO listenGuidelineDTO = SingletonServiceUtil.getListenGuidelineServiceInstance().findByListenGuidelineId("listenGuidelineId", dto.getListenGuidelineId());
+                    if (dto.getImage() == null) {
+                        dto.setImage(listenGuidelineDTO.getImage());
+                    }
+                    dto.setCreatedDate(listenGuidelineDTO.getCreatedDate());
+                    ListenGuidelineDTO result = SingletonServiceUtil.getListenGuidelineServiceInstance().updateListenGuideline(dto);
+                    if (result != null) {
+                        response.sendRedirect("/admin-guideline-listen-list.html?urlType=url_list&&crudaction=redirect_update");
+                    } else {
+                        response.sendRedirect("/admin-guideline-listen-list.html?urlType=url_list&&crudaction=redirect_error");
+                    }
                 } else {
                     try {
                         SingletonServiceUtil.getListenGuidelineServiceInstance().saveListenGuideline(dto);
