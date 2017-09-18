@@ -24,8 +24,8 @@
     <script type="text/javascript" src="<c:url value="/ckeditor/ckeditor.js"/>"></script>
 
     <%--sweetalert--%>
-    <%--<script type='text/javascript' src='<c:url value="/template/assets/sweetalert2/sweetalert2.min.js"/>'></script>
-    <link rel="stylesheet" href="<c:url value="/template/assets/sweetalert2/sweetalert2.min.css"/>">--%>
+    <script type='text/javascript' src='<c:url value="/template/admin/sweetalert/sweetalert2.min.js"/>'></script>
+    <link rel="stylesheet" href="<c:url value="/template/admin/sweetalert/sweetalert2.min.css"/>">
 
     <%--datatable--%>
     <%--<link href="<c:url value="/template/data-table/media/css/dataTables.bootstrap4_v4.6.1.min.css"/>" rel="stylesheet">
@@ -79,5 +79,20 @@
 
 <!-- page specific plugin scripts -->
 <script src="<c:url value='/template/admin/assets/js/jquery-ui.min.js'/>"></script>
+
+<script type="text/javascript">
+    function showAlertBeforeDelete() {
+        swal({
+            title: "Xác nhận xóa",
+            text: "Bạn có chắc chắn xóa những dòng đã chọn",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Xác nhận",
+            cancelButtonText: "Hủy bỏ",
+            confirmButtonClass: "btn btn-success",
+            cancelButtonClass: "btn btn-danger"
+        })
+    }
+</script>
 </body>
 </html>

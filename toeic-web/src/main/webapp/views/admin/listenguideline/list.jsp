@@ -84,7 +84,7 @@
                                                         <i class="fa fa-plus-circle bigger-110 purple"></i>
                                                     </span>
                                             </a>
-                                            <button type="button" class="dt-button buttons-html5 btn btn-white btn-primary btn-bold" id="deleteAll" disabled
+                                            <button type="button" class="dt-button buttons-html5 btn btn-white btn-primary btn-bold" id="deleteAll" disabled onclick="warningBeforeDelete()"
                                                     data-toggle="tooltip" title="<fmt:message key='label.delete.all' bundle='${lang}'/>">
                                                      <span>
                                                         <i class="fa fa-trash-o bigger-110 pink"></i>
@@ -116,7 +116,6 @@
                                             <c:param name="pojo.listenGuidelineId" value="${tableList.listenGuidelineId}"/>
                                         </c:url>
                                         <a class="btn btn-sm btn-primary btn-edit" href="${editUrl}" data-toggle="tooltip" title="<fmt:message key='label.listenguideline.update' bundle='${lang}'/>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                                        <a class="btn btn-sm btn-danger btn-cancel" data-toggle="tooltip" title="<fmt:message key='label.listenguideline.delete' bundle='${lang}'/>"><i class="fa fa-trash" aria-hidden="true"></i></a>
                                     </display:column>
                                 </display:table>
                             </fmt:bundle>
@@ -135,6 +134,11 @@
              $('#formUrl').submit();
          });
     });
+    function warningBeforeDelete() {
+        showAlertBeforeDelete(function () {
+
+        });
+    }
 </script>
 </body>
 </html>
