@@ -14,4 +14,5 @@ public interface ListenGuidelineService {
     ListenGuidelineDTO findByListenGuidelineId(String property, Integer listenGuideLineId);
     void saveListenGuideline(ListenGuidelineDTO dto) throws ConstraintViolationException;
     ListenGuidelineDTO updateListenGuideline(ListenGuidelineDTO dto);
+    Integer delete(List<Integer> ids);
 }

@@ -114,14 +114,10 @@ public class AbstractDao<ID extends Serializable, T> implements GenericDao<ID, T
         }
         try {
             StringBuilder sql1 = new StringBuilder("from ");
-            sql1.append(getPersistenceClassName());
+            sql1.append(getPersistenceClassName()).append(" where 1=1 ");
             if (property.size() > 0) {
                 for (int i1 = 0; i1 < params.length ; i1++) {
-                    if (i1 == 0) {
-                        sql1.append(" where ").append(params[i1]).append("= :"+params[i1]+"");
-                    } else {
-                        sql1.append(" and ").append(params[i1]).append("= :"+params[i1]+"");
-                    }
+                    sql1.append(" and ").append("LOWER("+params[i1]+") LIKE '%' || :"+params[i1]+" || '%'");
                 }
             }
             if (sortExpression != null && sortDirection != null) {
@@ -142,14 +138,10 @@ public class AbstractDao<ID extends Serializable, T> implements GenericDao<ID, T
             }
             list = query1.list();
             StringBuilder sql2 = new StringBuilder("select count(*) from ");
-            sql2.append(getPersistenceClassName());
+            sql2.append(getPersistenceClassName()).append(" where 1=1 ");
             if (property.size() > 0) {
                 for (int k = 0; k < params.length ; k++) {
-                    if (k == 0) {
-                        sql2.append(" where ").append(params[k]).append("= :"+params[k]+"");
-                    } else {
-                        sql2.append(" and ").append(params[k]).append("= :"+params[k]+"");
-                    }
+                    sql2.append(" and ").append("LOWER("+params[k]+") LIKE '%' || :"+params[k]+" || '%'");
                 }
             }
             Query query2 = session.createQuery(sql2.toString());
