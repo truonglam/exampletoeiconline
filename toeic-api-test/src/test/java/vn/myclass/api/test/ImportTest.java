@@ -10,10 +10,10 @@ import vn.myclass.core.persistence.entity.RoleEntity;
  */
 public class ImportTest {
 
-    @Test
+    /*@Test
     public void TestImport() {
         RoleDao roleDao = new RoleDaoImpl();
         RoleEntity entity = roleDao.findEqualUnique("name", "USER");
         System.out.println(entity.getName());
-    }
+    }*/
 }

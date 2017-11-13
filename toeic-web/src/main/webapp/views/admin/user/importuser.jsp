@@ -49,7 +49,7 @@
                             <div class="row">
                                 <div class="col-xs-12">
                                     <div class="table-responsive">
-                                        <fmt:bundle basename="ApplicationResources">
+                                        <fmt:bundle basename="ResourcesBundle">
                                             <display:table name="items.userImportDTOS" cellspacing="0" cellpadding="0" requestURI="${requestUrl}"
                                                            partialList="true" sort="external" size="${items.totalItems}" id="tableList" excludedParams="checkList"
                                                            pagesize="${items.maxPageItems}" export="false"

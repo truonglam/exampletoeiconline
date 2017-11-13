@@ -68,7 +68,7 @@
                         </div>
                     </div>
                     <div class="table-responsive">
-                        <fmt:bundle basename="ApplicationResources">
+                        <fmt:bundle basename="ResourcesBundle">
                             <display:table id="tableList" name="items.listResult" partialList="true" size="${items.totalItems}"
                                            pagesize="${items.maxPageItems}" sort="external" requestURI="${requestUrl}"
                                            class="table table-fcv-ace table-striped table-bordered table-hover dataTable no-footer"

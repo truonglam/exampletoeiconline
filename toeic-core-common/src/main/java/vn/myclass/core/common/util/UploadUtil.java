@@ -6,10 +6,12 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import vn.myclass.core.common.constant.CoreConstant;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,8 +26,8 @@ public class UploadUtil {
     private final int maxRequestSize = 1024 * 1024 * 50; //50 MB
 
     public Object[] writeOrUpdateFile(HttpServletRequest request, Set<String> titleValue, String path) {
-        ServletContext context = request.getServletContext();
-        String address = context.getRealPath("fileupload");
+        String address = "/"+ CoreConstant.FOLDER_UPLOAD;
+        checkAndCreateFolder(address, path);
         boolean check = true;
         String fileLocation = null;
         String name = null;
@@ -72,7 +74,12 @@ public class UploadUtil {
                 } else {
                     if (titleValue != null) {
                         String nameField = item.getFieldName();
-                        String valueField = item.getString();
+                        String valueField = null;
+                        try {
+                            valueField = item.getString("UTF-8");
+                        } catch (UnsupportedEncodingException e) {
+                            log.error(e.getMessage(), e);
+                        }
                         if (titleValue.contains(nameField)) {
                             mapReturnValue.put(nameField, valueField);
                         }
@@ -83,6 +90,17 @@ public class UploadUtil {
             check = false;
             log.error(e.getMessage(), e);
         }
-        return new Object[]{check, fileLocation, name, mapReturnValue};
+        return new Object[]{check, fileLocation, path + File.separator + name, mapReturnValue};
+    }
+
+    private void checkAndCreateFolder(String address, String path) {
+        File folderRoot = new File(address);
+        if (!folderRoot.exists()) {
+            folderRoot.mkdirs();
+        }
+        File folderChild = new File(address + File.separator + path);
+        if (!folderChild.exists()) {
+            folderChild.mkdirs();
+        }
     }
 }

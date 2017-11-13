@@ -63,7 +63,7 @@
                                                 <div class="form-group">
                                                     <label class="col-sm-2 control-label"></label>
                                                     <div class="col-sm-8">
-                                                        <button id="btnSearch" type="button" class="btn btn-sm btn-success">
+                                                        <button id="btnSearch" class="btn btn-sm btn-success">
                                                             <fmt:message key="label.search" bundle="${lang}"/>
                                                             <i class="ace-icon fa fa-arrow-right icon-on-right bigger-110"></i>
                                                         </button>
@@ -96,7 +96,7 @@
                             </div>
                         </div>
                         <div class="table-responsive">
-                            <fmt:bundle basename="ApplicationResources">
+                            <fmt:bundle basename="ResourcesBundle">
                                 <display:table id="tableList" name="items.listResult" partialList="true" size="${items.totalItems}"
                                                pagesize="${items.maxPageItems}" sort="external" requestURI="${requestUrl}"
                                                class="table table-fcv-ace table-striped table-bordered table-hover dataTable no-footer"
@@ -109,7 +109,6 @@
                                         </fieldset>
                                     </display:column>
                                     <display:column property="title" titleKey="label.guideline.listen.title" sortable="true" sortName="title"/>
-                                    <display:column property="content" titleKey="label.guideline.listen.content" sortable="true" sortName="content"/>
                                     <display:column headerClass="col-actions" titleKey="label.action">
                                         <c:url var="editUrl" value="/admin-guideline-listen-edit.html">
                                             <c:param name="urlType" value="url_edit"/>
@@ -120,7 +119,7 @@
                                 </display:table>
                             </fmt:bundle>
                         </div>
-                        <input type="hidden" name="urlType" id="urlType"/>
+                        <input type="hidden" name="urlType" id="urlType" value="url_list"/>
                         <input type="hidden" name="crudaction" id="crudaction"/>
                     </form>
                 </div>
@@ -131,13 +130,11 @@
 <script>
     $(document).ready(function () {
          $('#btnSearch').click(function () {
-             $('#urlType').val('url_list');
              $('#formUrl').submit();
          });
     });
     function warningBeforeDelete() {
         showAlertBeforeDelete(function () {
-            $('#urlType').val('url_list');
             $('#crudaction').val('redirect_delete');
             $('#formUrl').submit();
         });

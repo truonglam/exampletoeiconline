@@ -34,7 +34,7 @@ public class ListenGuidelineController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         ListenGuidelineCommand command = FormUtil.populate(ListenGuidelineCommand.class, request);
-        ResourceBundle resourceBundle = ResourceBundle.getBundle("ApplicationResources");
+        ResourceBundle resourceBundle = ResourceBundle.getBundle("ResourcesBundle");
         if (command.getUrlType() != null && command.getUrlType().equals(WebConstant.URL_LIST)) {
             if (command.getCrudaction() != null && command.getCrudaction().equals(WebConstant.REDIRECT_DELETE)) {
                 List<Integer> ids = new ArrayList<Integer>();
@@ -92,7 +92,7 @@ public class ListenGuidelineController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         ListenGuidelineCommand command = new ListenGuidelineCommand();
-        ResourceBundle bundle = ResourceBundle.getBundle("ApplicationResources");
+        ResourceBundle bundle = ResourceBundle.getBundle("ResourcesBundle");
         UploadUtil uploadUtil = new UploadUtil();
         Set<String> valueTitle = buildSetValueListenGuideline();
         Object[] objects = uploadUtil.writeOrUpdateFile(request, valueTitle, WebConstant.LISTENGUIDELINE);

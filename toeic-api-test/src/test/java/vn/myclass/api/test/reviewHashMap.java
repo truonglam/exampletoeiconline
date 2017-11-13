@@ -11,7 +11,7 @@ import java.util.Map;
  */
 public class reviewHashMap {
 
-    @Test
+    /*@Test
     public void checkHashMap() {
         Book b1= returnBookModel(101,"Let us C","Yashwant Kanetkar","BPB",8);
         Book b2= returnBookModel(102,"Data Communications & Networking","Forouzan","Mc Graw Hill",4);
@@ -37,5 +37,5 @@ public class reviewHashMap {
         book.setPublisher(publisher);
         book.setQuantity(quantity);
         return book;
-    }
+    }*/
 }
