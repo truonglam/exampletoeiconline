@@ -18,11 +18,14 @@
             <ul class="nav ace-nav">
                 <li class="light-blue dropdown-modal">
                     <a data-toggle="dropdown" href="#" class="dropdown-toggle">
-                        Welcome, [Tên]
+                        Welcome, ${login_name}
 
                     </a>
                 <li class="light-blue dropdown-modal">
-                    <a href="#">
+                    <c:url var="logoutUrl" value="/logout.html">
+                        <c:param name="action" value="logout"/>
+                    </c:url>
+                    <a href="${logoutUrl}">
                         <i class="ace-icon fa fa-power-off"></i>
                         <fmt:message key="label.logout" bundle="${lang}"/>
                     </a>
