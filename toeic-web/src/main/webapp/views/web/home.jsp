@@ -63,22 +63,18 @@
 <!-- Feature
 ==============================================-->
 
-
 <div class="row feature-box">
     <div class="span12 cnt-title">
         <h1>At vero eos et accusamus et iusto odio dignissimos</h1>
         <span>Contrary to popular belief, Lorem Ipsum is not simply random text.</span>
     </div>
-
     <div class="span4">
         <img src="img/icon3.png">
-        <h2>Feature A</h2>
+        <h2><fmt:message key="label.guideline.listen" bundle="${lang}"/></h2>
         <p>
             Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
         </p>
-
         <a href="#">Read More &rarr;</a>
-
     </div>
 
     <div class="span4">
