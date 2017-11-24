@@ -74,7 +74,7 @@
         <p>
             Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
         </p>
-        <a href="#">Read More &rarr;</a>
+        <a href="<c:url value="/danh-sach-huong-dan-nghe.html"/>">Read More &rarr;</a>
     </div>
 
     <div class="span4">
