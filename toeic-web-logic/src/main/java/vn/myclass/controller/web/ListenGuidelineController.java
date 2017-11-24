@@ -11,12 +11,17 @@ import java.io.IOException;
 /**
  * Created by Admin on 24/11/2017.
  */
-@WebServlet(urlPatterns = {"/danh-sach-huong-dan-nghe.html"})
+@WebServlet(urlPatterns = {"/danh-sach-huong-dan-nghe.html","/noi-dung-bai-huong-dan-nghe.html"})
 public class ListenGuidelineController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		RequestDispatcher rd = request.getRequestDispatcher("/views/web/listenguideline/list.jsp");
-		rd.forward(request, response);
+		if (request.getParameter("id") != null) {
+			RequestDispatcher rd = request.getRequestDispatcher("/views/web/listenguideline/detail.jsp");
+			rd.forward(request, response);
+		} else {
+			RequestDispatcher rd = request.getRequestDispatcher("/views/web/listenguideline/list.jsp");
+			rd.forward(request, response);
+		}
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
