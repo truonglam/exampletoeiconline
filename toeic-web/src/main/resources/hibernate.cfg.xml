@@ -14,5 +14,11 @@
         <mapping class="vn.myclass.core.persistence.entity.UserEntity" />
         <mapping class="vn.myclass.core.persistence.entity.CommentEntity"/>
         <mapping class="vn.myclass.core.persistence.entity.ListenGuidelineEntity"/>
+        <mapping class="vn.myclass.core.persistence.entity.ExaminationEntity"/>
+        <mapping class="vn.myclass.core.persistence.entity.ExaminationQuestionEntity"/>
+        <mapping class="vn.myclass.core.persistence.entity.ExerciseEntity"/>
+        <mapping class="vn.myclass.core.persistence.entity.ExerciseQuestionEntity"/>
+        <mapping class="vn.myclass.core.persistence.entity.ExerciseTypeEntity"/>
+        <mapping class="vn.myclass.core.persistence.entity.ResultEntity"/>
     </session-factory>
 </hibernate-configuration>

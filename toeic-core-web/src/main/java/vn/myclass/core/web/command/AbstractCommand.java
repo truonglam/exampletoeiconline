@@ -20,6 +20,7 @@ public class AbstractCommand<T> {
     private String messageResponse;
     private int page = 1;
     private String urlType;
+    private int totalPages;
 
     public String getCrudaction() {
         return crudaction;
@@ -122,5 +123,13 @@ public class AbstractCommand<T> {
 
     public void setUrlType(String urlType) {
         this.urlType = urlType;
+    }
+
+    public int getTotalPages() {
+        return totalPages;
+    }
+
+    public void setTotalPages(int totalPages) {
+        this.totalPages = totalPages;
     }
 }

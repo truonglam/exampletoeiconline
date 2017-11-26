@@ -23,7 +23,7 @@ public class ExerciseTypeEntity {
 	@Column(name = "modifieddate")
 	private Timestamp modifiedDate;
 
-	@OneToMany(mappedBy = "exerciseTypeEntity", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "exerciseType", fetch = FetchType.LAZY)
 	private List<ExerciseEntity> exercises;
 
 	public Integer getExerciseTypeId() {

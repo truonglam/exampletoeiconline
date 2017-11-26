@@ -10,8 +10,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/css/bootstrap.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/js/bootstrap.min.js"></script>
-    <%--<script src="<c:url value="/template/product/jquery.twbsPagination.js"/>" type="text/javascript"></script>
-    <script src="<c:url value='/template/product/js/jquery.validate.min.js' />"></script>--%>
+    <script src="<c:url value="/template/product/jquery.twbsPagination.js"/>" type="text/javascript"></script>
+    <%--<script src="<c:url value='/template/product/js/jquery.validate.min.js' />"></script>--%>
     <dec:head />
 </head>
 <body>
