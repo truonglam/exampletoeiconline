@@ -23,12 +23,11 @@ public class ExerciseEntity {
 	@Column(name = "modifieddate")
 	private Timestamp modifiedDate;
 
-	@ManyToOne
-	@JoinColumn(name = "exercisetypeid")
-	private ExerciseTypeEntity exerciseType;
-
 	@OneToMany(mappedBy = "exerciseEntity", fetch = FetchType.LAZY)
 	private List<ExerciseQuestionEntity> exerciseQuestions;
+
+	@Column(name = "type")
+	private String type;
 
 	public Integer getExerciseId() {
 		return exerciseId;
@@ -70,11 +69,11 @@ public class ExerciseEntity {
 		this.exerciseQuestions = exerciseQuestions;
 	}
 
-	public ExerciseTypeEntity getExerciseType() {
-		return exerciseType;
+	public String getType() {
+		return type;
 	}
 
-	public void setExerciseType(ExerciseTypeEntity exerciseType) {
-		this.exerciseType = exerciseType;
+	public void setType(String type) {
+		this.type = type;
 	}
 }

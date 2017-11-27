@@ -23,4 +23,5 @@ public class WebConstant {
     public static final String LOGIN_NAME = "login_name";
     public static final String LOGIN = "login";
     public static final String LOGOUT = "logout";
+    public static final String EXERCISE = "exercise";
 }
