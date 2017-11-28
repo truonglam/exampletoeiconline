@@ -34,9 +34,10 @@
                     </c:if>
                     <form action="${formUrl}" method="post" enctype="multipart/form-data">
                         <div class="form-group">
-                            <label class="col-sm-3 control-label no-padding-right"><fmt:message key="label.grammarguideline.upload.image" bundle="${lang}"/></label>
+                            <label class="col-sm-3 control-label no-padding-right"><fmt:message key="label.exercise.audio.image.upload" bundle="${lang}"/></label>
                             <div class="col-sm-9">
                                 <input type="file" name="file" multiple/>
+                                <br/>
                                 <input type="submit" class="btn btn-white btn-warning btn-bold" value="<fmt:message key="label.done" bundle="${lang}"/>"/>
                             </div>
                         </div>
