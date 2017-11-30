@@ -11,6 +11,7 @@ public class ExerciseDTO {
 	private String name;
 	private Timestamp createdDate;
 	private Timestamp modifiedDate;
+	private String type;
 	private List<ExerciseQuestionDTO> exerciseQuestions;
 
 	public Integer getExerciseId() {
@@ -51,5 +52,13 @@ public class ExerciseDTO {
 
 	public void setExerciseQuestions(List<ExerciseQuestionDTO> exerciseQuestions) {
 		this.exerciseQuestions = exerciseQuestions;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 }
