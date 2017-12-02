@@ -99,7 +99,7 @@ public class AbstractDao<ID extends Serializable, T> implements GenericDao<ID, T
         return result;
     }
 
-    public Object[] findByProperty(Map<String, Object> property, String sortExpression, String sortDirection, Integer offset, Integer limit) {
+    public Object[] findByProperty(Map<String, Object> property, String sortExpression, String sortDirection, Integer offset, Integer limit, String whereClause) {
         List<T> list = new ArrayList<T>();
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
@@ -119,6 +119,9 @@ public class AbstractDao<ID extends Serializable, T> implements GenericDao<ID, T
                 for (int i1 = 0; i1 < params.length ; i1++) {
                     sql1.append(" and ").append("LOWER("+params[i1]+") LIKE '%' || :"+params[i1]+" || '%'");
                 }
+            }
+            if (whereClause != null) {
+                sql1.append(whereClause);
             }
             if (sortExpression != null && sortDirection != null) {
                 sql1.append(" order by ").append(sortExpression);
@@ -143,6 +146,9 @@ public class AbstractDao<ID extends Serializable, T> implements GenericDao<ID, T
                 for (int k = 0; k < params.length ; k++) {
                     sql2.append(" and ").append("LOWER("+params[k]+") LIKE '%' || :"+params[k]+" || '%'");
                 }
+            }
+            if (whereClause != null) {
+                sql2.append(whereClause);
             }
             Query query2 = session.createQuery(sql2.toString());
             if (property.size() > 0) {

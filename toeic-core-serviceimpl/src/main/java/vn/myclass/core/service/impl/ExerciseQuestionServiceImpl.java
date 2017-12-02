@@ -17,9 +17,13 @@ import java.util.Map;
  */
 public class ExerciseQuestionServiceImpl implements ExerciseQuestionService {
 
-	public Object[] findExerciseQuestionByProperties(Map<String, Object> property, String sortExpression, String sortDirection, Integer offset, Integer limit) {
+	public Object[] findExerciseQuestionByProperties(Map<String, Object> property, String sortExpression, String sortDirection, Integer offset, Integer limit, Integer exerciseId) {
 		List<ExerciseQuestionDTO> result = new ArrayList<ExerciseQuestionDTO>();
-		Object[] objects = SingletonDaoUtil.getExerciseQuestionDaoInstance().findByProperty(property, sortExpression, sortDirection, offset, limit);
+		String whereClause = null;
+		if (exerciseId != null) {
+			whereClause = " AND exerciseEntity.exerciseId = "+exerciseId+"";
+		}
+		Object[] objects = SingletonDaoUtil.getExerciseQuestionDaoInstance().findByProperty(property, sortExpression, sortDirection, offset, limit, whereClause);
 		for (ExerciseQuestionEntity item: (List<ExerciseQuestionEntity>)objects[1]) {
 			ExerciseQuestionDTO dto = ExerciseQuestionBeanUtil.entity2Dto(item);
 			dto.setExercise(ExerciseBeanUtil.entity2Dto(item.getExerciseEntity()));

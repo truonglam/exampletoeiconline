@@ -20,7 +20,7 @@ import java.util.Map;
 public class ListenGuidelineServiceImpl implements ListenGuidelineService {
     public Object[] findListenGuidelineByProperties(Map<String, Object> property, String sortExpression, String sortDirection, Integer offset, Integer limit) {
         List<ListenGuidelineDTO> result = new ArrayList<ListenGuidelineDTO>();
-        Object[] objects = SingletonDaoUtil.getListenGuidelineDaoInstance().findByProperty(property, sortExpression, sortDirection, offset, limit);
+        Object[] objects = SingletonDaoUtil.getListenGuidelineDaoInstance().findByProperty(property, sortExpression, sortDirection, offset, limit, null);
         for (ListenGuidelineEntity item: (List<ListenGuidelineEntity>)objects[1]) {
             ListenGuidelineDTO dto = ListenGuidelineBeanUtil.entity2Dto(item);
             result.add(dto);

@@ -20,7 +20,7 @@ import java.util.*;
  */
 public class UserServiceImpl implements UserService {
     public Object[] findByProperty(Map<String, Object> property, String sortExpression, String sortDirection, Integer offset, Integer limit) {
-        Object[] objects = SingletonDaoUtil.getUserDaoInstance().findByProperty(property, sortExpression, sortDirection, offset, limit);
+        Object[] objects = SingletonDaoUtil.getUserDaoInstance().findByProperty(property, sortExpression, sortDirection, offset, limit, null);
         List<UserDTO> userDTOS = new ArrayList<UserDTO>();
         for (UserEntity item: (List<UserEntity>)objects[1]) {
             UserDTO userDTO = UserBeanUtil.entity2Dto(item);
