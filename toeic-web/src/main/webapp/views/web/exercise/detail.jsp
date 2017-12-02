@@ -6,51 +6,77 @@
     <title><fmt:message key="label.exercise.paractice" bundle="${lang}"/></title>
 </head>
 <body>
-<div class="row">
-    <div class="span12">
-        <ul class="thumbnails">
-            <li class="span12">
-                <div class="thumbnail">
-                    <br/>
-                    <p>
-                        TIÊU ĐỀ CÂU HỎI
-                    </p>
-                    <p>
-                        <input type="radio" name="radio" value="A"/>
-                        ĐÁP ÁN 1
-                    </p>
-                    <p>
-                        <input type="radio" name="radio" value="B"/>
-                        ĐÁP ÁN 2
-                    </p>
-                    <p>
-                        <input type="radio" name="radio" value="C"/>
-                        ĐÁP ÁN 3
-                    </p>
-                    <p>
-                        <input type="radio" name="radio" value="D"/>
-                        ĐÁP ÁN 4
-                    </p>
-                </div>
-            </li>
-        </ul>
+<form action="" method="get" id="formUrl">
+    <div class="row">
+        <div class="span12">
+            <ul class="thumbnails">
+                <li class="span12">
+                    <div class="thumbnail">
+                        <br/>
+                        <c:forEach items="${items.listResult}" var="item">
+                            <p>
+                                <b>${item.question}</b>
+                            </p>
+                            <c:if test="${item.image != null}">
+                                <p>
+                                    <img src="<c:url value="/repository/${item.image}"/>" width="300px" height="150px">
+                                </p>
+                            </c:if>
+                            <c:if test="${item.audio != null}">
+                                <p>
+                                    <audio controls>
+                                        <source src="<c:url value="/repository/${item.audio}"/>" type="audio/mpeg">
+                                    </audio>
+                                </p>
+                            </c:if>
+                            <p>
+                                <input type="radio" name="answerUser" value="A"/>
+                                ${item.option1}
+                            </p>
+                            <p>
+                                <input type="radio" name="answerUser" value="B"/>
+                                ${item.option2}
+                            </p>
+                            <p>
+                                <input type="radio" name="answerUser" value="C"/>
+                                ${item.option3}
+                            </p>
+                            <p>
+                                <input type="radio" name="answerUser" value="D"/>
+                                ${item.option4}
+                            </p>
+                            <input type="hidden" name="pojo.exerciseQuestionId" value="${item.exerciseQuestionId}"/>
+                            <input type="hidden" name="pojo.exercise.exerciseId" value="${item.exercise.exerciseId}"/>
+                        </c:forEach>
+                    </div>
+                </li>
+            </ul>
+        </div>
     </div>
-</div>
-<!--Pagination-->
-<div class="row">
-    <div class="span12">
-        <ul id="pagination-demo" class="pagination-sm"></ul>
+    <!--Pagination-->
+    <div class="row">
+        <div class="span12">
+            <ul id="pagination-demo" class="pagination-sm"></ul>
+        </div>
+        <input type="hidden" name="page" id="page"/>
+        <input type="button" class="btn btn-info" value="Xem đáp án" id="btnConfirm"/>
+        <input type="button" class="btn btn-info" value="Làm lại" id="btnAgain"/>
     </div>
-</div>
+</form>
 <script>
+    var totalPages = ${items.totalPages};
+    var startPage = ${items.page};
     $(document).ready(function () {
-
     });
     $('#pagination-demo').twbsPagination({
-        totalPages: 35,
+        totalPages: totalPages,
+        startPage: startPage,
         visiblePages: 0,
         onPageClick: function (event, page) {
-            console.log(page);
+            if (page != startPage) {
+                $('#page').val(page);
+                $('#formUrl').submit();
+            }
         }
     });
 </script>

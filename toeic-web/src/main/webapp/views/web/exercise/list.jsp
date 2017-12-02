@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@include file="/common/taglib.jsp" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<c:url var="urlList" value="/danh-sach-bai-tap-nghe.html"/>
+<c:url var="urlList" value="/danh-sach-bai-tap.html"/>
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -27,15 +27,12 @@
                 </div>
                 <c:forEach var="item" items="${items.listResult}">
                     <div class="image group">
-                        <%--<div class="grid images_3_of_1">
-                            <img src="<c:url value="/repository/${item.image}"/>" alt="" />
-                        </div>--%>
                         <div class="grid news_desc">
                             <h3>${item.name}</h3>
-                            <%--<c:url value="/noi-dung-bai-huong-dan-nghe.html" var="detailUrl">
-                                <c:param name="listenguidelineid" value="${item.listenGuidelineId}"/>
-                            </c:url>--%>
-                            <h4><span><a href="#">Làm bài tập nghe</a></span></h4>
+                            <c:url value="/bai-tap-thuc-hanh.html" var="detailUrl">
+                                <c:param name="pojo.exercise.exerciseId" value="${item.exerciseId}"/>
+                            </c:url>
+                            <h4><span><a href="${detailUrl}">Làm bài tập nghe</a></span></h4>
                         </div>
                     </div>
                 </c:forEach>

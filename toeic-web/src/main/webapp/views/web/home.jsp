@@ -84,7 +84,7 @@
             Consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
             aliqua.
         </p>
-        <c:url var="listExerciseListen" value="/danh-sach-bai-tap-nghe.html">
+        <c:url var="listExerciseListen" value="/danh-sach-bai-tap.html">
             <c:param name="pojo.type" value="listening"/>
         </c:url>
         <a href="${listExerciseListen}">Read More &rarr;</a>
