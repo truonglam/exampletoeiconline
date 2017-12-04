@@ -1,57 +1,28 @@
-package vn.myclass.core.persistence.entity;
+package vn.myclass.core.dto;
 
-import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 /**
- * Created by Admin on 24/11/2017.
+ * Created by Admin on 3/12/2017.
  */
-@Entity
-@Table(name = "examinationquestion")
-public class ExaminationQuestionEntity {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+public class ExaminationQuestionDTO implements Serializable {
 	private Integer examinationQuestionId;
-
-	@Column(name = "image")
 	private String image;
-
-	@Column(name = "paragraph")
 	private String paragraph;
-
-	@Column(name = "audio")
 	private String audio;
-
-	@Column(name = "question")
 	private String question;
-
-	@Column(name = "option1")
 	private String option1;
-
-	@Column(name = "option2")
 	private String option2;
-
-	@Column(name = "option3")
 	private String option3;
-
-	@Column(name = "option4")
 	private String option4;
-
-	@Column(name = "correctanswer")
 	private String correctAnswer;
-
-	@Column(name = "createddate")
 	private Timestamp createdDate;
-
-	@Column(name = "modifieddate")
 	private Timestamp modifiedDate;
-
-	@Column(name = "type")
 	private String type;
-
-	@ManyToOne
-	@JoinColumn(name = "examinationid")
-	private ExaminationEntity examination;
+	private ExaminationDTO examination;
+	private Integer number;
+	private String answerUser;
 
 	public Integer getExaminationQuestionId() {
 		return examinationQuestionId;
@@ -149,11 +120,11 @@ public class ExaminationQuestionEntity {
 		this.modifiedDate = modifiedDate;
 	}
 
-	public ExaminationEntity getExamination() {
+	public ExaminationDTO getExamination() {
 		return examination;
 	}
 
-	public void setExamination(ExaminationEntity examination) {
+	public void setExamination(ExaminationDTO examination) {
 		this.examination = examination;
 	}
 
@@ -163,5 +134,21 @@ public class ExaminationQuestionEntity {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	public Integer getNumber() {
+		return number;
+	}
+
+	public void setNumber(Integer number) {
+		this.number = number;
+	}
+
+	public String getAnswerUser() {
+		return answerUser;
+	}
+
+	public void setAnswerUser(String answerUser) {
+		this.answerUser = answerUser;
 	}
 }

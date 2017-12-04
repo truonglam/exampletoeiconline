@@ -65,7 +65,7 @@ public class AbstractDao<ID extends Serializable, T> implements GenericDao<ID, T
         return result;
     }
 
-    public void save(T entity) {
+    public T save(T entity) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         try {
@@ -78,6 +78,7 @@ public class AbstractDao<ID extends Serializable, T> implements GenericDao<ID, T
         } finally {
             session.close();
         }
+        return entity;
     }
 
     public T findById(ID id) {

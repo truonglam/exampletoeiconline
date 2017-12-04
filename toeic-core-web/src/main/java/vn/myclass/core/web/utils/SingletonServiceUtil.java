@@ -14,6 +14,7 @@ public class SingletonServiceUtil {
     private static ExaminationServiceImpl examinationServiceImpl = null;
     private static ExerciseQuestionServiceImpl exerciseQuestionServiceImpl = null;
     private static ExerciseServiceImpl exerciseServiceImpl = null;
+    private static ResultServiceImpl resultServiceImpl = null;
 
     public static UserServiceImpl getUserServiceInstance() {
         if (userServiceImpl == null) {
@@ -69,5 +70,12 @@ public class SingletonServiceUtil {
             exerciseServiceImpl = new ExerciseServiceImpl();
         }
         return exerciseServiceImpl;
+    }
+
+    public static ResultServiceImpl getResultServiceInstance() {
+        if (resultServiceImpl == null) {
+            resultServiceImpl = new ResultServiceImpl();
+        }
+        return resultServiceImpl;
     }
 }

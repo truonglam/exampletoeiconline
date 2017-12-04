@@ -1,33 +1,20 @@
-package vn.myclass.core.persistence.entity;
+package vn.myclass.core.dto;
 
-import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
 
 /**
- * Created by Admin on 24/11/2017.
+ * Created by Admin on 3/12/2017.
  */
-@Entity
-@Table(name = "examination")
-public class ExaminationEntity {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+public class ExaminationDTO implements Serializable {
 	private Integer examinationId;
-
-	@Column(name = "name")
 	private String name;
-
-	@Column(name = "createddate")
 	private Timestamp createdDate;
-
-	@Column(name = "modifieddate")
 	private Timestamp modifiedDate;
+	private List<ExaminationQuestionDTO> examinationQuestions;
+	private List<ResultDTO> results;
 
-	@OneToMany(mappedBy = "examination", fetch = FetchType.LAZY)
-	private List<ExaminationQuestionEntity> examinationQuestions;
-
-	@OneToMany(mappedBy = "examination", fetch = FetchType.LAZY)
-	private List<ResultEntity> results;
 
 	public String getName() {
 		return name;
@@ -53,19 +40,19 @@ public class ExaminationEntity {
 		this.modifiedDate = modifiedDate;
 	}
 
-	public List<ExaminationQuestionEntity> getExaminationQuestions() {
+	public List<ExaminationQuestionDTO> getExaminationQuestions() {
 		return examinationQuestions;
 	}
 
-	public void setExaminationQuestions(List<ExaminationQuestionEntity> examinationQuestions) {
+	public void setExaminationQuestions(List<ExaminationQuestionDTO> examinationQuestions) {
 		this.examinationQuestions = examinationQuestions;
 	}
 
-	public List<ResultEntity> getResults() {
+	public List<ResultDTO> getResults() {
 		return results;
 	}
 
-	public void setResults(List<ResultEntity> results) {
+	public void setResults(List<ResultDTO> results) {
 		this.results = results;
 	}
 
