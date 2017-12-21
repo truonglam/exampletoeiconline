@@ -105,14 +105,10 @@ public class AbstractDao<ID extends Serializable, T> implements GenericDao<ID, T
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         Object totalItem = 0;
-        Object[] nameQuery = HibernateUtil.buildNameQuery(property, whereClause);
+        Object[] nameQuery = HibernateUtil.buildNameQuery(property, whereClause, sortExpression, sortDirection);
         try {
             StringBuilder sql1 = new StringBuilder("from ");
             sql1.append(getPersistenceClassName()).append(" where 1=1 ").append(nameQuery[0]);
-            if (sortExpression != null && sortDirection != null) {
-                sql1.append(" order by ").append(sortExpression);
-                sql1.append(" " +(sortDirection.equals(CoreConstant.SORT_ASC)?"asc":"desc"));
-            }
             Query query1 = session.createQuery(sql1.toString());
             setParameterToQuery(nameQuery, query1);
             if (offset != null && offset >= 0) {

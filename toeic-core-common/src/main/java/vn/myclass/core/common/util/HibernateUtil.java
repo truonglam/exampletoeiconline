@@ -3,6 +3,7 @@ package vn.myclass.core.common.util;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import vn.myclass.core.common.constant.CoreConstant;
 
 import java.util.Map;
 
@@ -25,7 +26,7 @@ public class HibernateUtil {
         return sessionFactory;
     }
 
-    public static Object[] buildNameQuery(Map<String, Object> property, String whereClause) {
+    public static Object[] buildNameQuery(Map<String, Object> property, String whereClause, String sortExpression, String sortDirection) {
         StringBuilder nameQuery = new StringBuilder();
         if (property != null && property.size() > 0) {
             String[] params = new String[property.size()];
@@ -43,6 +44,10 @@ public class HibernateUtil {
             }
             if (whereClause != null) {
                 nameQuery.append(whereClause);
+            }
+            if (sortExpression != null && sortDirection != null) {
+                nameQuery.append(" order by ").append(sortExpression);
+                nameQuery.append(" " +(sortDirection.equals(CoreConstant.SORT_ASC)?"asc":"desc"));
             }
             return new Object[]{nameQuery, params, values};
         }
