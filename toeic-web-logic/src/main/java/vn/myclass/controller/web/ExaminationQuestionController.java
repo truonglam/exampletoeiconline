@@ -53,7 +53,7 @@ public class ExaminationQuestionController extends HttpServlet {
 	}
 
 	private void getExaminationQuestion(ExaminationQuestionCommand command) {
-		Object[] objects = SingletonServiceUtil.getExaminationQuestionServiceInstance().findExaminationQuestionByProperties(new HashMap<String, Object>(), command.getSortExpression(), command.getSortDirection(), null, null, command.getExaminationId());
+		Object[] objects = SingletonServiceUtil.getExaminationQuestionServiceInstance().findExaminationQuestionByProperties(null, command.getSortExpression(), command.getSortDirection(), null, null, command.getExaminationId());
 		command.setListResult((List<ExaminationQuestionDTO>) objects[1]);
 	}
 }
