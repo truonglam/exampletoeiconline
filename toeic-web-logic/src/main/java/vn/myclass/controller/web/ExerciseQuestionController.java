@@ -47,7 +47,7 @@ public class ExerciseQuestionController extends HttpServlet {
 	private void getListenExerciseQuestion(ExerciseQuestionCommand command) {
 		command.setMaxPageItems(1);
 		RequestUtil.initSearchBeanManual(command);
-		Object[] objects = SingletonServiceUtil.getExerciseQuestionServiceInstance().findExerciseQuestionByProperties(null, command.getSortExpression(),
+		Object[] objects = SingletonServiceUtil.getExerciseQuestionServiceInstance().findExerciseQuestionByProperties(new HashMap<String, Object>(), command.getSortExpression(),
 				command.getSortDirection(), command.getFirstItem(), command.getMaxPageItems(), command.getExerciseId());
 		command.setListResult((List<ExerciseQuestionDTO>) objects[1]);
 		command.setTotalItems(Integer.parseInt(objects[0].toString()));
