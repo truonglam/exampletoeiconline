@@ -11,17 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by Admin on 24/11/2017.
- */
 public class ExaminationQuestionServiceImpl implements ExaminationQuestionService {
 	public Object[] findExaminationQuestionByProperties(Map<String, Object> property, String sortExpression, String sortDirection, Integer offset, Integer limit, Integer examinationId) {
 		List<ExaminationQuestionDTO> result = new ArrayList<ExaminationQuestionDTO>();
-		String whereClause = null;
-		if (examinationId != null) {
-			whereClause = " AND examination.examinationId = "+examinationId+"";
-		}
-		Object[] objects = SingletonDaoUtil.getExaminationQuestionDaoInstance().findByProperty(property, sortExpression, sortDirection, offset, limit, whereClause);
+		Object[] objects = SingletonDaoUtil.getExaminationQuestionDaoInstance().findByProperty(property, sortExpression, sortDirection, offset, limit, examinationId);
 		int count = 1;
 		for (ExaminationQuestionEntity item: (List<ExaminationQuestionEntity>)objects[1]) {
 			ExaminationQuestionDTO dto = ExaminationQuestionBeanUtil.entity2Dto(item);
