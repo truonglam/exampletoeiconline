@@ -33,6 +33,7 @@
                                     <li><a href="${logoutUrl}"><fmt:message key="label.logout" bundle="${lang}"/></a></li>
                                 </c:if>
                                 <c:if test="${empty login_name}">
+                                    <li><a href="/register.html"><fmt:message key="label.register" bundle="${lang}"/></a></li>
                                     <c:url var="loginUrl" value="/login.html">
                                         <c:param name="action" value="login"/>
                                     </c:url>

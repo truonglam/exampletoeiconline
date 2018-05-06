@@ -5,12 +5,10 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import vn.myclass.core.common.util.HibernateUtil;
-import vn.myclass.core.dao.UserDao;
+import vn.myclass.core.dao.*;
 import vn.myclass.core.data.daoimpl.AbstractDao;
-import vn.myclass.core.persistence.entity.RoleEntity;
 import vn.myclass.core.persistence.entity.UserEntity;
 
-import javax.print.DocFlavor;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,4 +57,7 @@ public class UserDaoImpl extends AbstractDao<Integer, UserEntity> implements Use
         }
         return userEntities;
     }
+
+
+
 }

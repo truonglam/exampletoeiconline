@@ -16,6 +16,9 @@
     <decorator name="login" page="login.jsp">
         <pattern>/login*</pattern>
     </decorator>
+    <decorator name="login" page="login.jsp">
+        <pattern>/register*</pattern>
+    </decorator>
     <decorator name="product" page="product.jsp">
         <pattern>/danh-sach*</pattern>
     </decorator>
