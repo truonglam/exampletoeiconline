@@ -1,6 +1,7 @@
 package vn.myclass.core.utils;
 
 import vn.myclass.core.dto.UserDTO;
+import vn.myclass.core.dto.UserRegisterDTO;
 import vn.myclass.core.persistence.entity.UserEntity;
 
 /**
@@ -20,6 +21,15 @@ public class UserBeanUtil {
     public static UserEntity dto2Entity(UserDTO dto) {
         UserEntity entity = new UserEntity();
         entity.setUserId(dto.getUserId());
+        entity.setName(dto.getName());
+        entity.setPassword(dto.getPassword());
+        entity.setFullName(dto.getFullName());
+        entity.setCreatedDate(dto.getCreatedDate());
+        entity.setRoleEntity(RoleBeanUtil.dto2Entity(dto.getRoleDTO()));
+        return entity;
+    }
+    public static UserEntity dtoToEntity(UserRegisterDTO dto) {
+        UserEntity entity = new UserEntity();
         entity.setName(dto.getName());
         entity.setPassword(dto.getPassword());
         entity.setFullName(dto.getFullName());

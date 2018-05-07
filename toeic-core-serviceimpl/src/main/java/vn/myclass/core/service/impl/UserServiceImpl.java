@@ -1,11 +1,15 @@
 package vn.myclass.core.service.impl;
 
+import com.restfb.types.User;
 import org.apache.commons.lang.StringUtils;
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import vn.myclass.core.common.util.HibernateUtil;
 import vn.myclass.core.dao.UserDao;
 import vn.myclass.core.daoimpl.UserDaoImpl;
-import vn.myclass.core.dto.CheckLogin;
-import vn.myclass.core.dto.UserDTO;
-import vn.myclass.core.dto.UserImportDTO;
+import vn.myclass.core.dto.*;
 import vn.myclass.core.persistence.entity.RoleEntity;
 import vn.myclass.core.persistence.entity.UserEntity;
 import vn.myclass.core.service.UserService;
@@ -22,7 +26,7 @@ public class UserServiceImpl implements UserService {
     public Object[] findByProperty(Map<String, Object> property, String sortExpression, String sortDirection, Integer offset, Integer limit) {
         Object[] objects = SingletonDaoUtil.getUserDaoInstance().findByProperty(property, sortExpression, sortDirection, offset, limit, null);
         List<UserDTO> userDTOS = new ArrayList<UserDTO>();
-        for (UserEntity item: (List<UserEntity>)objects[1]) {
+        for (UserEntity item : (List<UserEntity>) objects[1]) {
             UserDTO userDTO = UserBeanUtil.entity2Dto(item);
             userDTOS.add(userDTO);
         }
@@ -41,6 +45,17 @@ public class UserServiceImpl implements UserService {
         userDTO.setCreatedDate(createdDate);
         UserEntity entity = UserBeanUtil.dto2Entity(userDTO);
         SingletonDaoUtil.getUserDaoInstance().save(entity);
+    }
+
+    public boolean addUser(UserDTO userDTO) {
+        if (!checkExistUserName(userDTO.getName())) {
+            RoleDTO roleDTO = new RoleDTO();
+            roleDTO.setRoleId(2);
+            userDTO.setRoleDTO(roleDTO);
+            saveUser(userDTO);
+            return true;
+        }
+        return false;
     }
 
     public UserDTO updateUser(UserDTO userDTO) {
@@ -66,7 +81,7 @@ public class UserServiceImpl implements UserService {
         List<String> names = new ArrayList<String>();
         List<String> roles = new ArrayList<String>();
 
-        for(UserImportDTO item: userImportDTOS) {
+        for (UserImportDTO item : userImportDTOS) {
             if (item.isValid()) {
                 names.add(item.getUserName());
                 if (!roles.contains(item.getRoleName())) {
@@ -79,18 +94,18 @@ public class UserServiceImpl implements UserService {
         Map<String, RoleEntity> roleEntityMap = new HashMap<String, RoleEntity>();
         if (names.size() > 0) {
             List<UserEntity> userEntities = SingletonDaoUtil.getUserDaoInstance().findByUsers(names);
-            for (UserEntity item: userEntities) {
+            for (UserEntity item : userEntities) {
                 userEntityMap.put(item.getName().toUpperCase(), item);
             }
         }
         if (roles.size() > 0) {
             List<RoleEntity> roleEntities = SingletonDaoUtil.getRoleDaoInstance().findByRoles(roles);
-            for (RoleEntity item: roleEntities) {
+            for (RoleEntity item : roleEntities) {
                 roleEntityMap.put(item.getName().toUpperCase(), item);
             }
         }
 
-        for (UserImportDTO item: userImportDTOS) {
+        for (UserImportDTO item : userImportDTOS) {
             String message = item.getError();
             if (item.isValid()) {
                 UserEntity userEntity = userEntityMap.get(item.getUserName().toUpperCase());
@@ -113,7 +128,7 @@ public class UserServiceImpl implements UserService {
     }
 
     public void saveUserImport(List<UserImportDTO> userImportDTOS) {
-        for (UserImportDTO item: userImportDTOS) {
+        for (UserImportDTO item : userImportDTOS) {
             if (item.isValid()) {
                 UserEntity userEntity = new UserEntity();
                 userEntity.setName(item.getUserName());
@@ -126,5 +141,47 @@ public class UserServiceImpl implements UserService {
                 SingletonDaoUtil.getUserDaoInstance().save(userEntity);
             }
         }
+    }
+
+    public List<UserEntity> findByUser(String names) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        List<UserEntity> userEntities = new ArrayList<UserEntity>();
+        try {
+            StringBuilder sql = new StringBuilder(" FROM UserEntity ue WHERE ue.name =:names");
+            Query query = session.createQuery(sql.toString());
+            query.setParameter("names", names);
+            userEntities = query.list();
+        } catch (HibernateException e) {
+            transaction.rollback();
+            throw e;
+        } finally {
+            session.close();
+        }
+        return userEntities;
+    }
+
+
+    private boolean checkExistUserName(String name) {
+        if (findByUser(name).size() == 0)
+            return false;
+        return true;
+    }
+
+    public boolean loginFacebook(User user) {
+        boolean isLogin = false;
+        if (checkExistUserName(user.getUsername()))
+            isLogin = true;
+        else {
+            UserDTO userRegisterDTO = new UserDTO();
+            userRegisterDTO.setFullName(user.getName());
+            userRegisterDTO.setName(user.getUsername());
+            userRegisterDTO.setPassword(user.getId());
+            RoleDTO roleDTO = new RoleDTO();
+            roleDTO.setRoleId(2);
+            userRegisterDTO.setRoleDTO(roleDTO);
+            isLogin=addUser(userRegisterDTO);
+        }
+        return isLogin;
     }
 }

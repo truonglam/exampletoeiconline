@@ -27,4 +27,8 @@ public class WebConstant {
     public static final String EXAMINATION_TYPE_PHOTO = "PHOTO";
     public static final String EXAMINATION_TYPE_QUESTION_RESPONSE = "QUESTION_RESPONSE";
     public static final String EXAMINATION_TYPE_SINGLE_PASSAGE = "SINGLE_PASSAGE";
+    public static String FACEBOOK_APP_ID = "238814889927196";
+    public static String FACEBOOK_APP_SECRET = "22e5c7040bc5e710711acdd9a7dc593e";
+    public static String FACEBOOK_REDIRECT_URL = "http://localhost:8080/login-facebook";
+    public static String FACEBOOK_LINK_GET_TOKEN = "https://graph.facebook.com/oauth/access_token?client_id=%s&client_secret=%s&redirect_uri=%s&code=%s";
 }
