@@ -25,4 +25,7 @@
     <decorator name="product" page="product.jsp">
         <pattern>/bai-thi*</pattern>
     </decorator>
+    <decorator name="product" page="product.jsp">
+        <pattern>/quan-ly-tai-khoan.html</pattern>
+    </decorator>
 </decorators>

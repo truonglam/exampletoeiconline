@@ -1,5 +1,9 @@
 package vn.myclass.core.service.impl;
 
+import vn.myclass.core.dao.ResultDao;
+import vn.myclass.core.dao.UserDao;
+import vn.myclass.core.daoimpl.ResultDaoImpl;
+import vn.myclass.core.daoimpl.UserDaoImpl;
 import vn.myclass.core.dto.ExaminationQuestionDTO;
 import vn.myclass.core.dto.ResultDTO;
 import vn.myclass.core.persistence.entity.ExaminationEntity;
@@ -16,6 +20,15 @@ import java.util.List;
  * Created by Admin on 3/12/2017.
  */
 public class ResultServiceImpl implements ResultService {
+
+	private UserDao userDao;
+	private ResultDao resultDao;
+
+	public ResultServiceImpl() {
+		userDao = new UserDaoImpl();
+		resultDao = new ResultDaoImpl();
+	}
+
 	public ResultDTO saveResult(String userName, Integer examinationId, List<ExaminationQuestionDTO> examinationQuestions) {
 		ResultDTO result = new ResultDTO();
 		if (userName != null && examinationId != null && examinationQuestions != null) {
@@ -28,6 +41,15 @@ public class ResultServiceImpl implements ResultService {
 			result = ResultBeanUtil.entity2Dto(resultEntity);
 		}
 		return result;
+	}
+
+	public List<ResultDTO> getResultsByUser(String type, String userName) {
+		if (type != null && type.equals("ket-qua-thi")) {
+			UserEntity userEntity = userDao.findEqualUnique("name", userName);
+			List<ResultEntity> resultEntities = resultDao.findByProperty("user", userEntity);
+
+		}
+		return null;
 	}
 
 	private void initDataToResultEntity(ResultEntity resultEntity, UserEntity user, ExaminationEntity examination) {

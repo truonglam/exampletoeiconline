@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@include file="/common/taglib.jsp" %>
 <div class="header">
     <div class="headertop_desc">
         <div class="call">
@@ -6,7 +8,7 @@
         <div class="account_desc">
             <ul>
                 <c:if test="${not empty login_name}">
-                    <li>Xin chao: ${login_name}</li>
+                    <li><a href="<c:url value="/quan-ly-tai-khoan.html"/>">Xin chào: ${login_name}</a></li>
                     <c:url var="logoutUrl" value="/logout.html">
                         <c:param name="action" value="logout"/>
                     </c:url>

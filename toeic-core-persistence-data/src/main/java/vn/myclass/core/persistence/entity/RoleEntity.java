@@ -16,7 +16,7 @@ public class RoleEntity {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(mappedBy = "roleEntity", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "roleEntity", fetch = FetchType.EAGER)
     private List<UserEntity> userEntityList;
 
     public Integer getRoleId() {

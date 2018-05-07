@@ -2,10 +2,12 @@ package vn.myclass.core.data.daoimpl;
 
 import org.apache.log4j.Logger;
 import org.hibernate.*;
+import org.hibernate.Query;
 import vn.myclass.core.common.constant.CoreConstant;
 import vn.myclass.core.common.util.HibernateUtil;
 import vn.myclass.core.data.dao.GenericDao;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
@@ -190,5 +192,34 @@ public class AbstractDao<ID extends Serializable, T> implements GenericDao<ID, T
             session.close();
         }
         return result;
+    }
+
+    public List<T> findByProperty(String propertyName, Object value, int... rowStartIdxAndCount) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            final String queryString = "select model from " + getPersistenceClassName() + " model where model."
+                + propertyName + "= :propertyValue";
+            Query query = session.createQuery(queryString);
+            query.setParameter("propertyValue", value);
+            if (rowStartIdxAndCount != null && rowStartIdxAndCount.length > 0) {
+                int rowStartIdx = Math.max(0, rowStartIdxAndCount[0]);
+                if (rowStartIdx > 0) {
+                    query.setFirstResult(rowStartIdx);
+                }
+
+                if (rowStartIdxAndCount.length > 1) {
+                    int rowCount = Math.max(0, rowStartIdxAndCount[1]);
+                    if (rowCount > 0) {
+                        query.setMaxResults(rowCount);
+                    }
+                }
+            }
+            return query.list();
+        } catch (HibernateException e) {
+            transaction.rollback();
+            log.error(e.getMessage(), e);
+            throw e;
+        }
     }
 }

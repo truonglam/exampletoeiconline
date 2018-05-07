@@ -23,10 +23,10 @@ public class ExaminationEntity {
 	@Column(name = "modifieddate")
 	private Timestamp modifiedDate;
 
-	@OneToMany(mappedBy = "examination", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "examination", fetch = FetchType.EAGER)
 	private List<ExaminationQuestionEntity> examinationQuestions;
 
-	@OneToMany(mappedBy = "examination", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "examination", fetch = FetchType.EAGER)
 	private List<ResultEntity> results;
 
 	public String getName() {

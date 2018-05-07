@@ -30,10 +30,10 @@ public class UserEntity {
     @JoinColumn(name = "roleid")
     private RoleEntity roleEntity;
 
-    @OneToMany(mappedBy = "userEntity", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "userEntity", fetch = FetchType.EAGER)
     private List<CommentEntity> commentEntityList;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private List<ResultEntity> results;
 
     public Integer getUserId() {

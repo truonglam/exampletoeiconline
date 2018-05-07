@@ -13,6 +13,8 @@ public class ResultBeanUtil {
 		dto.setListenScore(entity.getListenScore());
 		dto.setReadingScore(entity.getReadingScore());
 		dto.setCreatedDate(entity.getCreatedDate());
+		dto.setUser(UserBeanUtil.entity2Dto(entity.getUser()));
+		dto.setExamination(ExaminationBeanUtil.entity2Dto(entity.getExamination()));
 		return dto;
 	}
 	public static ResultEntity dto2Entity(ResultDTO dto) {
