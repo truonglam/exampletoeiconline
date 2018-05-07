@@ -222,4 +222,24 @@ public class AbstractDao<ID extends Serializable, T> implements GenericDao<ID, T
             throw e;
         }
     }
+
+    @Override
+    public List<T> findByProperty(Map<String, Object> properties) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        Object[] nameQuery = HibernateUtil.buildNameQuery(properties);
+        try {
+            StringBuilder sql = new StringBuilder("FROM ");
+            sql.append(getPersistenceClassName()).append(" WHERE 1=1 ").append(nameQuery[0]);
+            Query query = session.createQuery(sql.toString());
+            setParameterToQuery(nameQuery, query);
+            return query.list();
+        } catch (HibernateException e) {
+            transaction.rollback();
+            log.error(e.getMessage(), e);
+        } finally {
+            session.close();
+        }
+        return new ArrayList<T>();
+    }
 }

@@ -10,7 +10,7 @@
         <div class="section group">
             <div class="grid_1_of_3 images_1_of_3">
                 <img src="<c:url value="/template/product/images/delivery-img1.jpg"/>" alt="" />
-                <c:set var="examinationResult" value="/quan-ly-tai-khoan.html?type=ket-qua-thi"/>
+                <c:set var="examinationResult" value="/quan-ly-tai-khoan.html?urlType=ket-qua-thi"/>
                 <a href="${examinationResult}"><h3>Kết quả thi</h3></a>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
             </div>

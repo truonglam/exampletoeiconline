@@ -21,6 +21,7 @@ public class AbstractCommand<T> {
     private int page = 1;
     private String urlType;
     private int totalPages;
+    private String searchValue;
 
     public String getCrudaction() {
         return crudaction;
@@ -131,5 +132,13 @@ public class AbstractCommand<T> {
 
     public void setTotalPages(int totalPages) {
         this.totalPages = totalPages;
+    }
+
+    public String getSearchValue() {
+        return searchValue;
+    }
+
+    public void setSearchValue(String searchValue) {
+        this.searchValue = searchValue;
     }
 }
