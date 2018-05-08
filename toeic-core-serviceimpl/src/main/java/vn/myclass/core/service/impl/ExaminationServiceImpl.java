@@ -1,5 +1,8 @@
 package vn.myclass.core.service.impl;
 
+import org.apache.commons.lang.StringUtils;
+import vn.myclass.core.dao.ExaminationDao;
+import vn.myclass.core.daoimpl.ExaminationDaoImpl;
 import vn.myclass.core.dto.ExaminationDTO;
 import vn.myclass.core.persistence.entity.ExaminationEntity;
 import vn.myclass.core.service.ExaminationService;
@@ -14,6 +17,13 @@ import java.util.Map;
  * Created by Admin on 24/11/2017.
  */
 public class ExaminationServiceImpl implements ExaminationService {
+
+	private ExaminationDao examinationDao;
+
+	public ExaminationServiceImpl() {
+		examinationDao = new ExaminationDaoImpl();
+	}
+
 	public Object[] findExaminationByProperties(Map<String, Object> property, String sortExpression, String sortDirection, Integer offset, Integer limit) {
 		List<ExaminationDTO> result = new ArrayList<ExaminationDTO>();
 		Object[] objects = SingletonDaoUtil.getExaminationDaoInstance().findByProperty(property, sortExpression, sortDirection, offset, limit, null);
@@ -23,5 +33,15 @@ public class ExaminationServiceImpl implements ExaminationService {
 		}
 		objects[1] = result;
 		return objects;
+	}
+
+	@Override
+	public List<ExaminationDTO> findAll() {
+		List<ExaminationDTO> examinationDTOS = new ArrayList<>();
+		List<ExaminationEntity> examinationEntities = examinationDao.findAll();
+		examinationEntities.forEach(item -> {
+			examinationDTOS.add(ExaminationBeanUtil.entity2Dto(item));
+		});
+		return examinationDTOS;
 	}
 }

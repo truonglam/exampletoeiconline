@@ -13,6 +13,7 @@ public class ExaminationBeanUtil {
 		dto.setName(entity.getName());
 		dto.setCreatedDate(entity.getCreatedDate());
 		dto.setModifiedDate(entity.getModifiedDate());
+		dto.setCode(entity.getCode());
 		return dto;
 	}
 	public static ExaminationEntity dto2Entity(ExaminationDTO dto) {
@@ -21,6 +22,7 @@ public class ExaminationBeanUtil {
 		entity.setName(dto.getName());
 		entity.setCreatedDate(dto.getCreatedDate());
 		entity.setModifiedDate(dto.getModifiedDate());
+		entity.setCode(dto.getCode());
 		return entity;
 	}
 }

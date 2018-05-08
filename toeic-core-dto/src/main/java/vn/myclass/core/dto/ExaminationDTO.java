@@ -14,7 +14,7 @@ public class ExaminationDTO implements Serializable {
 	private Timestamp modifiedDate;
 	private List<ExaminationQuestionDTO> examinationQuestions;
 	private List<ResultDTO> results;
-
+	private String code;
 
 	public String getName() {
 		return name;
@@ -62,5 +62,13 @@ public class ExaminationDTO implements Serializable {
 
 	public void setExaminationId(Integer examinationId) {
 		this.examinationId = examinationId;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
 	}
 }

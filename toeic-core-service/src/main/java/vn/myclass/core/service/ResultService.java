@@ -10,5 +10,5 @@ import java.util.List;
  */
 public interface ResultService {
 	ResultDTO saveResult(String userName, Integer examinationId, List<ExaminationQuestionDTO> examinationQuestions);
-	List<ResultDTO> getResultsByUser(String type, String userName, String searchValue);
+	List<ResultDTO> getResultsByUser(String type, String userName, String examinationCode);
 }

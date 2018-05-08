@@ -60,6 +60,7 @@
         <input type="hidden" name="page" id="page" value="${items.page}"/>
         <input type="button" class="btn btn-info" value="Xem đáp án" id="btnConfirm"/>
         <input type="button" class="btn btn-info" value="Làm lại" id="btnAgain"/>
+        <input type="button" class="btn btn-info" value="Xác nhận chấm điểm" id="btnScore"/>
     </div>
 </form>
 <script>

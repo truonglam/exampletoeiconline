@@ -51,13 +51,13 @@ public class ResultServiceImpl implements ResultService {
 		return result;
 	}
 
-	public List<ResultDTO> getResultsByUser(String type, String userName, String searchValue) {
+	public List<ResultDTO> getResultsByUser(String type, String userName, String examinationCode) {
 		List<ResultDTO> resultDTOS = new ArrayList<>();
 		if (type != null && type.equals("ket-qua-thi")) {
 			UserEntity userEntity = userDao.findEqualUnique("name", userName);
 			List<ResultEntity> resultEntities = new ArrayList<>();
-			if (searchValue != null && StringUtils.isNotEmpty(searchValue)) {
-				ExaminationEntity examinationEntity = examinationDao.findEqualUnique("name", searchValue.trim());
+			if (examinationCode != null && StringUtils.isNotEmpty(examinationCode)) {
+				ExaminationEntity examinationEntity = examinationDao.findEqualUnique("code", examinationCode);
 				Map<String, Object> properties = new HashMap<>();
 				properties.put("user", userEntity);
 				properties.put("examination", examinationEntity);

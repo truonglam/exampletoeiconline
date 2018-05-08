@@ -33,7 +33,12 @@
                                 <c:param name="exerciseId" value="${item.exerciseId}"/>
                                 <c:param name="page" value="1"/>
                             </c:url>
-                            <h4><span><a href="${detailUrl}">Làm bài tập nghe</a></span></h4>
+                            <c:if test="${not empty login_name}">
+                                <h4><span><a href="${detailUrl}">Làm bài tập</a></span></h4>
+                            </c:if>
+                            <c:if test="${empty login_name}">
+                                <h4><span>Yêu cầu đăng nhập trước khi làm bài tập</span></h4>
+                            </c:if>
                         </div>
                     </div>
                 </c:forEach>

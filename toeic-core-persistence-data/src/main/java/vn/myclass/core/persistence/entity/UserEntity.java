@@ -36,6 +36,9 @@ public class UserEntity {
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private List<ResultEntity> results;
 
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    private List<ExerciseResultEntity> exerciseResults;
+
     public Integer getUserId() {
         return userId;
     }
@@ -98,5 +101,13 @@ public class UserEntity {
 
     public void setResults(List<ResultEntity> results) {
         this.results = results;
+    }
+
+    public List<ExerciseResultEntity> getExerciseResults() {
+        return exerciseResults;
+    }
+
+    public void setExerciseResults(List<ExerciseResultEntity> exerciseResults) {
+        this.exerciseResults = exerciseResults;
     }
 }

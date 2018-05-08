@@ -17,11 +17,16 @@ public class ExaminationEntity {
 	@Column(name = "name")
 	private String name;
 
+	@Column(name = "code")
+	private String code;
+
 	@Column(name = "createddate")
 	private Timestamp createdDate;
 
 	@Column(name = "modifieddate")
 	private Timestamp modifiedDate;
+
+
 
 	@OneToMany(mappedBy = "examination", fetch = FetchType.EAGER)
 	private List<ExaminationQuestionEntity> examinationQuestions;
@@ -75,5 +80,13 @@ public class ExaminationEntity {
 
 	public void setExaminationId(Integer examinationId) {
 		this.examinationId = examinationId;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
 	}
 }

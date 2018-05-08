@@ -7,6 +7,7 @@
         </div>
         <div class="account_desc">
             <ul>
+                <li><a href="<c:url value="/home.html"/>">Trang chủ</a></li>
                 <c:if test="${not empty login_name}">
                     <li><a href="<c:url value="/quan-ly-tai-khoan.html"/>">Xin chào: ${login_name}</a></li>
                     <c:url var="logoutUrl" value="/logout.html">

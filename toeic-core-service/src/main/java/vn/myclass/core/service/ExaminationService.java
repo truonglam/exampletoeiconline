@@ -1,5 +1,8 @@
 package vn.myclass.core.service;
 
+import vn.myclass.core.dto.ExaminationDTO;
+
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -7,4 +10,5 @@ import java.util.Map;
  */
 public interface ExaminationService {
 	Object[] findExaminationByProperties(Map<String, Object> property, String sortExpression, String sortDirection, Integer offset, Integer limit);
+	List<ExaminationDTO> findAll();
 }

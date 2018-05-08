@@ -26,6 +26,9 @@ public class ExerciseEntity {
 	@OneToMany(mappedBy = "exerciseEntity", fetch = FetchType.EAGER)
 	private List<ExerciseQuestionEntity> exerciseQuestions;
 
+	@OneToMany(mappedBy = "exercise", fetch = FetchType.EAGER)
+	private List<ExerciseResultEntity> exerciseResults;
+
 	@Column(name = "type")
 	private String type;
 
@@ -75,5 +78,13 @@ public class ExerciseEntity {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	public List<ExerciseResultEntity> getExerciseResults() {
+		return exerciseResults;
+	}
+
+	public void setExerciseResults(List<ExerciseResultEntity> exerciseResults) {
+		this.exerciseResults = exerciseResults;
 	}
 }

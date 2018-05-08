@@ -15,17 +15,7 @@
                         <a data-target=".navbar-responsive-collapse" data-toggle="collapse" class="btn btn-navbar"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a>
                         <div class="nav-collapse collapse navbar-responsive-collapse">
                             <ul class="nav">
-                                <li class="active"><a href="index.html">Home</a></li>
-
-                                <li class="dropdown">
-                                    <a href="about.html" class="dropdown-toggle" data-toggle="dropdown">About <b class="caret"></b></a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="about.html">Company</a></li>
-                                        <li><a href="about.html">History</a></li>
-                                        <li><a href="about.html">Team</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="service.html">Services</a></li>
+                                <li><a href="<c:url value="/home.html"/>">Trang chủ</a></li>
                                 <c:if test="${not empty login_name}">
                                     <li><a href="<c:url value="/quan-ly-tai-khoan.html"/>">Xin chào: ${login_name}</a></li>
                                     <c:url var="logoutUrl" value="/logout.html">

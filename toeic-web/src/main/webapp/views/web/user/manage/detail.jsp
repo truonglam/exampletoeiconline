@@ -9,15 +9,24 @@
 <div class="main">
     <div class="content">
         <form action="${search}" method="get" id="formUrl">
-            <div class="contact-form">
-                <div>
-                        <span>
-                            <input name="searchValue" type="text" class="textbox" value="${items.searchValue}"/>
-                        </span>
-                    <button class="btn btn-sm btn-success" id="btnSearch">
-                        Tìm kiếm
-                    </button>
-                </div>
+            <div class="form-group">
+                <label for="examination">Lọc theo đề thi:</label>
+                <select class="form-control" id="examination" name="examinationCode">
+                    <c:if test="${empty selectedCode}">
+                        <option value="">Chọn đề thi</option>
+                        <c:forEach var="item" items="${items.examinations}">
+                            <option value="${item.code}">${item.name}</option>
+                        </c:forEach>
+                    </c:if>
+                    <c:if test="${not empty selectedCode}">
+                        <c:forEach var="item" items="${items.examinations}">
+                            <option value="${item.code}" <c:if test="${item.code eq selectedCode}">selected="selected"</c:if>>
+                                ${item.name}
+                            </option>
+                            <option value="">Chọn đề thi</option>
+                        </c:forEach>
+                    </c:if>
+                </select>
             </div>
             <table class="table table-bordered">
                 <thead>
@@ -45,9 +54,9 @@
 </div>
 <script type="text/javascript">
     $(document).ready(function () {
-        $("#btnSearch").click(function () {
+        $("#examination").change(function(){
             $("#formUrl").submit();
-        })
+        });
     });
 </script>
 </body>
