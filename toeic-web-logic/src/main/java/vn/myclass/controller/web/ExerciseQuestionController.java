@@ -1,12 +1,8 @@
 package vn.myclass.controller.web;
 
-import org.apache.commons.collections.map.HashedMap;
-import vn.myclass.command.ExerciseQuestionCommand;
-import vn.myclass.core.dto.ExerciseQuestionDTO;
-import vn.myclass.core.web.common.WebConstant;
-import vn.myclass.core.web.utils.FormUtil;
-import vn.myclass.core.web.utils.RequestUtil;
-import vn.myclass.core.web.utils.SingletonServiceUtil;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,13 +10,19 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+
+import vn.myclass.command.ExerciseQuestionCommand;
+import vn.myclass.core.dto.ExerciseQuestionDTO;
+import vn.myclass.core.web.common.WebConstant;
+import vn.myclass.core.web.utils.FormUtil;
+import vn.myclass.core.web.utils.RequestUtil;
+import vn.myclass.core.web.utils.SingletonServiceUtil;
 
 @WebServlet(urlPatterns = {"/bai-tap-thuc-hanh.html","/ajax-bai-tap-dap-an.html"})
 public class ExerciseQuestionController extends HttpServlet {
+	
+	private static final long serialVersionUID = 3575223830998239809L;
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		ExerciseQuestionCommand command = FormUtil.populate(ExerciseQuestionCommand.class, request);

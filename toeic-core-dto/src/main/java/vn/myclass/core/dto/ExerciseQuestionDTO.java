@@ -2,9 +2,6 @@ package vn.myclass.core.dto;
 
 import java.sql.Timestamp;
 
-/**
- * Created by Admin on 26/11/2017.
- */
 public class ExerciseQuestionDTO {
 	private Integer exerciseQuestionId;
 	private String image;
@@ -18,6 +15,7 @@ public class ExerciseQuestionDTO {
 	private Timestamp createdDate;
 	private Timestamp modifiedDate;
 	private ExerciseDTO exercise;
+	private String answerUser;
 
 	public Integer getExerciseQuestionId() {
 		return exerciseQuestionId;
@@ -113,5 +111,13 @@ public class ExerciseQuestionDTO {
 
 	public void setExercise(ExerciseDTO exercise) {
 		this.exercise = exercise;
+	}
+
+	public String getAnswerUser() {
+		return answerUser;
+	}
+
+	public void setAnswerUser(String answerUser) {
+		this.answerUser = answerUser;
 	}
 }

@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@include file="/common/taglib.jsp" %>
+<c:url var="confirmPoint" value="/xac-nhan-cham-diem-bai-tap.html"/>
+<c:url var="submitAgain" value="/bai-tap-thuc-hanh.html"/>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -46,6 +48,7 @@
                                 ${item.option4}
                             </p>
                             <input type="hidden" name="exerciseId" value="${item.exercise.exerciseId}" id="exerciseId"/>
+                            <input type="hidden" name="pojo.exerciseQuestionId" value="${item.exerciseQuestionId}" id="exerciseQuestionId"/>
                         </c:forEach>
                     </div>
                 </li>
@@ -60,7 +63,7 @@
         <input type="hidden" name="page" id="page" value="${items.page}"/>
         <input type="button" class="btn btn-info" value="Xem đáp án" id="btnConfirm"/>
         <input type="button" class="btn btn-info" value="Làm lại" id="btnAgain"/>
-        <input type="button" class="btn btn-info" value="Xác nhận chấm điểm" id="btnScore"/>
+        <input type="button" class="btn btn-info" value="Xác nhận chấm điểm" id="btnConfirmCheckPoint"/>
     </div>
 </form>
 <script>
@@ -77,6 +80,15 @@
         $('#btnAgain').click(function () {
             var exerciseId = $('#exerciseId').val();
             window.location = "/bai-tap-thuc-hanh.html?page="+startPage+"&exerciseId="+exerciseId+"";
+        });
+        $('#btnConfirmCheckPoint').click(function () {
+        	if ($('input[name="answerUser"]:checked').length > 0) {
+        		$('#formUrl').attr('method', 'POST');
+        		$('#formUrl').attr('action', ${confirmPoint});
+                $('#formUrl').submit();
+            } else {
+                alert("Ban chua chon dap an nao ca!");
+            }
         });
     });
     $('#pagination-demo').twbsPagination({

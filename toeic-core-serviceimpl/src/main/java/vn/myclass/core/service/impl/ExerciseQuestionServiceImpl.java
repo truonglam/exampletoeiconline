@@ -1,5 +1,8 @@
 package vn.myclass.core.service.impl;
 
+import vn.myclass.core.common.util.SessionUtil;
+import vn.myclass.core.dao.ExerciseQuestionDao;
+import vn.myclass.core.daoimpl.ExerciseQuestionDaoImpl;
 import vn.myclass.core.dto.ExerciseQuestionDTO;
 import vn.myclass.core.persistence.entity.ExerciseEntity;
 import vn.myclass.core.persistence.entity.ExerciseQuestionEntity;
@@ -16,6 +19,12 @@ import java.util.Map;
  * Created by Admin on 24/11/2017.
  */
 public class ExerciseQuestionServiceImpl implements ExerciseQuestionService {
+	
+	private ExerciseQuestionDao exerciseQuestionDao;
+	
+	public ExerciseQuestionServiceImpl() {
+		exerciseQuestionDao = new ExerciseQuestionDaoImpl();
+	}
 
 	public Object[] findExerciseQuestionByProperties(Map<String, Object> property, String sortExpression, String sortDirection, Integer offset, Integer limit, Integer exerciseId) {
 		List<ExerciseQuestionDTO> result = new ArrayList<ExerciseQuestionDTO>();
@@ -31,5 +40,13 @@ public class ExerciseQuestionServiceImpl implements ExerciseQuestionService {
 		}
 		objects[1] = result;
 		return objects;
+	}
+
+	@Override
+	public ExerciseQuestionDTO confirmExercisePoint(Integer exerciseQuestionId, String answerUser) {
+		ExerciseQuestionEntity exerciseQuestionEntity = exerciseQuestionDao.findById(exerciseQuestionId);
+		ExerciseQuestionDTO exerciseQuestionDTO = ExerciseQuestionBeanUtil.entity2Dto(exerciseQuestionEntity);
+		exerciseQuestionDTO.setAnswerUser(answerUser);
+		return exerciseQuestionDTO;
 	}
 }
