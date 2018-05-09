@@ -5,6 +5,9 @@
     <c:param name="urlType" value="url_edit"/>
 </c:url>
 <c:url var="formUrl" value="/admin-examination-list.html"/>
+<c:url var="importUrl" value="/admin-exam-import.html">
+    <c:param name="urlType" value="show_import_exam"/>
+</c:url>
 <html>
 <head>
     <title><fmt:message key="label.examination.list" bundle="${lang}"/></title>
@@ -116,7 +119,16 @@
                                             <c:param name="urlType" value="url_edit"/>
                                             <c:param name="pojo.examinationId" value="${tableList.examinationId}"/>
                                         </c:url>
-                                        <a class="btn btn-sm btn-primary btn-edit" href="${editUrl}" data-toggle="tooltip" title="<fmt:message key='label.listenguideline.update' bundle='${lang}'/>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                        <c:url var="exUrl" value="/admin-examination-edit.html">
+                                            <c:param name="urlType" value="importUrl"/>
+                                            <c:param name="pojo.examinationId" value="${tableList.examinationId}"/>
+                                        </c:url>
+                                        <a class="btn btn-sm btn-primary btn-edit" href="${editUrl}" data-toggle="tooltip" title="<fmt:message key='label.examination.update' bundle='${lang}'/>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                        <a flag="info" class="dt-button buttons-colvis btn btn-white btn-primary btn-bold" href="${exUrl}">
+                                                <span>
+                                                    <i class="fa fa-file" aria-hidden="true"></i>
+                                                </span>
+                                        </a>
                                     </display:column>
                                 </display:table>
                             </fmt:bundle>

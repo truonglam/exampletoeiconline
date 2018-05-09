@@ -45,12 +45,12 @@
                                 </div>
                             </div>
                         </div>
-                        <c:if test="${not empty items.examImportDTOS}">
+                        <c:if test="${not empty items.examinationQuestionImportDTOS}">
                             <div class="row">
                                 <div class="col-xs-12">
                                     <div class="table-responsive">
                                         <fmt:bundle basename="ResourcesBundle">
-                                            <display:table name="items.userImportDTOS" cellspacing="0" cellpadding="0" requestURI="${requestUrl}"
+                                            <display:table name="items.examinationQuestionImportDTOS" cellspacing="0" cellpadding="0" requestURI="${requestUrl}"
                                                            partialList="true" sort="external" size="${items.totalItems}" id="tableList" excludedParams="checkList"
                                                            pagesize="${items.maxPageItems}" export="false"
                                                            class="table table-fcv-ace table-striped table-bordered table-hover dataTable no-footer"
@@ -70,6 +70,7 @@
                             </button>
                         </c:if>
                         <input type="hidden" name="urlType" id="urlType"/>
+                        <input type="hidden" name="examId" id="examId"/>
                     </form>
                 </div>
             </div>
@@ -84,6 +85,7 @@
         });
         $('#importData').click(function () {
             $('#urlType').val('import_data');
+            $('#examId').val('');
             $('#formImport').prop('enctype', false);
             $('#formImport').attr('action', '${importExcel}');
             $('#formImport').submit();

@@ -1,17 +1,15 @@
 package vn.myclass.controller.admin;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
-import vn.myclass.command.ExaminationCommand;
 import vn.myclass.command.ExaminationQuestionCommand;
-import vn.myclass.command.UserCommand;
 import vn.myclass.core.common.util.ExcelPoiUtil;
 import vn.myclass.core.common.util.SessionUtil;
 import vn.myclass.core.common.util.UploadUtil;
-import vn.myclass.core.dto.*;
+import vn.myclass.core.dto.ExaminationDTO;
+import vn.myclass.core.dto.ExaminationQuestionDTO;
 import vn.myclass.core.dto.ExaminationQuestionImportDTO;
 import vn.myclass.core.web.common.WebConstant;
 import vn.myclass.core.web.utils.FormUtil;
@@ -30,7 +28,7 @@ import java.util.*;
 
 
 @WebServlet(urlPatterns = {"/admin-exam-list.html", "/ajax-admin-exam-edit.html", "/admin-exam-import.html",
-                            "/admin-exam-import-validate.html"})
+        "/admin-exam-import-validate.html"})
 public class ImportExaminationquestionController extends HttpServlet {
     private final Logger log = Logger.getLogger(this.getClass());
     private final String SHOW_IMPORT_EXAM = "show_import_exam";
@@ -39,6 +37,7 @@ public class ImportExaminationquestionController extends HttpServlet {
     private final String LIST_EXAM_IMPORT = "list_exam_import";
     private final String IMPORT_DATA = "import_data";
     ResourceBundle bundle = ResourceBundle.getBundle("ResourcesBundle");
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         ExaminationQuestionCommand command = FormUtil.populate(ExaminationQuestionCommand.class, request);
@@ -67,44 +66,37 @@ public class ImportExaminationquestionController extends HttpServlet {
         } else if (command.getUrlType() != null && command.getUrlType().equals(SHOW_IMPORT_EXAM)) {
             RequestDispatcher rd = request.getRequestDispatcher("/views/admin/exam/importexam.jsp");
             rd.forward(request, response);
-        } else if (command.getUrlType() != null && command.getUrlType().equals(VALIDATE_IMPORT)) {
-            List<ExaminationQuestionImportDTO> userImportDTOS = (List<ExaminationQuestionImportDTO>) SessionUtil.getInstance().getValue(request, LIST_EXAM_IMPORT);
-            command.setExaminationQuestionImportDTOS(fillListExaminationQuestionImport(command, userImportDTOS, request));
-            request.setAttribute(WebConstant.LIST_ITEMS, command);
-            RequestDispatcher rd = request.getRequestDispatcher("/views/admin/exam/importexam.jsp");
-            rd.forward(request, response);
         }
     }
 
-    private List<ExaminationQuestionImportDTO> fillListExaminationQuestionImport(ExaminationQuestionCommand command, List<ExaminationQuestionImportDTO> userImportDTOS, HttpServletRequest request) {
+    private List<ExaminationQuestionImportDTO> fillListExaminationQuestionImport(ExaminationQuestionCommand command, List<ExaminationQuestionImportDTO> ImportDTOS, HttpServletRequest request) {
         command.setMaxPageItems(3);
         RequestUtil.initSearchBean(request, command);
-        command.setTotalItems(userImportDTOS.size());
+        command.setTotalItems(ImportDTOS.size());
         int fromIndex = command.getFirstItem();
         if (fromIndex > command.getTotalItems()) {
             fromIndex = 0;
             command.setFirstItem(0);
         }
         int toIndex = command.getFirstItem() + command.getMaxPageItems();
-        if (userImportDTOS.size() > 0) {
-            if (toIndex > userImportDTOS.size()) {
-                toIndex = userImportDTOS.size();
+        if (ImportDTOS.size() > 0) {
+            if (toIndex > ImportDTOS.size()) {
+                toIndex = ImportDTOS.size();
             }
         }
-        return userImportDTOS.subList(fromIndex, toIndex);
+        return ImportDTOS.subList(fromIndex, toIndex);
     }
 
-    private Map<String,String> buidMapRedirectMessage(ResourceBundle bundle) {
+    private Map<String, String> buidMapRedirectMessage(ResourceBundle bundle) {
         Map<String, String> mapMessage = new HashMap<String, String>();
-        mapMessage.put(WebConstant.REDIRECT_INSERT, bundle.getString("label.user.message.add.success"));
-        mapMessage.put(WebConstant.REDIRECT_UPDATE, bundle.getString("label.user.message.update.success"));
-        mapMessage.put(WebConstant.REDIRECT_DELETE, bundle.getString("label.user.message.delete.success"));
-        mapMessage.put(WebConstant.REDIRECT_ERROR, bundle.getString("label.message.error"));
+        mapMessage.put(WebConstant.REDIRECT_INSERT, bundle.getString("Thêm thành công"));
+        mapMessage.put(WebConstant.REDIRECT_UPDATE, bundle.getString("Cập nhật thành công!"));
+        mapMessage.put(WebConstant.REDIRECT_DELETE, bundle.getString("Xóa thành công"));
+        mapMessage.put(WebConstant.REDIRECT_ERROR, bundle.getString("Error"));
         return mapMessage;
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) {
         UploadUtil uploadUtil = new UploadUtil();
         Set<String> value = new HashSet<String>();
         value.add("urlType");
@@ -131,7 +123,7 @@ public class ImportExaminationquestionController extends HttpServlet {
             if (objects != null) {
                 String urlType = null;
                 Map<String, String> mapValue = (Map<String, String>) objects[3];
-                for (Map.Entry<String, String> item: mapValue.entrySet()) {
+                for (Map.Entry<String, String> item : mapValue.entrySet()) {
                     if (item.getKey().equals("urlType")) {
                         urlType = item.getValue();
                     }
@@ -139,15 +131,14 @@ public class ImportExaminationquestionController extends HttpServlet {
                 if (urlType != null && urlType.equals(READ_EXCEL)) {
                     String fileLocation = objects[1].toString();
                     String fileName = objects[2].toString();
-                    List<ExaminationQuestionImportDTO> excelValues = returnValueFromExcel(fileName, fileLocation);
-                    validateData(excelValues);
-                    SessionUtil.getInstance().putValue(request, LIST_EXAM_IMPORT, excelValues);
-                    response.sendRedirect("/admin-exam-import-validate.html?urlType=validate_import");
+                    int idExam = Integer.parseInt(request.getParameter("idExam"));
+                    List<ExaminationQuestionImportDTO> excelValues = returnValueFromExcel(fileName, fileLocation, idExam);
+                    SingletonServiceUtil.getExaminationQuestionServiceInstance().saveImport(excelValues);
                 }
             }
             if (command.getUrlType() != null && command.getUrlType().equals(IMPORT_DATA)) {
-                List<ExaminationQuestionImportDTO> userImportDTOS = (List<ExaminationQuestionImportDTO>) SessionUtil.getInstance().getValue(request, LIST_EXAM_IMPORT);
-                SingletonServiceUtil.getExaminationQuestionServiceInstance().saveImport(userImportDTOS);
+                List<ExaminationQuestionImportDTO> ImportDTOS = (List<ExaminationQuestionImportDTO>) SessionUtil.getInstance().getValue(request, LIST_EXAM_IMPORT);
+                SingletonServiceUtil.getExaminationQuestionServiceInstance().saveImport(ImportDTOS);
                 SessionUtil.getInstance().remove(request, LIST_EXAM_IMPORT);
                 response.sendRedirect("/admin-exam-list.html?urlType=url_list");
             }
@@ -156,68 +147,32 @@ public class ImportExaminationquestionController extends HttpServlet {
             request.setAttribute(WebConstant.MESSAGE_RESPONSE, WebConstant.REDIRECT_ERROR);
         }
     }
-    private List<ExaminationQuestionImportDTO> returnValueFromExcel(String fileName, String fileLocation) throws IOException{
+
+    private List<ExaminationQuestionImportDTO> returnValueFromExcel(String fileName, String fileLocation, int examinationQuestionId) throws IOException {
         Workbook workbook = ExcelPoiUtil.getWorkBook(fileName, fileLocation);
         Sheet sheet = workbook.getSheetAt(0);
         List<ExaminationQuestionImportDTO> excelValues = new ArrayList<ExaminationQuestionImportDTO>();
-        for (int i=1; i <= sheet.getLastRowNum(); i++) {
+        for (int i = 1; i <= sheet.getLastRowNum(); i++) {
             Row row = sheet.getRow(i);
-            ExaminationQuestionImportDTO userImportDTO = readDataFromExcel(row);
+            ExaminationQuestionImportDTO userImportDTO = readDataFromExcel(row, examinationQuestionId);
             excelValues.add(userImportDTO);
         }
         return excelValues;
     }
-    private void validateDuplicate(ExaminationQuestionImportDTO item, Set<String> stringSet) {
-//        String message = item.getError();
-//        if (!stringSet.contains(item.getUserName())) {
-//            stringSet.add(item.getUserName());
-//        } else {
-//            if (item.isValid()) {
-//                message += "<br/>";
-//                message += bundle.getString("label.username.duplicate");
-//            }
-//        }
-//        if (StringUtils.isNotBlank(message)) {
-//            item.setValid(false);
-//            item.setError(message);
-//        }
-        //TODO validateDuplicate
-    }
 
-    private void validateRequireField(ExaminationQuestionImportDTO item) {
-        String message = "";
-        //TODO validateRequireField
-//        if (StringUtils.isBlank(item.getUserName())) {
-//            message += "<br/>";
-//            message += bundle.getString("label.username.notempty");
-//        }
-//        if (StringUtils.isBlank(item.getPassword())) {
-//            message += "<br/>";
-//            message += bundle.getString("label.password.notempty");
-//        }
-//        if (StringUtils.isBlank(item.getRoleName())) {
-//            message += "<br/>";
-//            message += bundle.getString("label.rolename.notempty");
-//        }
-        if (StringUtils.isNotBlank(message)) {
-            item.setValid(false);
-        }
-        item.setError(message);
-    }
-
-    private void validateData(List<ExaminationQuestionImportDTO> excelValues) {
-        Set<String> stringSet = new HashSet<String>();
-        for (ExaminationQuestionImportDTO item: excelValues) {
-            validateRequireField(item);
-            validateDuplicate(item, stringSet);
-        }
-        SingletonServiceUtil.getExaminationQuestionServiceInstance().validateImportExamination(excelValues);
-    }
-
-    private ExaminationQuestionImportDTO readDataFromExcel(Row row) {
+    private ExaminationQuestionImportDTO readDataFromExcel(Row row, int examinationQuestionId) {
         ExaminationQuestionImportDTO examinationQuestionImportDTO = new ExaminationQuestionImportDTO();
-//        examinationQuestionImportDTO.setUserName(ExcelPoiUtil.getCellValue(row.getCell(0)));
-//TODO
+        examinationQuestionImportDTO.setImage(ExcelPoiUtil.getCellValue(row.getCell(0)));
+        examinationQuestionImportDTO.setAudio(ExcelPoiUtil.getCellValue(row.getCell(1)));
+        examinationQuestionImportDTO.setQuestion(ExcelPoiUtil.getCellValue(row.getCell(2)));
+        examinationQuestionImportDTO.setParagraph(ExcelPoiUtil.getCellValue(row.getCell(3)));
+        examinationQuestionImportDTO.setOption1(ExcelPoiUtil.getCellValue(row.getCell(4)));
+        examinationQuestionImportDTO.setOption2(ExcelPoiUtil.getCellValue(row.getCell(5)));
+        examinationQuestionImportDTO.setOption3(ExcelPoiUtil.getCellValue(row.getCell(6)));
+        examinationQuestionImportDTO.setOption4(ExcelPoiUtil.getCellValue(row.getCell(7)));
+        examinationQuestionImportDTO.setCorrectAnswer(ExcelPoiUtil.getCellValue(row.getCell(8)));
+        examinationQuestionImportDTO.setType(ExcelPoiUtil.getCellValue(row.getCell(9)));
+        examinationQuestionImportDTO.setExaminationQuestionId(examinationQuestionId);
         return examinationQuestionImportDTO;
     }
 }

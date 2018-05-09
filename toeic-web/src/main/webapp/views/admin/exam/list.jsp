@@ -6,9 +6,9 @@
 <c:url var="listUserUrl" value="/admin-exam-list.html">
     <c:param name="urlType" value="url_list"/>
 </c:url>
-<c:url var="importUrl" value="/admin-exam-import.html">
+<%--<c:url var="importUrl" value="/admin-exam-import.html">
     <c:param name="urlType" value="show_import_exam"/>
-</c:url>
+</c:url>--%>
 <html>
 <head>
     <title><fmt:message key="label.exam.management" bundle="${lang}"/></title>
@@ -80,15 +80,15 @@
                                         <input type="checkbox" name="checkList" id="checkbox_${tableList.examinationQuestionId}" value="${tableList.examinationQuestionId}" class="check-box-element"/>
                                     </fieldset>
                                 </display:column>
-                                <display:column property="question" titleKey="label.user.question" sortable="true" sortName="question"/>
-                                <display:column property="option1" titleKey="label.user.name" sortable="true" sortName="option1"/>
-                                <display:column property="option2" titleKey="label.user.name" sortable="true" sortName="option2"/>
-                                <display:column property="option3" titleKey="label.user.name" sortable="true" sortName="option3"/>
-                                <display:column property="option4" titleKey="label.user.name" sortable="true" sortName="option4"/>
-                                <display:column property="correctAnswer" titleKey="label.user.name" sortable="true" sortName="correctAnswer"/>
-                                <display:column property="image" titleKey="label.user.name" sortable="true" sortName="image"/>
-
-
+                                <display:column property="question" titleKey="label.question.question" sortable="true" sortName="question"/>
+                                <display:column property="audio" titleKey="label.question.audio" sortable="true" sortName="option1"/>
+                                <display:column property="paragraph" titleKey="label.question.paragraph" sortable="true" sortName="option1"/>
+                                <display:column property="option1" titleKey="label.question.option1" sortable="true" sortName="option1"/>
+                                <display:column property="option2" titleKey="label.question.option2" sortable="true" sortName="option2"/>
+                                <display:column property="option3" titleKey="label.question.option3" sortable="true" sortName="option3"/>
+                                <display:column property="option4" titleKey="label.question.option4" sortable="true" sortName="option4"/>
+                                <display:column property="correctAnswer" titleKey="label.question.correctAnswer" sortable="true" sortName="correctAnswer"/>
+                                <display:column property="image" titleKey="label.question.image" sortable="true" sortName="image"/>
                             </display:table>
                         </fmt:bundle>
                     </div>
