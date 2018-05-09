@@ -3,6 +3,7 @@
 <c:url var="confirmPoint" value="/ajax-xac-nhan-cham-diem-bai-tap.html"/>
 <c:url var="submitAgain" value="/bai-tap-thuc-hanh.html"/>
 <c:url var="ajaxViewResult" value="/ajax-bai-tap-dap-an.html"/>
+<c:url var="checkPoint" value="/ajax-cham-diem-bai-tap.html"/>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -10,6 +11,16 @@
 </head>
 <body>
 <form action="${confirmPoint}" method="get" id="formUrl">
+	<div class="row">
+		 <c:if test="${not empty messageResponse}">
+                        <div class="alert alert-block alert-${alert}">
+                            <button type="button" class="close" data-dismiss="alert">
+                                <i class="ace-icon fa fa-times"></i>
+                            </button>
+                                ${messageResponse}
+                        </div>
+         </c:if>
+	</div>
     <div class="row">
         <div class="span12">
             <ul class="thumbnails">
@@ -64,7 +75,12 @@
         <input type="hidden" name="page" id="page" value="${items.page}"/>
         <input type="button" class="btn btn-info" value="Xem đáp án" id="btnConfirm"/>
         <input type="button" class="btn btn-info" value="Làm lại" id="btnAgain"/>
-        <input type="button" class="btn btn-info" value="Xác nhận chấm điểm" id="btnConfirmCheckPoint"/>
+        <c:if test="${items.page == items.totalPages}">
+        	<input type="button" class="btn btn-info" value="Chấm điểm bài tập" id="btnCheckPoint"/>
+        </c:if>
+        <c:if test="${items.page != items.totalPages}">
+        	<input type="button" class="btn btn-info" value="Xác nhận chấm điểm" id="btnConfirmCheckPoint"/>
+        </c:if>
     </div>
 </form>
 <script>
@@ -81,11 +97,19 @@
         });
         $('#btnAgain').click(function () {
             var exerciseId = $('#exerciseId').val();
-            window.location = "/bai-tap-thuc-hanh.html?page="+startPage+"&exerciseId="+exerciseId+"";
+            window.location = "${submitAgain}?page="+startPage+"&exerciseId="+exerciseId+"";
         });
         $('#btnConfirmCheckPoint').click(function () {
             if ($('input[name="answerUser"]:checked').length > 0) {
                 $('#formUrl').attr('action', '${confirmPoint}');
+                $('#formUrl').submit();
+            } else {
+                alert("Ban chua chon dap an nao ca!");
+            }
+        });
+        $('#btnCheckPoint').click(function () {
+            if ($('input[name="answerUser"]:checked').length > 0) {
+                $('#formUrl').attr('action', '${checkPoint}?urlType=check-point');
                 $('#formUrl').submit();
             } else {
                 alert("Ban chua chon dap an nao ca!");
@@ -96,14 +120,20 @@
         e.preventDefault();
         $.ajax({
             type: 'POST',
-            //url: '/ajax-bai-tap-dap-an.html',
             url: $(this).attr('action'),
             data: $(this).serialize(),
             dataType: 'html',
             success: function(res){
+            	if (res == 'ajax-xac-nhan-cham-diem-bai-tap') {
+            		var exerciseId = $('#exerciseId').val();
+            		window.location = "${submitAgain}?page="+startPage+"&exerciseId="+exerciseId+"&message=confirm-point-success";
+            	} else if (res == 'ajax-cham-diem-bai-tap') {
+            		var exerciseId = $('#exerciseId').val();
+            		window.location = "${submitAgain}?page="+startPage+"&exerciseId="+exerciseId+"&message=check-point-success";
+            	}
                 $('#result').html(res);
             },
-            error: function (res) {
+            error: function (res) {           	
                 console.log(res);
             }
         });
@@ -116,7 +146,7 @@
             if (page != startPage) {
                 $('#page').val(page);
                 var exerciseId = $('#exerciseId').val();
-                window.location = "/bai-tap-thuc-hanh.html?page="+page+"&exerciseId="+exerciseId+"";
+                window.location = "${submitAgain}?page="+page+"&exerciseId="+exerciseId+"";
             }
         }
     });

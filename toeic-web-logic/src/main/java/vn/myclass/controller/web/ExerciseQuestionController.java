@@ -28,6 +28,13 @@ public class ExerciseQuestionController extends HttpServlet {
 		ExerciseQuestionCommand command = FormUtil.populate(ExerciseQuestionCommand.class, request);
 		getListenExerciseQuestion(command);
 		request.setAttribute(WebConstant.LIST_ITEMS, command);
+		if (request.getParameter("message") != null && request.getParameter("message").equals("confirm-point-success")) {
+			request.setAttribute("alert", "success");
+			request.setAttribute("messageResponse", "Xác nhận chấm điểm thành công, nhấn Next để làm tiếp");
+		} else if (request.getParameter("message") != null && request.getParameter("message").equals("check-point-success")) {
+			request.setAttribute("alert", "success");
+			request.setAttribute("messageResponse", "Chấm điểm bài tập thành công. Truy cập vào mục kết quả bài tập để xem kết quả");
+		}
 		RequestDispatcher rd = request.getRequestDispatcher("/views/web/exercise/detail.jsp");
 		rd.forward(request, response);
 	}

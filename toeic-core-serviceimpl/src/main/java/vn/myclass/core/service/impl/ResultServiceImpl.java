@@ -51,25 +51,23 @@ public class ResultServiceImpl implements ResultService {
 		return result;
 	}
 
-	public List<ResultDTO> getResultsByUser(String type, String userName, String examinationCode) {
+	public List<ResultDTO> getResultsByUser(String userName, String examinationCode) {
 		List<ResultDTO> resultDTOS = new ArrayList<>();
-		if (type != null && type.equals("ket-qua-thi")) {
-			UserEntity userEntity = userDao.findEqualUnique("name", userName);
-			List<ResultEntity> resultEntities = new ArrayList<>();
-			if (examinationCode != null && StringUtils.isNotEmpty(examinationCode)) {
-				ExaminationEntity examinationEntity = examinationDao.findEqualUnique("code", examinationCode);
-				Map<String, Object> properties = new HashMap<>();
-				properties.put("user", userEntity);
-				properties.put("examination", examinationEntity);
-				resultEntities = resultDao.findByProperty(properties);
-			} else {
-				resultEntities = resultDao.findByProperty("user", userEntity);
-			}
-			resultEntities.forEach(item -> {
-				ResultDTO resultDTO = ResultBeanUtil.entity2Dto(item);
-				resultDTOS.add(resultDTO);
-			});
+		UserEntity userEntity = userDao.findEqualUnique("name", userName);
+		List<ResultEntity> resultEntities = new ArrayList<>();
+		if (examinationCode != null && StringUtils.isNotEmpty(examinationCode)) {
+			ExaminationEntity examinationEntity = examinationDao.findEqualUnique("code", examinationCode);
+			Map<String, Object> properties = new HashMap<>();
+			properties.put("user", userEntity);
+			properties.put("examination", examinationEntity);
+			resultEntities = resultDao.findByProperty(properties);
+		} else {
+			resultEntities = resultDao.findByProperty("user", userEntity);
 		}
+		resultEntities.forEach(item -> {
+			ResultDTO resultDTO = ResultBeanUtil.entity2Dto(item);
+			resultDTOS.add(resultDTO);
+		});
 		return resultDTOS;
 	}
 
