@@ -46,27 +46,4 @@ public class ExaminationQuestionDaoImpl extends AbstractDao<Integer, Examination
 		}
 		return results;
 	}
-
-	@Override
-	public List<ExaminationQuestionEntity> findByExaminationQuestionIds(List<Long> examinationQuestionIds) {
-		List<ExaminationQuestionEntity> results = new ArrayList<>();
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		Transaction transaction = session.beginTransaction();
-		try {
-			StringBuilder sql = new StringBuilder(" FROM ");
-			sql.append(this.getPersistenceClassName());
-			sql.append(" WHERE examinationQuestionId IN (:examinationQuestionIds) ");
-			Query query = session.createQuery(sql.toString());
-			query.setParameterList("examinationQuestionIds", examinationQuestionIds);
-			results = query.list();
-			transaction.commit();
-		} catch (HibernateException e) {
-			transaction.rollback();
-			log.error(e.getMessage(), e);
-			throw e;
-		} finally {
-			session.close();
-		}
-		return results;
-	}
 }

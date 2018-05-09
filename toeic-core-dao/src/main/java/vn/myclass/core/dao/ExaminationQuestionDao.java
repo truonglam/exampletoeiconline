@@ -10,5 +10,4 @@ import java.util.Map;
 public interface ExaminationQuestionDao extends GenericDao<Integer, ExaminationQuestionEntity> {
 	Object[] findByProperty(Map<String, Object> property, String sortExpression, String sortDirection, Integer offset, Integer limit, Integer examinationId);
 	List<BigInteger> getAllExaminationQuestionIds();
-	List<ExaminationQuestionEntity> findByExaminationQuestionIds(List<Long> examinationQuestionIds);
 }
