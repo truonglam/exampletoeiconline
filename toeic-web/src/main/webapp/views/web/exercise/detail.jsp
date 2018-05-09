@@ -1,14 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@include file="/common/taglib.jsp" %>
-<c:url var="confirmPoint" value="/xac-nhan-cham-diem-bai-tap.html"/>
+<c:url var="confirmPoint" value="/ajax-xac-nhan-cham-diem-bai-tap.html"/>
 <c:url var="submitAgain" value="/bai-tap-thuc-hanh.html"/>
+<c:url var="ajaxViewResult" value="/ajax-bai-tap-dap-an.html"/>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title><fmt:message key="label.exercise.paractice" bundle="${lang}"/></title>
 </head>
 <body>
-<form action="" method="get" id="formUrl">
+<form action="${confirmPoint}" method="get" id="formUrl">
     <div class="row">
         <div class="span12">
             <ul class="thumbnails">
@@ -72,6 +73,7 @@
     $(document).ready(function () {
         $('#btnConfirm').click(function () {
             if ($('input[name="answerUser"]:checked').length > 0) {
+                $('#formUrl').attr('action', '${ajaxViewResult}');
                 $('#formUrl').submit();
             } else {
                 alert("Ban chua chon dap an nao ca!");
@@ -82,12 +84,27 @@
             window.location = "/bai-tap-thuc-hanh.html?page="+startPage+"&exerciseId="+exerciseId+"";
         });
         $('#btnConfirmCheckPoint').click(function () {
-        	if ($('input[name="answerUser"]:checked').length > 0) {
-        		$('#formUrl').attr('method', 'POST');
-        		$('#formUrl').attr('action', ${confirmPoint});
+            if ($('input[name="answerUser"]:checked').length > 0) {
+                $('#formUrl').attr('action', '${confirmPoint}');
                 $('#formUrl').submit();
             } else {
                 alert("Ban chua chon dap an nao ca!");
+            }
+        });
+    });
+    $('#formUrl').submit(function (e) {
+        e.preventDefault();
+        $.ajax({
+            type: 'POST',
+            //url: '/ajax-bai-tap-dap-an.html',
+            url: $(this).attr('action'),
+            data: $(this).serialize(),
+            dataType: 'html',
+            success: function(res){
+                $('#result').html(res);
+            },
+            error: function (res) {
+                console.log(res);
             }
         });
     });
@@ -102,21 +119,6 @@
                 window.location = "/bai-tap-thuc-hanh.html?page="+page+"&exerciseId="+exerciseId+"";
             }
         }
-    });
-    $('#formUrl').submit(function (e) {
-        e.preventDefault();
-        $.ajax({
-            type: 'POST',
-            url: '/ajax-bai-tap-dap-an.html',
-            data: $(this).serialize(),
-            dataType: 'html',
-            success: function(res){
-                $('#result').html(res);
-            },
-            error: function (res) {
-                console.log(res);
-            }
-        });
     });
 </script>
 </body>
