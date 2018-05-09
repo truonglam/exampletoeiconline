@@ -1,7 +1,10 @@
 package vn.myclass.command;
 
+import vn.myclass.core.dto.ExaminationDTO;
 import vn.myclass.core.dto.ExerciseQuestionDTO;
 import vn.myclass.core.web.command.AbstractCommand;
+
+import java.util.List;
 
 /**
  * Created by Admin on 26/11/2017.

@@ -1,7 +1,11 @@
 package vn.myclass.command;
 
+import vn.myclass.core.dto.ExaminationDTO;
 import vn.myclass.core.dto.ExaminationQuestionDTO;
+import vn.myclass.core.dto.ExaminationQuestionImportDTO;
 import vn.myclass.core.web.command.AbstractCommand;
+
+import java.util.List;
 
 /**
  * Created by Admin on 3/12/2017.
@@ -13,7 +17,24 @@ public class ExaminationQuestionCommand extends AbstractCommand<ExaminationQuest
 	private Integer examinationId;
 	private Integer listenScore;
 	private Integer readingScore;
+	private List<ExaminationDTO> examinationDTOS;
+	private List<ExaminationQuestionImportDTO> examinationQuestionImportDTOS;
 
+	public List<ExaminationQuestionImportDTO> getExaminationQuestionImportDTOS() {
+		return examinationQuestionImportDTOS;
+	}
+
+	public void setExaminationQuestionImportDTOS(List<ExaminationQuestionImportDTO> examinationQuestionImportDTOS) {
+		this.examinationQuestionImportDTOS = examinationQuestionImportDTOS;
+	}
+
+	public List<ExaminationDTO> getExaminationDTOS() {
+		return examinationDTOS;
+	}
+
+	public void setExaminationDTOS(List<ExaminationDTO> examinationDTOS) {
+		this.examinationDTOS = examinationDTOS;
+	}
 	public Integer getExaminationId() {
 		return examinationId;
 	}

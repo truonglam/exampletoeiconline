@@ -10,11 +10,19 @@ import java.util.List;
 public class ExaminationDTO implements Serializable {
 	private Integer examinationId;
 	private String name;
+	private String code;
 	private Timestamp createdDate;
 	private Timestamp modifiedDate;
 	private List<ExaminationQuestionDTO> examinationQuestions;
 	private List<ResultDTO> results;
 
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
 
 	public String getName() {
 		return name;
@@ -63,4 +71,6 @@ public class ExaminationDTO implements Serializable {
 	public void setExaminationId(Integer examinationId) {
 		this.examinationId = examinationId;
 	}
+
+
 }
