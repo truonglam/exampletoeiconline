@@ -17,13 +17,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @WebServlet(urlPatterns = { "/admin-random-examination.html" })
-public class ExaminationController extends HttpServlet {
+public class RandomQuestionController extends HttpServlet {
 
 	private static final long serialVersionUID = -7996941419505633163L;
 
 	private ExaminationQuestionService examinationQuestionService;
 
-	public ExaminationController() {
+	public RandomQuestionController() {
 		examinationQuestionService = new ExaminationQuestionServiceImpl();
 	}
 
