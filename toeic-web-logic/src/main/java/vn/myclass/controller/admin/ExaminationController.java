@@ -1,5 +1,8 @@
 package vn.myclass.controller.admin;
 
+import vn.myclass.core.service.ExaminationQuestionService;
+import vn.myclass.core.service.impl.ExaminationQuestionServiceImpl;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,6 +21,12 @@ public class ExaminationController extends HttpServlet {
 
 	private static final long serialVersionUID = -7996941419505633163L;
 
+	private ExaminationQuestionService examinationQuestionService;
+
+	public ExaminationController() {
+		examinationQuestionService = new ExaminationQuestionServiceImpl();
+	}
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		RequestDispatcher rd = request.getRequestDispatcher("/views/admin/examination/random.jsp");
@@ -26,19 +35,8 @@ public class ExaminationController extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-    	//Integer examinationId = 2;
-    	List<Integer> list = new ArrayList<Integer>();
-    	list.add(1);
-    	list.add(2);
-    	list.add(3);
-    	list.add(4);
-    	list.add(5);
-    	list.add(6);
-    	
-    	Collections.shuffle(list);
-    	int randomSeriesLength = 3;
-    	List<Integer> randomSeries = list.subList(0, randomSeriesLength);
-    	request.setAttribute("randomSeries", randomSeries);
+			Integer examinationId = 2;
+			examinationQuestionService.randomExaminationQuestion(examinationId);
     	RequestDispatcher rd = request.getRequestDispatcher("/views/admin/examination/random.jsp");
         rd.forward(request, response);
     }

@@ -45,11 +45,6 @@
                                                     	</form>                                                        
                                                     </div>
                                                 </div>
-                                                <div class="form-group">
-                                                	<c:forEach var="item" items="${randomSeries}">
-                                                		[${item}]
-                                                	</c:forEach>
-                                                </div>                                                
                                             </div>
                                         </div>
                                     </div>

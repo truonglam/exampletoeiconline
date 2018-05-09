@@ -24,8 +24,8 @@
 	                            <option value="${item.code}" <c:if test="${item.code eq selectedCode}">selected="selected"</c:if>>
 	                                ${item.name}
 	                            </option>
-	                            <option value="">Chọn đề thi</option>
 	                        </c:forEach>
+							<option value="">Chọn đề thi</option>
 	                    </c:if>
 	                </select>
             	</div>

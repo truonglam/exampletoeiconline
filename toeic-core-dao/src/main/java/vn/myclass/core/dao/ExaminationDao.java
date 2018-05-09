@@ -3,6 +3,8 @@ package vn.myclass.core.dao;
 import vn.myclass.core.data.dao.GenericDao;
 import vn.myclass.core.persistence.entity.ExaminationEntity;
 
+import java.util.List;
+
 /**
  * Created by Admin on 24/11/2017.
  */
