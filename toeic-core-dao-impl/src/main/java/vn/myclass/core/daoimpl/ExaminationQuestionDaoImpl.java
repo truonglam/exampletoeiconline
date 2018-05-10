@@ -9,6 +9,7 @@ import vn.myclass.core.common.util.HibernateUtil;
 import vn.myclass.core.dao.ExaminationQuestionDao;
 import vn.myclass.core.data.daoimpl.AbstractDao;
 import vn.myclass.core.persistence.entity.ExaminationQuestionEntity;
+import vn.myclass.core.persistence.entity.UserEntity;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -45,5 +46,24 @@ public class ExaminationQuestionDaoImpl extends AbstractDao<Integer, Examination
 			session.close();
 		}
 		return results;
+	}
+
+	public List<ExaminationQuestionEntity> findByExamination(List<String> names) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction transaction = session.beginTransaction();
+		List<ExaminationQuestionEntity> userEntities = new ArrayList<ExaminationQuestionEntity>();
+		try {
+			//TODO
+			StringBuilder sql = new StringBuilder(" FROM ExaminationQuestionEntity ue WHERE ue.name IN(:code) ");
+			Query query = session.createQuery(sql.toString());
+			query.setParameterList("code", names);
+			userEntities = query.list();
+		} catch (HibernateException e) {
+			transaction.rollback();
+			throw e;
+		} finally {
+			session.close();
+		}
+		return userEntities;
 	}
 }

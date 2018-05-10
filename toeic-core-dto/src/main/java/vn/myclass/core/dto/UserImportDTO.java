@@ -3,7 +3,7 @@ package vn.myclass.core.dto;
 import java.io.Serializable;
 
 /**
- * Created by Admin on 10/9/2017.
+ * Created by Admin on 10/9/2017.ExaminationQuestion
  */
 public class UserImportDTO implements Serializable {
     private String userName;

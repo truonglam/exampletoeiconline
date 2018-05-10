@@ -37,6 +37,7 @@ public class ExaminationQuestionEntity {
 	@Column(name = "option4")
 	private String option4;
 
+
 	@Column(name = "correctanswer")
 	private String correctAnswer;
 
@@ -164,4 +165,5 @@ public class ExaminationQuestionEntity {
 	public void setType(String type) {
 		this.type = type;
 	}
+
 }

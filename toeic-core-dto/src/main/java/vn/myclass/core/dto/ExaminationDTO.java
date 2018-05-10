@@ -10,12 +10,13 @@ import java.util.List;
 public class ExaminationDTO implements Serializable {
 	private Integer examinationId;
 	private String name;
+	private String code;
 	private Timestamp createdDate;
 	private Timestamp modifiedDate;
 	private List<ExaminationQuestionDTO> examinationQuestions;
 	private List<ResultDTO> results;
-	private String code;
 
+	
 	public String getName() {
 		return name;
 	}

@@ -6,7 +6,7 @@ import java.sql.Timestamp;
 /**
  * Created by Admin on 3/12/2017.
  */
-public class ExaminationQuestionDTO implements Serializable {
+public class ExaminationQuestionImportDTO implements Serializable {
 	private Integer examinationQuestionId;
 	private String image;
 	private String paragraph;
@@ -23,7 +23,8 @@ public class ExaminationQuestionDTO implements Serializable {
 	private ExaminationDTO examination;
 	private Integer number;
 	private String answerUser;
-
+	private boolean valid = true;
+	private String error;
 	public Integer getExaminationQuestionId() {
 		return examinationQuestionId;
 	}
@@ -152,5 +153,20 @@ public class ExaminationQuestionDTO implements Serializable {
 		this.answerUser = answerUser;
 	}
 
+	public boolean isValid() {
+		return valid;
+	}
+
+	public void setValid(boolean valid) {
+		this.valid = valid;
+	}
+
+	public String getError() {
+		return error;
+	}
+
+	public void setError(String error) {
+		this.error = error;
+	}
 
 }

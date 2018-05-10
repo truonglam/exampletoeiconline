@@ -11,6 +11,7 @@ public class ExaminationBeanUtil {
 		ExaminationDTO dto = new ExaminationDTO();
 		dto.setExaminationId(entity.getExaminationId());
 		dto.setName(entity.getName());
+		dto.setCode(entity.getCode());
 		dto.setCreatedDate(entity.getCreatedDate());
 		dto.setModifiedDate(entity.getModifiedDate());
 		dto.setCode(entity.getCode());
@@ -20,6 +21,7 @@ public class ExaminationBeanUtil {
 		ExaminationEntity entity = new ExaminationEntity();
 		entity.setExaminationId(dto.getExaminationId());
 		entity.setName(dto.getName());
+		entity.setCode(dto.getCode());
 		entity.setCreatedDate(dto.getCreatedDate());
 		entity.setModifiedDate(dto.getModifiedDate());
 		entity.setCode(dto.getCode());
