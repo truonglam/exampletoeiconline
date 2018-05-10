@@ -20,7 +20,7 @@ public interface ExaminationQuestionService {
 
 	Object[] findExaminationQuestionByProperties(Map<String, Object> property, String sortExpression, String sortDirection, Integer offset, Integer limit, Integer examinationId);
 
-	void randomExaminationQuestion(Integer examinationId);
+	void saveExaminationQuestionRandoms(Integer examinationId, int numberOfExaminationQuestion);
 
 	void validateImportExamination(List<ExaminationQuestionImportDTO> userImportDTOS);
 }

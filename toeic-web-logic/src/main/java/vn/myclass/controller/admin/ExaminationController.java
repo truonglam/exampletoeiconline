@@ -21,13 +21,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.*;
 
-/**
- * Created by Admin on 13/7/2017.
- */
 @WebServlet(urlPatterns = {"/admin-examination-list.html","/admin-examination-edit.html"})
 public class ExaminationController extends HttpServlet {
-
-    private final Logger log = Logger.getLogger(this.getClass());
+	
+	private static final long serialVersionUID = -4994325305651496176L;
+	
+	private final Logger log = Logger.getLogger(this.getClass());
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

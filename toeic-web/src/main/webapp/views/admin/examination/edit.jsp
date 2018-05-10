@@ -39,7 +39,7 @@
                     </c:if>
                     <form action="${formUrl}" method="post" id="formEdit">
                         <div class="form-group">
-                            <label class="col-sm-3 control-label no-padding-right"><fmt:message key="label.guideline.title" bundle="${lang}"/></label>
+                            <label class="col-sm-3 control-label no-padding-right">Tên đề thi</label>
                             <div class="col-sm-9">
                                 <input type="text" name="pojo.name" id="name" value="${item.pojo.name}"/>
                             </div>
@@ -48,7 +48,7 @@
                         <br/>
                         <br/>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label no-padding-right"><fmt:message key="label.guideline.content" bundle="${lang}"/></label>
+                            <label class="col-sm-3 control-label no-padding-right">Mã đề thi</label>
                             <div class="col-sm-9">
                                 <%--<c:if test="${not empty item.pojo.code}">
                                     <c:set var="content" value="${item.pojo.code}"/>

@@ -36,7 +36,7 @@ public class LoginController extends HttpServlet {
             rd.forward(request, response);
         } else if(action.equals(WebConstant.LOGOUT)) {
             SessionUtil.getInstance().remove(request, WebConstant.LOGIN_NAME);
-            response.sendRedirect("/home.html");
+            response.sendRedirect(request.getContextPath()+"/home.html");
         }
     }
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -48,9 +48,9 @@ public class LoginController extends HttpServlet {
             if (login.isUserExist()) {
                 SessionUtil.getInstance().putValue(request, WebConstant.LOGIN_NAME, pojo.getName());
                 if (login.getRoleName().equals(WebConstant.ROLE_ADMIN)) {
-                    response.sendRedirect("/admin-home.html");
+                    response.sendRedirect(request.getContextPath()+"/admin-home.html");
                 } else if (login.getRoleName().equals(WebConstant.ROLE_USER)) {
-                    response.sendRedirect("/home.html");
+                    response.sendRedirect(request.getContextPath()+"/home.html");
                 }
             } else {
                 request.setAttribute(WebConstant.ALERT, WebConstant.TYPE_ERROR);

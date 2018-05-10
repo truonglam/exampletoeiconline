@@ -82,7 +82,7 @@
                                             <c:url var="addUrl" value="/admin-examination-edit.html">
                                                 <c:param name="urlType" value="url_edit"/>
                                             </c:url>
-                                            <a flag="info" class="dt-button buttons-colvis btn btn-white btn-primary btn-bold" href="${addUrl}">
+                                            <a flag="info" class="dt-button buttons-colvis btn btn-white btn-primary btn-bold" href="${addUrl}" data-toggle="tooltip" title="Thêm đề thi">
                                                     <span>
                                                         <i class="fa fa-plus-circle bigger-110 purple"></i>
                                                     </span>
@@ -105,17 +105,15 @@
                                         <c:url var="editUrl" value="/admin-examination-edit.html">
                                             <c:param name="urlType" value="url_edit"/>
                                             <c:param name="pojo.examinationId" value="${tableList.examinationId}"/>
-                                        </c:url>
-                                        <c:url var="exUrl" value="/admin-examination-edit.html">
-                                            <c:param name="urlType" value="importUrl"/>
-                                            <c:param name="pojo.examinationId" value="${tableList.examinationId}"/>
-                                        </c:url>
-                                        <a class="btn btn-sm btn-primary btn-edit" href="${editUrl}" data-toggle="tooltip" title="<fmt:message key='label.examination.update' bundle='${lang}'/>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                                        <a flag="info" class="dt-button buttons-colvis btn btn-white btn-primary btn-bold" href="${exUrl}" data-toggle="tooltip" title="Import câu hỏi đề thi">
+                                        </c:url>                                        
+                                        <a class="btn btn-sm btn-primary btn-edit" href="${editUrl}" data-toggle="tooltip" title="Cập nhật đề thi"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                        <c:url var="examinationQuestionList" value="/admin-examination-question-list.html?id=${tableList.examinationId}"/>
+                                        <%-- <a flag="info" class="dt-button buttons-colvis btn btn-white btn-primary btn-bold" href="${examinationQuestionList}" data-toggle="tooltip" title="Câu hỏi đề thi">
                                                 <span>
                                                     <i class="fa fa-file" aria-hidden="true"></i>
                                                 </span>
-                                        </a>
+                                        </a> --%>
+                                        <a class="btn btn-sm btn-primary btn-edit" href="${examinationQuestionList}" data-toggle="tooltip" title="Câu hỏi đề thi"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>                                    
                                     </display:column>
                                 </display:table>
                             </fmt:bundle>

@@ -1,25 +1,25 @@
 package vn.myclass.core.service.impl;
 
+import java.math.BigInteger;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import vn.myclass.core.dao.ExaminationDao;
 import vn.myclass.core.dao.ExaminationQuestionDao;
 import vn.myclass.core.daoimpl.ExaminationDaoImpl;
 import vn.myclass.core.daoimpl.ExaminationQuestionDaoImpl;
 import vn.myclass.core.dto.ExaminationQuestionDTO;
-import vn.myclass.core.persistence.entity.ExaminationEntity;
 import vn.myclass.core.dto.ExaminationQuestionImportDTO;
+import vn.myclass.core.persistence.entity.ExaminationEntity;
 import vn.myclass.core.persistence.entity.ExaminationQuestionEntity;
 import vn.myclass.core.service.ExaminationQuestionService;
 import vn.myclass.core.service.utils.SingletonDaoUtil;
-import vn.myclass.core.utils.ExaminationQuestionBeanUtil;
 import vn.myclass.core.utils.ExaminationBeanUtil;
-
-import java.math.BigInteger;
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+import vn.myclass.core.utils.ExaminationQuestionBeanUtil;
 
 public class ExaminationQuestionServiceImpl implements ExaminationQuestionService {
 
@@ -39,6 +39,9 @@ public class ExaminationQuestionServiceImpl implements ExaminationQuestionServic
 	}
 
 	public Object[] findByProperty(Map<String, Object> property, String sortExpression, String sortDirection, Integer offset, Integer limit) {
+		Integer id = (Integer) property.get("examinationId");
+		property = new HashMap<>();
+		property.put("examination", examinationDao.findById(id));
 		Object[] objects = SingletonDaoUtil.getExaminationQuestionDaoInstance().findByProperty(property, sortExpression, sortDirection, offset, limit, "");
 		List<ExaminationQuestionDTO> examinationQuestionDTOS = new ArrayList<ExaminationQuestionDTO>();
 		for (ExaminationQuestionEntity item : (List<ExaminationQuestionEntity>) objects[1]) {
@@ -83,7 +86,20 @@ public class ExaminationQuestionServiceImpl implements ExaminationQuestionServic
 	}
 
 	public Object[] findExaminationQuestionByProperties(Map<String, Object> property, String sortExpression, String sortDirection, Integer offset, Integer limit, Integer examinationId) {
-		return new Object[0];
+		List<ExaminationQuestionDTO> result = new ArrayList<ExaminationQuestionDTO>();
+		Object[] objects = SingletonDaoUtil.getExaminationQuestionDaoInstance().findByProperty(property, sortExpression, sortDirection, offset, limit, examinationId);
+		int count = 1;
+		for (ExaminationQuestionEntity item: (List<ExaminationQuestionEntity>)objects[1]) {
+			ExaminationQuestionDTO dto = ExaminationQuestionBeanUtil.entity2Dto(item);
+			if (item.getParagraph() == null) {
+				dto.setNumber(count);
+				count++;
+			}
+			dto.setExamination(ExaminationBeanUtil.entity2Dto(item.getExamination()));
+			result.add(dto);
+		}
+		objects[1] = result;
+		return objects;
 	}
 
 	public ExaminationQuestionDTO findById(Integer userId) {
@@ -97,10 +113,9 @@ public class ExaminationQuestionServiceImpl implements ExaminationQuestionServic
 	}
 
 	@Override
-	public void randomExaminationQuestion(Integer examinationId) {
+	public void saveExaminationQuestionRandoms(Integer examinationId, int numberOfExaminationQuestion) {
 		List<BigInteger> examinationQuestionIds = examinationQuestionDao.getAllExaminationQuestionIds();
 		Collections.shuffle(examinationQuestionIds);
-		int numberOfExaminationQuestion = 4;
 		List<BigInteger> examinationQuestionIdRandoms = examinationQuestionIds.subList(0, numberOfExaminationQuestion);
 		for (BigInteger item : examinationQuestionIdRandoms) {
 			Integer itemInteger = item.intValue();
@@ -109,7 +124,7 @@ public class ExaminationQuestionServiceImpl implements ExaminationQuestionServic
 			examinationQuestion.setCreatedDate(new Timestamp(System.currentTimeMillis()));
 			ExaminationEntity examination = examinationDao.findById(examinationId);
 			examinationQuestion.setExamination(examination);
-			examinationQuestionDao.save(examinationQuestion);
+			examinationQuestion = examinationQuestionDao.save(examinationQuestion);
 		}
 	}
 }

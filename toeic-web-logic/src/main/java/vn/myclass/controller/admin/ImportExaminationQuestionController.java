@@ -1,21 +1,11 @@
 package vn.myclass.controller.admin;
 
-import org.apache.log4j.Logger;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
-import vn.myclass.command.ExaminationQuestionCommand;
-import vn.myclass.core.common.util.ExcelPoiUtil;
-import vn.myclass.core.common.util.SessionUtil;
-import vn.myclass.core.common.util.UploadUtil;
-import vn.myclass.core.dto.ExaminationDTO;
-import vn.myclass.core.dto.ExaminationQuestionDTO;
-import vn.myclass.core.dto.ExaminationQuestionImportDTO;
-import vn.myclass.core.web.common.WebConstant;
-import vn.myclass.core.web.utils.FormUtil;
-import vn.myclass.core.web.utils.RequestUtil;
-import vn.myclass.core.web.utils.SingletonServiceUtil;
-import vn.myclass.core.web.utils.WebCommonUtil;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -23,38 +13,87 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.*;
+
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+
+import vn.myclass.command.ExaminationQuestionCommand;
+import vn.myclass.core.common.util.ExcelPoiUtil;
+import vn.myclass.core.common.util.UploadUtil;
+import vn.myclass.core.dto.ExaminationQuestionDTO;
+import vn.myclass.core.service.ExaminationQuestionService;
+import vn.myclass.core.service.impl.ExaminationQuestionServiceImpl;
+import vn.myclass.core.web.common.WebConstant;
+import vn.myclass.core.web.utils.FormUtil;
+import vn.myclass.core.web.utils.RequestUtil;
 
 
-@WebServlet(urlPatterns = {"/admin-exam-list.html", "/ajax-admin-exam-edit.html", "/admin-exam-import.html",
-        "/admin-exam-import-validate.html"})
+@WebServlet(urlPatterns = {"/admin-examination-question-list.html", "/admin-examination-question-import.html"})
 public class ImportExaminationQuestionController extends HttpServlet {
-    private final Logger log = Logger.getLogger(this.getClass());
+    
+	private static final long serialVersionUID = 5690218324653865513L;
+	
+	private ExaminationQuestionService examinationQuestionService;
+	
+	public ImportExaminationQuestionController() {
+		examinationQuestionService = new ExaminationQuestionServiceImpl();
+	}
+	
+	//private final Logger log = Logger.getLogger(ImportExaminationQuestionController.class);
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+    	ExaminationQuestionCommand command = FormUtil.populate(ExaminationQuestionCommand.class, request);
+    	String examinationIdStr = request.getParameter("id");
+    	command.setExaminationId(Integer.parseInt(examinationIdStr));
+    	request.setAttribute("examinationId", command.getExaminationId());
+    	if (request.getParameter("type") != null && request.getParameter("type").equals("import-question-page")) {
+    		RequestDispatcher rd = request.getRequestDispatcher("/views/admin/examination/examinationquestion/import.jsp");
+    		rd.forward(request, response);
+    	} else {
+    		getExaminationQuestions(request, command);
+        	request.setAttribute(WebConstant.LIST_ITEMS, command);
+        	RequestDispatcher rd = request.getRequestDispatcher("/views/admin/examination/examinationquestion/list.jsp");
+    		rd.forward(request, response);
+    	}
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) {
+    private void getExaminationQuestions(HttpServletRequest request, ExaminationQuestionCommand command) {
+    	Map<String, Object> properties = new HashMap<>();
+    	properties.put("examinationId", command.getExaminationId());
+        RequestUtil.initSearchBean(request, command);
+        Object[] objects = examinationQuestionService.findByProperty(properties, command.getSortExpression(), command.getSortDirection(),command.getFirstItem(),command.getMaxPageItems());
+        command.setListResult((List<ExaminationQuestionDTO>) objects[1]);
+        command.setTotalItems(Integer.parseInt(objects[0].toString()));
+	}
 
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		UploadUtil uploadUtil = new UploadUtil();
+		Object[] objects = uploadUtil.writeOrUpdateFile(request, new HashSet<>(), "excel");
+		if (objects != null) {
+			String fileLocation = objects[1].toString();
+            String fileName = objects[2].toString();            
+            returnValueFromExcel(fileName, fileLocation);
+        }
+		RequestDispatcher rd = request.getRequestDispatcher("/views/admin/examination/examinationquestion/import.jsp");
+		rd.forward(request, response);
     }
 
-    private List<ExaminationQuestionImportDTO> returnValueFromExcel(String fileName, String fileLocation, int examinationQuestionId) throws IOException {
+    private List<ExaminationQuestionDTO> returnValueFromExcel(String fileName, String fileLocation) throws IOException {
         Workbook workbook = ExcelPoiUtil.getWorkBook(fileName, fileLocation);
         Sheet sheet = workbook.getSheetAt(0);
-        List<ExaminationQuestionImportDTO> excelValues = new ArrayList<ExaminationQuestionImportDTO>();
+        List<ExaminationQuestionDTO> excelValues = new ArrayList<ExaminationQuestionDTO>();
         for (int i = 1; i <= sheet.getLastRowNum(); i++) {
             Row row = sheet.getRow(i);
-            ExaminationQuestionImportDTO userImportDTO = readDataFromExcel(row, examinationQuestionId);
+            ExaminationQuestionDTO userImportDTO = readDataFromExcel(row);
             excelValues.add(userImportDTO);
         }
         return excelValues;
     }
 
-    private ExaminationQuestionImportDTO readDataFromExcel(Row row, int examinationQuestionId) {
-        ExaminationQuestionImportDTO examinationQuestionImportDTO = new ExaminationQuestionImportDTO();
+    private ExaminationQuestionDTO readDataFromExcel(Row row) {
+        ExaminationQuestionDTO examinationQuestionImportDTO = new ExaminationQuestionDTO();
         examinationQuestionImportDTO.setImage(ExcelPoiUtil.getCellValue(row.getCell(0)));
         examinationQuestionImportDTO.setAudio(ExcelPoiUtil.getCellValue(row.getCell(1)));
         examinationQuestionImportDTO.setQuestion(ExcelPoiUtil.getCellValue(row.getCell(2)));
@@ -65,7 +104,6 @@ public class ImportExaminationQuestionController extends HttpServlet {
         examinationQuestionImportDTO.setOption4(ExcelPoiUtil.getCellValue(row.getCell(7)));
         examinationQuestionImportDTO.setCorrectAnswer(ExcelPoiUtil.getCellValue(row.getCell(8)));
         examinationQuestionImportDTO.setType(ExcelPoiUtil.getCellValue(row.getCell(9)));
-        examinationQuestionImportDTO.setExaminationQuestionId(examinationQuestionId);
         return examinationQuestionImportDTO;
     }
 }
