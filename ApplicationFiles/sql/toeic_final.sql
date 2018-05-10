@@ -62,7 +62,7 @@ CREATE TABLE `examination` (
   `code` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`examinationid`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -71,7 +71,7 @@ CREATE TABLE `examination` (
 
 LOCK TABLES `examination` WRITE;
 /*!40000 ALTER TABLE `examination` DISABLE KEYS */;
-INSERT INTO `examination` VALUES (1,'Bài thi 1','2017-12-03 03:25:56',NULL,'BAITHI1');
+INSERT INTO `examination` VALUES (1,'Bài thi 1','2017-12-03 03:25:56',NULL,'BAITHI1'),(2,'Bài thi 2','2017-12-03 03:25:56',NULL,'BAITHI2');
 /*!40000 ALTER TABLE `examination` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -100,7 +100,7 @@ CREATE TABLE `examinationquestion` (
   PRIMARY KEY (`examinationquestionid`),
   KEY `fk_examinationquestion_examination` (`examinationid`),
   CONSTRAINT `fk_examinationquestion_examination` FOREIGN KEY (`examinationid`) REFERENCES `examination` (`examinationid`)
-) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=73 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -109,7 +109,7 @@ CREATE TABLE `examinationquestion` (
 
 LOCK TABLES `examinationquestion` WRITE;
 /*!40000 ALTER TABLE `examinationquestion` DISABLE KEYS */;
-INSERT INTO `examinationquestion` VALUES (55,'examination/image_1.jpg','examination/audio_1.mp3','Look at the picture and listen to the sentences in the Part 1 TOEIC Test. Choose the sentence that best describes the picture:',NULL,'A. The man is diving into the water','B. The man is fishing from the railing','C. The man is packing up his fishing gear','D. The man is purchasing some fish','A',1,'2017-12-03 17:06:29',NULL,'PHOTO'),(56,'examination/image_2.jpg','examination/audio_2.mp3','Look at the picture and listen to the sentences in the Part 1 TOEIC Test. Choose the sentence that best describes the picture:',NULL,'A. The man is diving into the water','B. The man is fishing from the railing','C. The man is packing up his fishing gear','D. The man is purchasing some fish','B',1,'2017-12-03 17:06:29',NULL,'PHOTO'),(57,NULL,'examination/audio_3.mp3','Look at the picture and listen to the sentences in the Part 1 TOEIC Test. Choose the sentence that best describes the picture:',NULL,'A. The man is diving into the water','B. The man is fishing from the railing','C. The man is packing up his fishing gear','D. The man is purchasing some fish','B',1,'2017-12-03 17:06:29',NULL,'QUESTION_RESPONSE'),(58,NULL,'examination/audio_4.mp3','Listen to the question and the three responses. Choose the response that best answers the question:',NULL,'A. The man is diving into the water','B. The man is fishing from the railing','C. The man is packing up his fishing gear','D. The man is purchasing some fish','A',1,'2017-12-03 17:06:29',NULL,'QUESTION_RESPONSE'),(59,NULL,NULL,'Read the passage and choose the correct answer:','Eli Finance, the largest real estate financier in the Middle East by market value and total assets, today proudly announced that it received the award for the “Best Financial Services Company in the UAE” during the 2008 Liquid Real Estate Awards ceremony organized by Euromoney. Euromoney Liquid Real Estate Awards honor the world’s leading institutions for their ability to innovate and develop new products and services to meet the market’s demand in today’s increasingly challenging financial environment, as well as make the most efficient use of the inherent strengths within their organization. Speaking on the occasion, Mr. Ismael Alharmi, Chief Executive Officer of Eli Finance said, “We are honored to receive this prestigious award and I would like to thank our staff at Eli for their efforts',NULL,NULL,NULL,NULL,NULL,1,'2017-12-03 17:06:29',NULL,'SINGLE_PASSAGE'),(60,NULL,NULL,'What is the subject of the news report?',NULL,'A. A national park','B. A local zoo','C. Commercial products','D. Landscaping land','B',1,'2017-12-03 17:06:29',NULL,'SINGLE_PASSAGE'),(61,NULL,NULL,'According to the speaker, what does Algonquin National Park have?',NULL,'A. Unique rock formations','B. A lot of different animals','C. Unusual potted plants','D. Beautiful waterfalls','A',1,'2017-12-03 17:06:29',NULL,'SINGLE_PASSAGE'),(62,NULL,NULL,'What do some people expect will happen?',NULL,'A. The wildlife will relocate','B. It will increase local business',' C. New homes will be built','D. They will change their minds','B',1,'2017-12-03 17:06:29',NULL,'SINGLE_PASSAGE');
+INSERT INTO `examinationquestion` VALUES (55,'examination/image_1.jpg','examination/audio_1.mp3','Look at the picture and listen to the sentences in the Part 1 TOEIC Test. Choose the sentence that best describes the picture:',NULL,'A. The man is diving into the water','B. The man is fishing from the railing','C. The man is packing up his fishing gear','D. The man is purchasing some fish','A',1,'2017-12-03 17:06:29',NULL,'PHOTO'),(56,'examination/image_2.jpg','examination/audio_2.mp3','Look at the picture and listen to the sentences in the Part 1 TOEIC Test. Choose the sentence that best describes the picture:',NULL,'A. The man is diving into the water','B. The man is fishing from the railing','C. The man is packing up his fishing gear','D. The man is purchasing some fish','B',1,'2017-12-03 17:06:29',NULL,'PHOTO'),(57,NULL,'examination/audio_3.mp3','Look at the picture and listen to the sentences in the Part 1 TOEIC Test. Choose the sentence that best describes the picture:',NULL,'A. The man is diving into the water','B. The man is fishing from the railing','C. The man is packing up his fishing gear','D. The man is purchasing some fish','B',1,'2017-12-03 17:06:29',NULL,'QUESTION_RESPONSE'),(58,NULL,'examination/audio_4.mp3','Listen to the question and the three responses. Choose the response that best answers the question:',NULL,'A. The man is diving into the water','B. The man is fishing from the railing','C. The man is packing up his fishing gear','D. The man is purchasing some fish','A',1,'2017-12-03 17:06:29',NULL,'QUESTION_RESPONSE'),(59,NULL,NULL,'Read the passage and choose the correct answer:','Eli Finance, the largest real estate financier in the Middle East by market value and total assets, today proudly announced that it received the award for the “Best Financial Services Company in the UAE” during the 2008 Liquid Real Estate Awards ceremony organized by Euromoney. Euromoney Liquid Real Estate Awards honor the world’s leading institutions for their ability to innovate and develop new products and services to meet the market’s demand in today’s increasingly challenging financial environment, as well as make the most efficient use of the inherent strengths within their organization. Speaking on the occasion, Mr. Ismael Alharmi, Chief Executive Officer of Eli Finance said, “We are honored to receive this prestigious award and I would like to thank our staff at Eli for their efforts',NULL,NULL,NULL,NULL,NULL,1,'2017-12-03 17:06:29',NULL,'SINGLE_PASSAGE'),(60,NULL,NULL,'What is the subject of the news report?',NULL,'A. A national park','B. A local zoo','C. Commercial products','D. Landscaping land','B',1,'2017-12-03 17:06:29',NULL,'SINGLE_PASSAGE'),(61,NULL,NULL,'According to the speaker, what does Algonquin National Park have?',NULL,'A. Unique rock formations','B. A lot of different animals','C. Unusual potted plants','D. Beautiful waterfalls','A',1,'2017-12-03 17:06:29',NULL,'SINGLE_PASSAGE'),(62,NULL,NULL,'What do some people expect will happen?',NULL,'A. The wildlife will relocate','B. It will increase local business',' C. New homes will be built','D. They will change their minds','B',1,'2017-12-03 17:06:29',NULL,'SINGLE_PASSAGE'),(72,'examination/image_1.jpg','examination/audio_1.mp3','Look at the picture and listen to the sentences in the Part 1 TOEIC Test. Choose the sentence that best describes the picture:',NULL,'A. The man is diving into the water','B. The man is fishing from the railing','C. The man is packing up his fishing gear','D. The man is purchasing some fish','A',2,'2018-05-10 13:05:21',NULL,'PHOTO');
 /*!40000 ALTER TABLE `examinationquestion` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -185,7 +185,7 @@ DROP TABLE IF EXISTS `exerciseresult`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `exerciseresult` (
-  `id` bigint(20) NOT NULL,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `numberofcorrect` int(11) DEFAULT NULL,
   `total` int(11) DEFAULT NULL,
   `exerciseid` bigint(20) DEFAULT NULL,
@@ -196,7 +196,7 @@ CREATE TABLE `exerciseresult` (
   KEY `userid` (`userid`),
   CONSTRAINT `exerciseresult_ibfk_1` FOREIGN KEY (`exerciseid`) REFERENCES `exercise` (`exerciseid`),
   CONSTRAINT `exerciseresult_ibfk_2` FOREIGN KEY (`userid`) REFERENCES `user` (`userid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -205,6 +205,7 @@ CREATE TABLE `exerciseresult` (
 
 LOCK TABLES `exerciseresult` WRITE;
 /*!40000 ALTER TABLE `exerciseresult` DISABLE KEYS */;
+INSERT INTO `exerciseresult` VALUES (1,0,4,2,4,'2018-05-09 16:49:14'),(2,2,4,1,4,'2018-05-09 19:23:34');
 /*!40000 ALTER TABLE `exerciseresult` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -312,7 +313,7 @@ CREATE TABLE `user` (
   UNIQUE KEY `name` (`name`),
   KEY `FK_USER_ROLE_idx` (`roleid`),
   CONSTRAINT `FK_USER_ROLE` FOREIGN KEY (`roleid`) REFERENCES `role` (`roleid`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -321,7 +322,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (3,'admin','123456','admin','2017-08-02 22:09:43',1),(4,'truongtunglam','123456','trương tùng lâm ',NULL,2),(6,'ronaldo2','456789','ronaldo2',NULL,2),(7,'abc','123456','abc','2017-09-02 02:51:42',1),(12,'jspservlet3','123458','jspservlet3','2017-09-11 21:25:13',2),(13,'jspservlet5','123460','jspservlet5','2017-09-11 21:25:24',2),(14,'vanthidoantrang','123456','văn thị đoan trang','2017-11-13 02:42:19',2),(15,'Trương Tùng Lâm','1692744874095572','Trương Tùng Lâm','2018-05-07 17:57:19',2),(16,'truongtunghung','123456','truong tung hung','2018-05-07 17:58:16',2);
+INSERT INTO `user` VALUES (3,'admin','123456','admin','2017-08-02 22:09:43',1),(4,'truongtunglam','123456','trương tùng lâm ',NULL,2),(6,'ronaldo2','456789','ronaldo2',NULL,2),(7,'abc','123456','abc','2017-09-02 02:51:42',1),(12,'jspservlet3','123458','jspservlet3','2017-09-11 21:25:13',2),(13,'jspservlet5','123460','jspservlet5','2017-09-11 21:25:24',2),(14,'vanthidoantrang','123456','văn thị đoan trang','2017-11-13 02:42:19',2),(15,'Trương Tùng Lâm','1692744874095572','Trương Tùng Lâm','2018-05-07 17:57:19',2),(16,'truongtunghung','123456','truong tung hung','2018-05-07 17:58:16',2),(17,'buiquangduy','123456','bui quang duy','2018-05-09 15:49:47',2);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -334,4 +335,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-05-08 10:49:35
+-- Dump completed on 2018-05-10 20:07:00

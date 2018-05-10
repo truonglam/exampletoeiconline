@@ -14,7 +14,7 @@ public interface ExaminationQuestionService {
 
 	ExaminationQuestionDTO update(ExaminationQuestionDTO userDTO);
 
-	void saveImport(List<ExaminationQuestionImportDTO> examinationQuestionImportDTOS);
+	void saveImport(List<ExaminationQuestionDTO> examinationQuestionDTOS, Integer examinationId);
 
 	List<ExaminationQuestionEntity> findByExamination(List<String> names);
 

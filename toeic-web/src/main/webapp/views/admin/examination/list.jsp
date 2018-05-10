@@ -108,12 +108,7 @@
                                         </c:url>                                        
                                         <a class="btn btn-sm btn-primary btn-edit" href="${editUrl}" data-toggle="tooltip" title="Cập nhật đề thi"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                                         <c:url var="examinationQuestionList" value="/admin-examination-question-list.html?id=${tableList.examinationId}"/>
-                                        <%-- <a flag="info" class="dt-button buttons-colvis btn btn-white btn-primary btn-bold" href="${examinationQuestionList}" data-toggle="tooltip" title="Câu hỏi đề thi">
-                                                <span>
-                                                    <i class="fa fa-file" aria-hidden="true"></i>
-                                                </span>
-                                        </a> --%>
-                                        <a class="btn btn-sm btn-primary btn-edit" href="${examinationQuestionList}" data-toggle="tooltip" title="Câu hỏi đề thi"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>                                    
+                                        <a class="btn btn-sm btn-primary btn-edit" href="${examinationQuestionList}" data-toggle="tooltip" title="Danh sách câu hỏi đề thi"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                                     </display:column>
                                 </display:table>
                             </fmt:bundle>

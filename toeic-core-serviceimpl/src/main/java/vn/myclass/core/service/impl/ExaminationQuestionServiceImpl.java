@@ -60,24 +60,23 @@ public class ExaminationQuestionServiceImpl implements ExaminationQuestionServic
 		return userDTO;
 	}
 
-	public void saveImport(List<ExaminationQuestionImportDTO> examinationQuestionImportDTOS) {
-		for (ExaminationQuestionImportDTO dto : examinationQuestionImportDTOS) {
-			if (dto.isValid()) {
-				ExaminationQuestionEntity entity = new ExaminationQuestionEntity();
-				entity.setAudio(dto.getAudio());
-				entity.setImage(dto.getImage());
-				entity.setCorrectAnswer(dto.getCorrectAnswer());
-				entity.setQuestion(dto.getQuestion());
-				entity.setOption1(dto.getOption1());
-				entity.setOption2(dto.getOption2());
-				entity.setOption3(dto.getOption3());
-				entity.setOption4(dto.getOption4());
-				entity.setCreatedDate(dto.getCreatedDate());
-				entity.setModifiedDate(dto.getModifiedDate());
-				Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-				entity.setCreatedDate(timestamp);
-				SingletonDaoUtil.getExaminationQuestionDaoInstance().save(entity);
-			}
+	public void saveImport(List<ExaminationQuestionDTO> examinationQuestionDTOS, Integer examinationId) {
+		for (ExaminationQuestionDTO dto : examinationQuestionDTOS) {
+			ExaminationQuestionEntity entity = new ExaminationQuestionEntity();
+			entity.setAudio(dto.getAudio());
+			entity.setImage(dto.getImage());
+			entity.setCorrectAnswer(dto.getCorrectAnswer());
+			entity.setQuestion(dto.getQuestion());
+			entity.setOption1(dto.getOption1());
+			entity.setOption2(dto.getOption2());
+			entity.setOption3(dto.getOption3());
+			entity.setOption4(dto.getOption4());
+			Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+			entity.setCreatedDate(timestamp);
+			entity.setType(dto.getType());
+			ExaminationEntity examination = examinationDao.findById(examinationId);
+			entity.setExamination(examination);
+			SingletonDaoUtil.getExaminationQuestionDaoInstance().save(entity);
 		}
 	}
 

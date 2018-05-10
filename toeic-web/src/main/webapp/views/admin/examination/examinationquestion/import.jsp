@@ -44,7 +44,8 @@
 	                                                            Import câu hỏi
 	                                                            <i class="ace-icon fa fa-arrow-right icon-on-right bigger-110"></i>
                                                         	</button>
-                                                    	</form>                                                        
+                                                            <input type="hidden" name="examinationId" value="${examinationId}"/>
+                                                    	</form>
                                                     </div>
                                                 </div>
                                             </div>
