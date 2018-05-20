@@ -40,8 +40,15 @@ import java.util.*;
  * Created by Admin on 23/8/2017.
  */
 @WebServlet(urlPatterns = {"/admin-user-list.html", "/ajax-admin-user-edit.html", "/admin-user-import.html",
-                            "/admin-user-import-validate.html"})
+                            "/admin-user-import-validate.html", "/admin-user-delete.html"})
 public class UserController extends HttpServlet {
+
+    private UserService userService;
+
+    public UserController() {
+        userService = new UserServiceImpl();
+    }
+
     private final Logger log = Logger.getLogger(this.getClass());
     private final String SHOW_IMPORT_USER = "show_import_user";
     private final String READ_EXCEL = "read_excel";
@@ -54,9 +61,12 @@ public class UserController extends HttpServlet {
         UserCommand command = FormUtil.populate(UserCommand.class, request);
         UserDTO pojo = command.getPojo();
         if (command.getUrlType() != null && command.getUrlType().equals(WebConstant.URL_LIST)) {
-            Map<String, Object> mapProperty = new HashMap<String, Object>();
+            if (command.getCrudaction() != null && command.getCrudaction().equals(WebConstant.REDIRECT_DELETE)) {
+                userService.deleteUser(command.getPojo().getUserId());
+            }
+            Map<String, Object> mapProperty = buildProperty();
             RequestUtil.initSearchBean(request, command);
-            Object[] objects = SingletonServiceUtil.getUserServiceInstance().findByProperty(mapProperty, command.getSortExpression(), command.getSortDirection(), command.getFirstItem(), command.getMaxPageItems());
+            Object[] objects = userService.findByProperty(mapProperty, command.getSortExpression(), command.getSortDirection(), command.getFirstItem(), command.getMaxPageItems());
             command.setListResult((List<UserDTO>) objects[1]);
             command.setTotalItems(Integer.parseInt(objects[0].toString()));
             request.setAttribute(WebConstant.LIST_ITEMS, command);
@@ -68,7 +78,7 @@ public class UserController extends HttpServlet {
             rd.forward(request, response);
         } else if (command.getUrlType() != null && command.getUrlType().equals(WebConstant.URL_EDIT)) {
              if (pojo != null && pojo.getUserId() != null) {
-                command.setPojo(SingletonServiceUtil.getUserServiceInstance().findById(pojo.getUserId()));
+                command.setPojo(userService.findById(pojo.getUserId()));
             }
             command.setRoles(SingletonServiceUtil.getRoleServiceInstance().findAll());
             request.setAttribute(WebConstant.FORM_ITEM, command);
@@ -84,6 +94,12 @@ public class UserController extends HttpServlet {
             RequestDispatcher rd = request.getRequestDispatcher("/views/admin/user/importuser.jsp");
             rd.forward(request, response);
         }
+    }
+
+    private Map<String,Object> buildProperty() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("status", 0);
+        return map;
     }
 
     private List<UserImportDTO> returnListUserImport(UserCommand command, List<UserImportDTO> userImportDTOS, HttpServletRequest request) {

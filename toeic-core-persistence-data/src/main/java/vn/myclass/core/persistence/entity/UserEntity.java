@@ -26,6 +26,9 @@ public class UserEntity {
     @Column(name = "createddate")
     private Timestamp createdDate;
 
+    @Column(name = "status")
+    private Integer status;
+
     @ManyToOne
     @JoinColumn(name = "roleid")
     private RoleEntity roleEntity;
@@ -109,5 +112,13 @@ public class UserEntity {
 
     public void setExerciseResults(List<ExerciseResultEntity> exerciseResults) {
         this.exerciseResults = exerciseResults;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 }

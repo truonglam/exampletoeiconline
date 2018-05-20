@@ -26,8 +26,6 @@ public class ExaminationEntity {
 	@Column(name = "modifieddate")
 	private Timestamp modifiedDate;
 
-
-
 	@OneToMany(mappedBy = "examination", fetch = FetchType.EAGER)
 	private List<ExaminationQuestionEntity> examinationQuestions;
 

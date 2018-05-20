@@ -16,5 +16,5 @@ public interface ExaminationService {
     ExaminationDTO findById(String property, Integer listenGuideLineId);
     void save(ExaminationDTO dto) throws ConstraintViolationException;
     ExaminationDTO update(ExaminationDTO dto);
-    Integer delete(List<Integer> ids);
+    void delete(Integer id);
 }

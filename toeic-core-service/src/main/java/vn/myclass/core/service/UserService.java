@@ -23,4 +23,5 @@ public interface UserService {
     void validateImportUser(List<UserImportDTO> userImportDTOS);
     void saveUserImport(List<UserImportDTO> userImportDTOS);
     boolean loginFacebook(User user);
+    void deleteUser(Integer id);
 }

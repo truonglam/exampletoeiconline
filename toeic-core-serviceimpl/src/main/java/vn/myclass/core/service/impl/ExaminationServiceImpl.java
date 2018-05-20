@@ -3,9 +3,15 @@ package vn.myclass.core.service.impl;
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.exception.ConstraintViolationException;
 import vn.myclass.core.dao.ExaminationDao;
+import vn.myclass.core.dao.ExaminationQuestionDao;
+import vn.myclass.core.dao.ResultDao;
 import vn.myclass.core.daoimpl.ExaminationDaoImpl;
+import vn.myclass.core.daoimpl.ExaminationQuestionDaoImpl;
+import vn.myclass.core.daoimpl.ResultDaoImpl;
 import vn.myclass.core.dto.ExaminationDTO;
 import vn.myclass.core.persistence.entity.ExaminationEntity;
+import vn.myclass.core.persistence.entity.ExaminationQuestionEntity;
+import vn.myclass.core.persistence.entity.ResultEntity;
 import vn.myclass.core.service.ExaminationService;
 import vn.myclass.core.service.utils.SingletonDaoUtil;
 import vn.myclass.core.utils.ExaminationBeanUtil;
@@ -21,9 +27,13 @@ import java.util.Map;
 public class ExaminationServiceImpl implements ExaminationService {
 
 	private ExaminationDao examinationDao;
+	private ExaminationQuestionDao examinationQuestionDao;
+	private ResultDao resultDao;
 
 	public ExaminationServiceImpl() {
 		examinationDao = new ExaminationDaoImpl();
+		examinationQuestionDao = new ExaminationQuestionDaoImpl();
+		resultDao = new ResultDaoImpl();
 	}
 
 	public Object[] findExaminationByProperties(Map<String, Object> property, String sortExpression, String sortDirection, Integer offset, Integer limit) {
@@ -63,9 +73,19 @@ public class ExaminationServiceImpl implements ExaminationService {
 	}
 
 	@Override
-	public Integer delete(List<Integer> ids) {
-		Integer result = SingletonDaoUtil.getExaminationDaoInstance().delete(ids);
-		return result;
+	public void delete(Integer id) {
+		ExaminationEntity examination = examinationDao.findById(id);
+		if (examination.getExaminationQuestions().size() > 0) {
+			for (ExaminationQuestionEntity item: examination.getExaminationQuestions()) {
+				examinationQuestionDao.delete(item.getExaminationQuestionId());
+			}
+		}
+		if (examination.getResults().size() > 0) {
+			for (ResultEntity item: examination.getResults()) {
+				resultDao.delete(item.getResultId());
+			}
+		}
+		examinationDao.delete(id);
 	}
 
 	@Override

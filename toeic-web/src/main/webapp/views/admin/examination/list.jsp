@@ -109,6 +109,12 @@
                                         <a class="btn btn-sm btn-primary btn-edit" href="${editUrl}" data-toggle="tooltip" title="Cập nhật đề thi"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                                         <c:url var="examinationQuestionList" value="/admin-examination-question-list.html?id=${tableList.examinationId}"/>
                                         <a class="btn btn-sm btn-primary btn-edit" href="${examinationQuestionList}" data-toggle="tooltip" title="Danh sách câu hỏi đề thi"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                        <c:url var="deleteUrl" value="/admin-examination-delete.html">
+                                            <c:param name="urlType" value="url_list"/>
+                                            <c:param name="pojo.examinationId" value="${tableList.examinationId}"/>
+                                            <c:param name="crudaction" value="redirect_delete"/>
+                                        </c:url>
+                                        <a class="dt-button buttons-html5 btn btn-white btn-primary btn-bold" href="${deleteUrl}" data-toggle="tooltip" title="Xóa đề thi"><i class="fa fa-trash-o bigger-110 pink"></i></a>
                                     </display:column>
                                 </display:table>
                             </fmt:bundle>
@@ -127,12 +133,6 @@
              $('#formUrl').submit();
          });
     });
-    function warningBeforeDelete() {
-        showAlertBeforeDelete(function () {
-            $('#crudaction').val('redirect_delete');
-            $('#formUrl').submit();
-        });
-    }
 </script>
 </body>
 </html>

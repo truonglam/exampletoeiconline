@@ -23,8 +23,14 @@ import java.util.*;
  * Created by Admin on 9/7/2017.
  */
 public class UserServiceImpl implements UserService {
+
+    private UserDao userDao;
+
+    public UserServiceImpl() {
+        userDao = new UserDaoImpl();
+    }
     public Object[] findByProperty(Map<String, Object> property, String sortExpression, String sortDirection, Integer offset, Integer limit) {
-        Object[] objects = SingletonDaoUtil.getUserDaoInstance().findByProperty(property, sortExpression, sortDirection, offset, limit, null);
+        Object[] objects = userDao.findByProperty(property, sortExpression, sortDirection, offset, limit, null);
         List<UserDTO> userDTOS = new ArrayList<UserDTO>();
         for (UserEntity item : (List<UserEntity>) objects[1]) {
             UserDTO userDTO = UserBeanUtil.entity2Dto(item);
@@ -44,6 +50,7 @@ public class UserServiceImpl implements UserService {
         Timestamp createdDate = new Timestamp(System.currentTimeMillis());
         userDTO.setCreatedDate(createdDate);
         UserEntity entity = UserBeanUtil.dto2Entity(userDTO);
+        entity.setStatus(0);
         SingletonDaoUtil.getUserDaoInstance().save(entity);
     }
 
@@ -183,5 +190,12 @@ public class UserServiceImpl implements UserService {
             isLogin=addUser(userRegisterDTO);
         }
         return isLogin;
+    }
+
+    @Override
+    public void deleteUser(Integer id) {
+        UserEntity user = userDao.findById(id);
+        user.setStatus(1);
+        userDao.update(user);
     }
 }
